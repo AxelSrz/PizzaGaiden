@@ -2,7 +2,7 @@ package pizzagaiden;
 /**
  * Clase Objeto 
  *
- * @author Alejandro Villaseñor
+ * @author Alejandro Villaseï¿½or
  * @version 1.00 2015/9/2
  */
 import javax.swing.ImageIcon;
@@ -100,7 +100,7 @@ public class Base {
   }
   
   /**
-   * Metodo de acceso que regresa un nuevo rectangulo pequeño
+   * Metodo de acceso que regresa un nuevo rectangulo pequeï¿½o
    * @return un objeto de la clase <code>Rectangle</code> que es el perimetro 
    * del rectangulo
    */
@@ -109,7 +109,7 @@ public class Base {
   }
   
   /**
-   * Metodo de acceso que regresa un nuevo rectangulo pequeño
+   * Metodo de acceso que regresa un nuevo rectangulo pequeï¿½o
    * @return un objeto de la clase <code>Rectangle</code> que es el perimetro 
    * del rectangulo
    */
@@ -118,7 +118,7 @@ public class Base {
   }
   
   /**
-   * Metodo de acceso que regresa un nuevo rectangulo pequeño
+   * Metodo de acceso que regresa un nuevo rectangulo pequeï¿½o
    * @return un objeto de la clase <code>Rectangle</code> que es el perimetro 
    * del rectangulo
    */

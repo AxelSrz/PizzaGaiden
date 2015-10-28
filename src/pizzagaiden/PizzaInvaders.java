@@ -5,18 +5,19 @@
  */
 package pizzagaiden;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author axelsuarez
  */
 public class PizzaInvaders extends javax.swing.JPanel {
-
+    
     /**
      * Creates new form PizzaInvaders
      */
     public PizzaInvaders() {
         initComponents();
-        
     }
 
     /**
@@ -28,23 +29,105 @@ public class PizzaInvaders extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pizzaShip = new javax.swing.JLabel();
+        pizza1 = new javax.swing.JLabel();
+        pizza2 = new javax.swing.JLabel();
+        pizza3 = new javax.swing.JLabel();
+        pizza4 = new javax.swing.JLabel();
+        pizza5 = new javax.swing.JLabel();
+        pizza7 = new javax.swing.JLabel();
+        pizza9 = new javax.swing.JLabel();
+        pizza10 = new javax.swing.JLabel();
+        pizza11 = new javax.swing.JLabel();
+
         setBackground(new java.awt.Color(238, 99, 97));
         setPreferredSize(new java.awt.Dimension(1000, 700));
         setSize(new java.awt.Dimension(1000, 700));
+
+        pizzaShip.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaShip_PizzaInvaders.png"))); // NOI18N
+
+        pizza1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+
+        pizza2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+
+        pizza3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+
+        pizza4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+
+        pizza5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+
+        pizza7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+
+        pizza9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+
+        pizza10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+
+        pizza11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(413, 413, 413)
+                        .addComponent(pizzaShip))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(195, 195, 195)
+                        .addComponent(pizza2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pizza1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pizza3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pizza5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pizza4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(247, 247, 247)
+                        .addComponent(pizza7)
+                        .addGap(18, 18, 18)
+                        .addComponent(pizza9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pizza11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pizza10)))
+                .addContainerGap(263, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(196, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pizza1)
+                    .addComponent(pizza3)
+                    .addComponent(pizza4)
+                    .addComponent(pizza5)
+                    .addComponent(pizza2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pizza7)
+                    .addComponent(pizza9)
+                    .addComponent(pizza11)
+                    .addComponent(pizza10))
+                .addGap(139, 139, 139)
+                .addComponent(pizzaShip)
+                .addGap(17, 17, 17))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel pizza1;
+    private javax.swing.JLabel pizza10;
+    private javax.swing.JLabel pizza11;
+    private javax.swing.JLabel pizza2;
+    private javax.swing.JLabel pizza3;
+    private javax.swing.JLabel pizza4;
+    private javax.swing.JLabel pizza5;
+    private javax.swing.JLabel pizza7;
+    private javax.swing.JLabel pizza9;
+    private javax.swing.JLabel pizzaShip;
     // End of variables declaration//GEN-END:variables
 }

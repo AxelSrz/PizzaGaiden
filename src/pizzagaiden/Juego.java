@@ -28,27 +28,15 @@ public class Juego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pizzaInvaders2 = new pizzagaiden.PizzaInvaders();
-        barraJuego2 = new pizzagaiden.BarraJuego();
+        barraJuego1 = new pizzagaiden.BarraJuego();
+        pizzaInvaders1 = new pizzagaiden.PizzaInvaders();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         setSize(new java.awt.Dimension(1000, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        javax.swing.GroupLayout pizzaInvaders2Layout = new javax.swing.GroupLayout(pizzaInvaders2);
-        pizzaInvaders2.setLayout(pizzaInvaders2Layout);
-        pizzaInvaders2Layout.setHorizontalGroup(
-            pizzaInvaders2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
-        );
-        pizzaInvaders2Layout.setVerticalGroup(
-            pizzaInvaders2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(pizzaInvaders2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1000, 620));
-        getContentPane().add(barraJuego2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(barraJuego1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(pizzaInvaders1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, -1, 620));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -89,7 +77,7 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private pizzagaiden.BarraJuego barraJuego2;
-    private pizzagaiden.PizzaInvaders pizzaInvaders2;
+    private pizzagaiden.BarraJuego barraJuego1;
+    private pizzagaiden.PizzaInvaders pizzaInvaders1;
     // End of variables declaration//GEN-END:variables
 }
