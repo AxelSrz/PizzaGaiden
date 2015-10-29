@@ -35,63 +35,25 @@ public class Pizzarama extends javax.swing.JPanel {
         pizzaMem5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(238, 99, 97));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pizzaMem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 215, -1, -1));
 
         pizzaMem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(696, 215, -1, -1));
 
         pizzaMem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 460, -1, -1));
 
         pizzaMem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem3, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 215, -1, -1));
 
         pizzaMem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem4, new org.netbeans.lib.awtextra.AbsoluteConstraints(696, 460, -1, -1));
 
         pizzaMem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(pizzaMem3)
-                        .addGap(93, 93, 93)
-                        .addComponent(pizzaMem)
-                        .addGap(119, 119, 119)
-                        .addComponent(pizzaMem1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(192, 192, 192)
-                        .addComponent(pizzaMem2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pizzaMem4)))
-                .addContainerGap(154, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(437, Short.MAX_VALUE)
-                    .addComponent(pizzaMem5)
-                    .addGap(413, 413, 413)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(215, 215, 215)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pizzaMem1)
-                    .addComponent(pizzaMem)
-                    .addComponent(pizzaMem3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pizzaMem2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pizzaMem4, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(90, 90, 90))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(470, Short.MAX_VALUE)
-                    .addComponent(pizzaMem5)
-                    .addGap(80, 80, 80)))
-        );
+        add(pizzaMem5, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 470, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 

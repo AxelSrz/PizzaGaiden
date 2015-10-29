@@ -43,88 +43,40 @@ public class PizzaInvaders extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(238, 99, 97));
         setPreferredSize(new java.awt.Dimension(1000, 700));
-        setSize(new java.awt.Dimension(1000, 700));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pizzaShip.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaShip_PizzaInvaders.png"))); // NOI18N
+        add(pizzaShip, new org.netbeans.lib.awtextra.AbsoluteConstraints(461, 537, -1, -1));
 
         pizza1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza1, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 154, -1, -1));
 
         pizza2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 154, -1, -1));
 
         pizza3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza3, new org.netbeans.lib.awtextra.AbsoluteConstraints(413, 154, -1, -1));
 
         pizza4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza4, new org.netbeans.lib.awtextra.AbsoluteConstraints(637, 154, -1, -1));
 
         pizza5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza5, new org.netbeans.lib.awtextra.AbsoluteConstraints(525, 154, -1, -1));
 
         pizza7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza7, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 261, -1, -1));
 
         pizza9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza9, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 261, -1, -1));
 
         pizza10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza10, new org.netbeans.lib.awtextra.AbsoluteConstraints(588, 261, -1, -1));
 
         pizza11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza11, new org.netbeans.lib.awtextra.AbsoluteConstraints(476, 261, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Fuego_PizzaInvaders.png"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(194, 194, 194)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pizza2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pizza1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pizza3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pizza5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pizza4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(pizza7)
-                        .addGap(18, 18, 18)
-                        .addComponent(pizza9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pizza11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pizza10)))
-                .addContainerGap(264, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pizzaShip)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel1)))
-                .addGap(405, 405, 405))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(154, 154, 154)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pizza1)
-                    .addComponent(pizza3)
-                    .addComponent(pizza4)
-                    .addComponent(pizza5)
-                    .addComponent(pizza2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pizza7)
-                    .addComponent(pizza9)
-                    .addComponent(pizza11)
-                    .addComponent(pizza10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addComponent(pizzaShip)
-                .addGap(21, 21, 21))
-        );
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 457, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 

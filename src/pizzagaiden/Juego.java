@@ -28,15 +28,9 @@ public class Juego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        barraJuego1 = new pizzagaiden.BarraJuego();
-        pizzaInvaders1 = new pizzagaiden.PizzaInvaders();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(new java.awt.Dimension(1000, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(barraJuego1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-        getContentPane().add(pizzaInvaders1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, -1, 620));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -77,7 +71,5 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private pizzagaiden.BarraJuego barraJuego1;
-    private pizzagaiden.PizzaInvaders pizzaInvaders1;
     // End of variables declaration//GEN-END:variables
 }
