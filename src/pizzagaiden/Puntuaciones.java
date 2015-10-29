@@ -9,12 +9,12 @@ package pizzagaiden;
  *
  * @author axelsuarez
  */
-public class Puntucaiones extends javax.swing.JPanel {
+public class Puntuaciones extends javax.swing.JPanel {
 
     /**
-     * Creates new form Puntucaiones
+     * Creates new form Puntuaciones
      */
-    public Puntucaiones() {
+    public Puntuaciones() {
         initComponents();
     }
 
@@ -33,63 +33,37 @@ public class Puntucaiones extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(238, 99, 97));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
         jLabel1.setText("Puntuaciones");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 341, 88));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel2.setText("Maria ........................................................24050");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel3.setText("René .........................................................16000");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel4.setText("Pepe .........................................................30000");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel5.setText("Mario .......................................................12400");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 510, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel6.setText("Alberto .....................................................14400");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(321, 321, 321))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel4)))
-                .addContainerGap(243, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121)
-                .addComponent(jLabel4)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel3)
-                .addGap(33, 33, 33)
-                .addComponent(jLabel6)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel5)
-                .addContainerGap(185, Short.MAX_VALUE))
-        );
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/QuesoDerretido.png"))); // NOI18N
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -100,5 +74,6 @@ public class Puntucaiones extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }

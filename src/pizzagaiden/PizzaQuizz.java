@@ -33,7 +33,7 @@ public class PizzaQuizz extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaGhost_3.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(87, 13, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -100, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 

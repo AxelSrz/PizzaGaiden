@@ -17,7 +17,5 @@ public class PizzaGaiden {
     public void main(String[] args) {
         Juego newGame = new Juego();
         newGame.setVisible(true);
-        newGame.setLocationRelativeTo(null);
-    }
-    
+    }   
 }

@@ -5,6 +5,10 @@
  */
 package pizzagaiden;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+
 /**
  *
  * @author axelsuarez
@@ -16,6 +20,20 @@ public class Menu extends javax.swing.JPanel {
      */
     public Menu() {
         initComponents();
+        jLabel2.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                Juego.setPanel(1);
+                Juego.changePanel();
+            }
+        });
+        jLabel3.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+            }
+        });
+        jLabel4.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+            }
+        });
     }
 
     /**
@@ -31,48 +49,28 @@ public class Menu extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(238, 99, 97));
+        setMinimumSize(new java.awt.Dimension(0, 0));
+        setPreferredSize(new java.awt.Dimension(0, 0));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/NuevoJuego.png"))); // NOI18N
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
         jLabel2.setText("Menu Principal");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 270, 89));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Configuracion.png"))); // NOI18N
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Puntuaciones.png"))); // NOI18N
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 520, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(357, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(498, 498, 498))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1))
-                        .addGap(337, 337, 337))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(145, 145, 145)
-                .addComponent(jLabel1)
-                .addGap(100, 100, 100)
-                .addComponent(jLabel3)
-                .addGap(91, 91, 91)
-                .addComponent(jLabel4)
-                .addContainerGap(159, Short.MAX_VALUE))
-        );
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/QuesoDerretido.png"))); // NOI18N
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 670));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -81,5 +79,6 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }

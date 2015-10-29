@@ -11,12 +11,38 @@ package pizzagaiden;
  */
 public class Juego extends javax.swing.JFrame {
 
+    // Variables de clase
+    private static int panel;
+
+    public static int getPanel() {
+        return panel;
+    }
+
+    public static void setPanel(int panel) {
+        Juego.panel = panel;
+    }
+    
+    private static Juego instance = new Juego();
+    
     /**
      * Creates new form Juego
      */
     public Juego() {
+        // Exists only to defeat instantiation.
         initComponents();
-        
+        setSize(1000, 700);
+        setLocationRelativeTo(null);
+    }
+    
+    public void changePanel() {
+        getContentPane().removeAll();
+        switch(panel) {
+            case 1:
+                getContentPane().removeAll();
+                PizzaQuizz pizzaQuizz = new PizzaQuizz();
+                getContentPane().add(pizzaQuizz, java.awt.BorderLayout.CENTER);
+                break;
+        }
     }
 
     /**
@@ -28,9 +54,11 @@ public class Juego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menu1 = new pizzagaiden.Menu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(menu1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -71,5 +99,6 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private pizzagaiden.Menu menu1;
     // End of variables declaration//GEN-END:variables
 }
