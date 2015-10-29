@@ -39,6 +39,7 @@ public class PizzaInvaders extends javax.swing.JPanel {
         pizza9 = new javax.swing.JLabel();
         pizza10 = new javax.swing.JLabel();
         pizza11 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(238, 99, 97));
         setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -64,17 +65,16 @@ public class PizzaInvaders extends javax.swing.JPanel {
 
         pizza11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Fuego_PizzaInvaders.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(194, 194, 194)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(413, 413, 413)
-                        .addComponent(pizzaShip))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
                         .addComponent(pizza2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pizza1)
@@ -85,7 +85,7 @@ public class PizzaInvaders extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pizza4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(247, 247, 247)
+                        .addGap(52, 52, 52)
                         .addComponent(pizza7)
                         .addGap(18, 18, 18)
                         .addComponent(pizza9)
@@ -93,12 +93,20 @@ public class PizzaInvaders extends javax.swing.JPanel {
                         .addComponent(pizza11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pizza10)))
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addContainerGap(264, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pizzaShip)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel1)))
+                .addGap(405, 405, 405))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(196, Short.MAX_VALUE)
+                .addGap(154, 154, 154)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pizza1)
                     .addComponent(pizza3)
@@ -111,14 +119,17 @@ public class PizzaInvaders extends javax.swing.JPanel {
                     .addComponent(pizza9)
                     .addComponent(pizza11)
                     .addComponent(pizza10))
-                .addGap(139, 139, 139)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(26, 26, 26)
                 .addComponent(pizzaShip)
-                .addGap(17, 17, 17))
+                .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel pizza1;
     private javax.swing.JLabel pizza10;
     private javax.swing.JLabel pizza11;
