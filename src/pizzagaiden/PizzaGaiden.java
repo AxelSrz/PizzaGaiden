@@ -10,12 +10,12 @@ package pizzagaiden;
  * @author axelsuarez
  */
 public class PizzaGaiden {
-
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+    public void main(String[] args) {
+        Juego newGame = new Juego();
+        newGame.setVisible(true);
+    }   
 }

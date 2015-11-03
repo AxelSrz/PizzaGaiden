@@ -27,19 +27,42 @@ public class Pizzarama extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        pizzaMem = new javax.swing.JLabel();
+        pizzaMem1 = new javax.swing.JLabel();
+        pizzaMem2 = new javax.swing.JLabel();
+        pizzaMem3 = new javax.swing.JLabel();
+        pizzaMem4 = new javax.swing.JLabel();
+        pizzaMem5 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(238, 99, 97));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pizzaMem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 215, -1, -1));
+
+        pizzaMem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(696, 215, -1, -1));
+
+        pizzaMem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 460, -1, -1));
+
+        pizzaMem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem3, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 215, -1, -1));
+
+        pizzaMem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem4, new org.netbeans.lib.awtextra.AbsoluteConstraints(696, 460, -1, -1));
+
+        pizzaMem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaMemorama.png"))); // NOI18N
+        add(pizzaMem5, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 470, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel pizzaMem;
+    private javax.swing.JLabel pizzaMem1;
+    private javax.swing.JLabel pizzaMem2;
+    private javax.swing.JLabel pizzaMem3;
+    private javax.swing.JLabel pizzaMem4;
+    private javax.swing.JLabel pizzaMem5;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,12 +5,14 @@
  */
 package pizzagaiden;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author axelsuarez
  */
 public class PizzaInvaders extends javax.swing.JPanel {
-
+    
     /**
      * Creates new form PizzaInvaders
      */
@@ -27,41 +29,68 @@ public class PizzaInvaders extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pizzaShip = new javax.swing.JLabel();
+        pizza1 = new javax.swing.JLabel();
+        pizza2 = new javax.swing.JLabel();
+        pizza3 = new javax.swing.JLabel();
+        pizza4 = new javax.swing.JLabel();
+        pizza5 = new javax.swing.JLabel();
+        pizza7 = new javax.swing.JLabel();
+        pizza9 = new javax.swing.JLabel();
+        pizza10 = new javax.swing.JLabel();
+        pizza11 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(238, 99, 97));
         setPreferredSize(new java.awt.Dimension(1000, 700));
-        setSize(new java.awt.Dimension(1000, 700));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 0));
+        pizzaShip.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/PizzaShip_PizzaInvaders.png"))); // NOI18N
+        add(pizzaShip, new org.netbeans.lib.awtextra.AbsoluteConstraints(461, 537, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 86, Short.MAX_VALUE)
-        );
+        pizza1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza1, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 154, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 614, Short.MAX_VALUE))
-        );
+        pizza2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 154, -1, -1));
+
+        pizza3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza3, new org.netbeans.lib.awtextra.AbsoluteConstraints(413, 154, -1, -1));
+
+        pizza4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza4, new org.netbeans.lib.awtextra.AbsoluteConstraints(637, 154, -1, -1));
+
+        pizza5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza5, new org.netbeans.lib.awtextra.AbsoluteConstraints(525, 154, -1, -1));
+
+        pizza7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza7, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 261, -1, -1));
+
+        pizza9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza9, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 261, -1, -1));
+
+        pizza10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza10, new org.netbeans.lib.awtextra.AbsoluteConstraints(588, 261, -1, -1));
+
+        pizza11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Pizzitas_PizzaInvader.png"))); // NOI18N
+        add(pizza11, new org.netbeans.lib.awtextra.AbsoluteConstraints(476, 261, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/Fuego_PizzaInvaders.png"))); // NOI18N
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 457, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel pizza1;
+    private javax.swing.JLabel pizza10;
+    private javax.swing.JLabel pizza11;
+    private javax.swing.JLabel pizza2;
+    private javax.swing.JLabel pizza3;
+    private javax.swing.JLabel pizza4;
+    private javax.swing.JLabel pizza5;
+    private javax.swing.JLabel pizza7;
+    private javax.swing.JLabel pizza9;
+    private javax.swing.JLabel pizzaShip;
     // End of variables declaration//GEN-END:variables
 }
