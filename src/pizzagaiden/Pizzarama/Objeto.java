@@ -1,4 +1,5 @@
-package pizzagaiden;
+package pizzagaiden.Pizzarama;
+
 /**
  * Clase Objeto 
  *
@@ -9,7 +10,7 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.Rectangle;
 
-public class Base {
+public class Objeto {
   
   private int posX;    //posicion en x.       
   private int posY; //posicion en y.
@@ -21,7 +22,7 @@ public class Base {
    * @param posY es la <code>posicion en y</code> del objeto.
    * @param image es la <code>imagen</code> del objeto.
    */
-  public Base(int posX, int posY ,Image image) {
+  public Objeto(int posX, int posY ,Image image) {
     this.posX=posX;
     this.posY=posY;
     icono = new ImageIcon(image);
@@ -132,7 +133,7 @@ public class Base {
    * @return un valor boleano <code>true</code> si lo intersecta <code>false</code>
    * en caso contrario
    */
-  public boolean intersecta(Base obj){
+  public boolean intersecta(Objeto obj){
     return getPerimetro().intersects(obj.getPerimetro());
   }
   
@@ -142,7 +143,7 @@ public class Base {
    * @return un valor boleano <code>true</code> si lo intersecta <code>false</code>
    * en caso contrario
    */
-  public boolean intersectaReal(Base obj){
+  public boolean intersectaReal(Objeto obj){
       return getPerimetroArriba().intersects(obj.getPerimetroAbajo());
   }
   

@@ -46,7 +46,7 @@ public class Juego extends javax.swing.JFrame {
                 // Checamos cuál es el label que se clickea para poder definir qué
                 // pantalla sigue
                 System.out.println(me.getID() + " " + me.getComponent());
-                card.show(jPanel1, "invaders");
+                card.show(jPanel1, "pizzarama");
             }
 
             @Override
@@ -64,19 +64,7 @@ public class Juego extends javax.swing.JFrame {
             @Override
             public void mousePressed(MouseEvent me) {
             }
-        });
-        
-    }
-    
-    public void changePanel() {
-        getContentPane().removeAll();
-        switch(panel) {
-            case 1:
-                getContentPane().removeAll();
-                PizzaQuizz pizzaQuizz = new PizzaQuizz();
-                getContentPane().add(pizzaQuizz, java.awt.BorderLayout.CENTER);
-                break;
-        }
+        });  
     }
 
     /**
@@ -90,9 +78,7 @@ public class Juego extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         menu1 = new pizzagaiden.Menu();
-        pizzaInvaders1 = new pizzagaiden.PizzaInvaders();
-        pizzaQuizz1 = new pizzagaiden.PizzaQuizz();
-        pizzarama1 = new pizzagaiden.Pizzarama();
+        pizzarama1 = new pizzagaiden.Pizzarama.Pizzarama();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -102,13 +88,17 @@ public class Juego extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.CardLayout());
         jPanel1.add(menu1, "menu");
 
-        pizzaInvaders1.setMinimumSize(new java.awt.Dimension(1000, 700));
-        jPanel1.add(pizzaInvaders1, "invaders");
+        javax.swing.GroupLayout pizzarama1Layout = new javax.swing.GroupLayout(pizzarama1);
+        pizzarama1.setLayout(pizzarama1Layout);
+        pizzarama1Layout.setHorizontalGroup(
+            pizzarama1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1002, Short.MAX_VALUE)
+        );
+        pizzarama1Layout.setVerticalGroup(
+            pizzarama1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+        );
 
-        pizzaQuizz1.setMinimumSize(new java.awt.Dimension(1000, 700));
-        jPanel1.add(pizzaQuizz1, "quizz");
-
-        pizzarama1.setMinimumSize(new java.awt.Dimension(1000, 700));
         jPanel1.add(pizzarama1, "pizzarama");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,8 +153,6 @@ public class Juego extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private pizzagaiden.Menu menu1;
-    private pizzagaiden.PizzaInvaders pizzaInvaders1;
-    private pizzagaiden.PizzaQuizz pizzaQuizz1;
-    private pizzagaiden.Pizzarama pizzarama1;
+    private pizzagaiden.Pizzarama.Pizzarama pizzarama1;
     // End of variables declaration//GEN-END:variables
 }
