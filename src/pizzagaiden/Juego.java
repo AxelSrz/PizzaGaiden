@@ -7,6 +7,8 @@ package pizzagaiden;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JFrame;
@@ -18,27 +20,25 @@ import javax.swing.JFrame;
 public class Juego extends javax.swing.JFrame {
 
     // Variables de clase
-    private static int panel;
-    private CardLayout card;
-
-    public static int getPanel() {
-        return panel;
-    }
-
-    public static void setPanel(int panel) {
-        Juego.panel = panel;
-    }
-    
+    private static int juegoActual;
+    private CardLayout cardPrincipal;
+    private CardLayout cardMinis;
+    private PanelJuego juegoActivo;
     
     /**
      * Creates new form Juego
      */
     public Juego() {
         initComponents();
+        juegoActual = -1;
+        pizzaQuiz1.setJuego(this);
+        pizzarama1.setJuego(this);
+        pizzaInvaders1.setJuego(this);
         getContentPane().setSize(1000, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        card = (CardLayout) jPanel1.getLayout();
+        cardPrincipal = (CardLayout) panelPrincipal.getLayout();
+        cardMinis = (CardLayout) panelMinis.getLayout();
         menu1.addMouseListenerToLabels(new MouseListener() {
 
             @Override
@@ -46,7 +46,8 @@ public class Juego extends javax.swing.JFrame {
                 // Checamos cuál es el label que se clickea para poder definir qué
                 // pantalla sigue
                 System.out.println(me.getID() + " " + me.getComponent());
-                card.show(jPanel1, "pizzarama");
+                cardPrincipal.show(panelPrincipal, "panelJuego");
+                cambiaJuego();
             }
 
             @Override
@@ -66,6 +67,41 @@ public class Juego extends javax.swing.JFrame {
             }
         });  
     }
+      
+    public void cambiaJuego() {
+//        int iRand = (int) (Math.random() * 2);
+//        if(juegoActual >= 0) {
+//            while(iRand == juegoActual) {
+//                iRand = (int) (Math.random() * 2);
+//            }
+//        }
+        juegoActual++;
+        System.out.println(juegoActual);
+//        juegoActual = iRand;
+        
+        switch(juegoActual % 3) {
+            case 0:
+                pizzaQuiz1.init();
+                cardMinis.show(panelMinis, "quiz"); 
+                juegoActivo = pizzaQuiz1;
+                break;
+//            case 1:
+//                pizzarama1.init();
+//                cardMinis.show(panelMinis, "pizzarama");
+//                juegoActivo = pizzarama1;
+//                break;
+            case 2:
+                pizzaInvaders1.init();  
+                cardMinis.show(panelMinis, "invaders");
+                pizzaInvaders1.requestFocus();
+                juegoActivo = pizzaInvaders1;
+                break;
+            default:
+                cambiaJuego();
+                break;
+        }
+//       checaJuegoActivo();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,40 +112,83 @@ public class Juego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelPrincipal = new javax.swing.JPanel();
         menu1 = new pizzagaiden.Menu();
+        panelJuego = new javax.swing.JPanel();
+        barraJuego1 = new pizzagaiden.BarraJuego();
+        panelMinis = new javax.swing.JPanel();
         pizzarama1 = new pizzagaiden.Pizzarama.Pizzarama();
+        pizzaInvaders1 = new pizzagaiden.PizzaInvaders.PizzaInvaders();
+        pizzaQuiz1 = new pizzagaiden.PizzaQuizz.PizzaQuiz();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 700));
         setResizable(false);
 
-        jPanel1.setMinimumSize(new java.awt.Dimension(1000, 700));
-        jPanel1.setLayout(new java.awt.CardLayout());
-        jPanel1.add(menu1, "menu");
+        panelPrincipal.setMinimumSize(new java.awt.Dimension(1000, 700));
+        panelPrincipal.setLayout(new java.awt.CardLayout());
+        panelPrincipal.add(menu1, "menu");
+
+        panelJuego.setLayout(new java.awt.BorderLayout());
+        panelJuego.add(barraJuego1, java.awt.BorderLayout.CENTER);
+
+        panelMinis.setLayout(new java.awt.CardLayout());
+
+        pizzarama1.setPreferredSize(new java.awt.Dimension(1000, 700));
 
         javax.swing.GroupLayout pizzarama1Layout = new javax.swing.GroupLayout(pizzarama1);
         pizzarama1.setLayout(pizzarama1Layout);
         pizzarama1Layout.setHorizontalGroup(
             pizzarama1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1002, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         pizzarama1Layout.setVerticalGroup(
             pizzarama1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 770, Short.MAX_VALUE)
         );
 
-        jPanel1.add(pizzarama1, "pizzarama");
+        panelMinis.add(pizzarama1, "pizzarama");
+
+        javax.swing.GroupLayout pizzaInvaders1Layout = new javax.swing.GroupLayout(pizzaInvaders1);
+        pizzaInvaders1.setLayout(pizzaInvaders1Layout);
+        pizzaInvaders1Layout.setHorizontalGroup(
+            pizzaInvaders1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        pizzaInvaders1Layout.setVerticalGroup(
+            pizzaInvaders1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 770, Short.MAX_VALUE)
+        );
+
+        panelMinis.add(pizzaInvaders1, "invaders");
+
+        javax.swing.GroupLayout pizzaQuiz1Layout = new javax.swing.GroupLayout(pizzaQuiz1);
+        pizzaQuiz1.setLayout(pizzaQuiz1Layout);
+        pizzaQuiz1Layout.setHorizontalGroup(
+            pizzaQuiz1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        pizzaQuiz1Layout.setVerticalGroup(
+            pizzaQuiz1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 770, Short.MAX_VALUE)
+        );
+
+        panelMinis.add(pizzaQuiz1, "quiz");
+
+        panelJuego.add(panelMinis, java.awt.BorderLayout.PAGE_START);
+
+        panelPrincipal.add(panelJuego, "panelJuego");
+        panelJuego.add(barraJuego1, BorderLayout.NORTH);
+        panelJuego.add(panelMinis, BorderLayout.SOUTH);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -151,8 +230,14 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private pizzagaiden.BarraJuego barraJuego1;
     private pizzagaiden.Menu menu1;
+    private javax.swing.JPanel panelJuego;
+    private javax.swing.JPanel panelMinis;
+    private javax.swing.JPanel panelPrincipal;
+    private pizzagaiden.PizzaInvaders.PizzaInvaders pizzaInvaders1;
+    private pizzagaiden.PizzaQuizz.PizzaQuiz pizzaQuiz1;
     private pizzagaiden.Pizzarama.Pizzarama pizzarama1;
     // End of variables declaration//GEN-END:variables
+
 }

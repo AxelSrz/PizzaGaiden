@@ -1,4 +1,4 @@
-package pizzagaiden.Pizzarama;
+package pizzagaiden;
 
 /**
  * Clase Objeto 

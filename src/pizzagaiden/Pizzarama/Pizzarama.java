@@ -9,9 +9,8 @@ package pizzagaiden.Pizzarama;
  * @version 1.00 2015/9/9
  */
 
-import javax.swing.JFrame;
+import pizzagaiden.Pregunta;
 import java.awt.Graphics;
-import javax.swing.JPanel;
 import java.awt.Image;
 import java.awt.Color;
 import java.awt.Font;
@@ -22,17 +21,15 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
-import java.lang.Math;
-import java.util.*;
-import  sun.audio.*;
-import  java.io.*;
+import java.util.Timer;
+import java.util.TimerTask;
+import pizzagaiden.PanelJuego;
 
-public class Pizzarama extends JPanel implements KeyListener, MouseListener, MouseMotionListener
-{
+public class Pizzarama extends PanelJuego implements KeyListener, MouseListener, MouseMotionListener {
   private static final long serialVersionUID = 1L;
   // Se declaran las variables.
   private int cont= 0;
-  private Timer tTimer;
+//  private Timer tTimer;
   private Image dbImage; // Imagen a proyectar 
   private Graphics dbg; // Objeto grafico
   private int iXClick;     //Posicion del mouse al dar click
@@ -47,18 +44,16 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
   private boolean bOver;
   private boolean bPaused;
   private boolean bInitialize;
+  private boolean bTerminado;
+  private int iParesEncontrados;
   
   /**
    * Metodo constructor usado para crear el objeto <code>Tarea4</code>
    * En el se llaman los metodos init y start
    */
-  public Pizzarama()
-  {
-    //Constructor de JFrame
-//    super("Pizza Gaiden");
-    init();
-    tTimer= new Timer();
-    tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
+  public Pizzarama() {
+    super();
+//    init();
     //start();
   }
   
@@ -72,8 +67,10 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
     URL memoURL = this.getClass().getResource("PizzaMemorama_Color.png");
     iPoints= 0;
     iVidas= 2;
+    iParesEncontrados = 0;
+    bTerminado = false;
     
-    memoCajas= new PMemorama[6];
+    memoCajas = new PMemorama[6];
     bCajasSelec= new boolean[6];
     bPreguntaSelec= new boolean[10];
     preArreglo= new Pregunta[10];
@@ -196,6 +193,8 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
     bInitialize= true;
     
     iCajaSelected= -1;
+    tTimer = new Timer();
+    tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
   }
   
   /** 
@@ -205,16 +204,16 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
    * cuando el usuario visita otra pagina y luego regresa a la pagina
    * en donde esta este <code>Applet</code>
    * 
-   *
+   */
    public void start () {
-   // Declaras un hilo
-   Thread th = new Thread (this);
-   // Empieza el hilo
-   th.start ();
-   }*/
+        // Declaras un hilo
+//        Thread th = new Thread (this);
+        // Empieza el hilo
+//        th.start ();
+   }
   
-  class ScheduleTask extends TimerTask
-  {
+  class ScheduleTask extends TimerTask {
+//  {
     /** 
      * Metodo <I>run</I> sobrescrito de la clase <code>Thread</code>.<P>
      * En este metodo se ejecuta el hilo, es un ciclo indefinido donde se incrementa
@@ -222,12 +221,14 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
      * se repinta el <code>Applet</code> y luego manda a dormir el hilo.
      * 
      */
+
+    @Override
     public void run () {
       
-      while (true) {
+//      while (true) {
         actualiza();
-        checaColision();
         checaVidas();
+        checaCajas();
         repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
         
         /*cont+= 20;
@@ -237,26 +238,26 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
          deselectCajas();
          cont= 0;
          }*/
-      }
+//      }
     }
   }
   
   public void stopGame()
   {
-    tTimer.cancel();
+//    tTimer.cancel();
     bOver= true;
   }
   
   public void continueGame()
   {
-    tTimer= new Timer();
-    tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
+//    tTimer= new Timer();
+//    tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     bPaused= false;
   }
   
   public void pauseGame()
   {
-    tTimer.cancel();
+//    tTimer.cancel();
     bPaused= true;
   }
   
@@ -274,6 +275,11 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
    */
   public void checaCajas() {
     
+    if(iParesEncontrados == 3 && !bOver) {
+        juego.cambiaJuego();
+        bOver = true;
+    }
+      
     for(int i= 0; i<6; i++)
     {
       if(i!=iCajaSelected&&!memoCajas[i].isLocked())
@@ -284,17 +290,16 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
         {
           iCajaSelected= i;
           memoCajas[i].select();
-        }
-        
+        }    
         else if(estaCaja)
         {
           memoCajas[i].select();
           if(memoCajas[iCajaSelected].esCorrecto(memoCajas[i].getPosicion()))
           {
+            iParesEncontrados++;
             memoCajas[iCajaSelected].lockAnswer();
             memoCajas[i].lockAnswer();
-          }
-          
+          }    
           else
           {
             try {
@@ -319,7 +324,7 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
           memoCajas[iCajaSelected].select();
           memoCajas[i].select();
           iCajaSelected= -1;
-          cont= 0;
+//          cont= 0;
         }
       }
     }//Termina for
@@ -362,6 +367,7 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
    * En este metodo lo que hace es actualizar el contenedor
    * @param g es el <code>objeto grafico</code> usado para dibujar.
    */
+  @Override
   public void paint(Graphics g) {
     // Inicializan el DoubleBuffer
     if (dbImage == null){
@@ -386,6 +392,7 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
    * En este metodo maneja el evento que se genera al presionar cualquier la tecla.
    * @param e es el <code>evento</code> generado al presionar las teclas.
    */
+  @Override
   public void keyPressed(KeyEvent e) {
   }
   
@@ -394,6 +401,7 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
    * En este metodo maneja el evento que se genera al presionar una tecla que no es de accion.
    * @param e es el <code>evento</code> que se genera en al presionar las teclas.
    */
+  @Override
   public void keyTyped(KeyEvent e){
     
   }
@@ -403,6 +411,7 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
    * En este metodo maneja el evento que se genera al soltar la tecla presionada.
    * @param e es el <code>evento</code> que se genera en al soltar las teclas.
    */
+  @Override
   public void keyReleased(KeyEvent e){
     if (e.getKeyCode() == KeyEvent.VK_P) {
       if (!bPaused) {
@@ -416,40 +425,45 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
   /**
    * Metodo <I>mouseClicked</I> sobrescrito de la interface <code>MouseListener</code>.<P>
    * En este metodo se maneja el evento que se genera al dar un click en el mouse.
-   * @param me es el <code>evento</code> que se genera en al soltar las teclas.
+   * @param mseEvent es el <code>evento</code> que se genera en al soltar las teclas.
    */
+  @Override
   public void mouseClicked(MouseEvent mseEvent){
   }
   
   /**
    * Metodo <I>mouseEntered</I> sobrescrito de la interface <code>MouseListener</code>.<P>
    * En este metodo se maneja el evento que se genera al entrar el mouse al applet.
-   * @param me es el <code>evento</code> que se genera en al soltar las teclas.
+   * @param mseEvent es el <code>evento</code> que se genera en al soltar las teclas.
    */
+  @Override
   public void mouseEntered(MouseEvent mseEvent){
   }
   
   /**
    * Metodo <I>mouseExited</I> sobrescrito de la interface <code>MouseListener</code>.<P>
    * En este metodo se maneja el evento que se genera al salir el mouse del applet.
-   * @param me es el <code>evento</code> que se genera en al soltar las teclas.
+   * @param mseEvent es el <code>evento</code> que se genera en al soltar las teclas.
    */
+  @Override
   public void mouseExited(MouseEvent mseEvent){
   }
   
   /**
    * Metodo <I>mousePressed</I> sobrescrito de la interface <code>MouseListener</code>.<P>
    * En este metodo se maneja el evento que se genera al presionar el mouse.
-   * @param me es el <code>evento</code> que se genera en al soltar las teclas.
+   * @param mseEvent es el <code>evento</code> que se genera en al soltar las teclas.
    */
+  @Override
   public void mousePressed(MouseEvent mseEvent){
   }
   
   /**
    * Metodo <I>mouseReleased</I> sobrescrito de la interface <code>MouseListener</code>.<P>
    * En este metodo se maneja el evento que se genera al soltar el boton del mouse.
-   * @param me es el <code>evento</code> que se genera en al soltar el boton.
+   * @param mseEvent es el <code>evento</code> que se genera en al soltar el boton.
    */
+  @Override
   public void mouseReleased(MouseEvent mseEvent){
     //Guardo la posicion del mouse
     iXClick= mseEvent.getX();
@@ -461,16 +475,18 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
   /**
    * Metodo <I>mouseDragged</I> sobrescrito de la interface <code>MouseListener</code>.<P>
    * En este metodo se maneja el evento que se genera al arrastrar el mouse.
-   * @param me es el <code>evento</code> que se genera al arrastrar.
+   * @param mseEvent es el <code>evento</code> que se genera al arrastrar.
    */
+  @Override
   public void mouseDragged(MouseEvent mseEvent){
   }
   
   /**
    * Metodo <I>mouseMoved</I> sobrescrito de la interface <code>MouseListener</code>.<P>
    * En este metodo se maneja el evento que se genera al mover el mouse.
-   * @param me es el <code>evento</code> que se genera en al mover el mouse.
+   * @param mseEvent es el <code>evento</code> que se genera en al mover el mouse.
    */
+  @Override
   public void mouseMoved(MouseEvent mseEvent){
   }
   
@@ -480,6 +496,7 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
    * ademas que cuando la imagen es cargada te despliega una advertencia.
    * @param g es el <code>objeto grafico</code> usado para dibujar.
    */
+  @Override
   public void paintComponent(Graphics g) {
     g.setFont(new Font("Verdana", Font.BOLD, 30));
     if (bInitialize){
@@ -499,8 +516,6 @@ public class Pizzarama extends JPanel implements KeyListener, MouseListener, Mou
           g.drawString(sDisplay, memoCajas[i].getPosX()+120, memoCajas[i].getPosY()+130);
         }
       }
-      
-      g.drawString("Score: "+iPoints, getWidth()-100, 15);
     }
     
     else if(!bOver) {

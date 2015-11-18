@@ -1,4 +1,4 @@
-package pizzagaiden.Pizzarama;
+package pizzagaiden;
 
 public class Pregunta
 {
@@ -15,17 +15,17 @@ public class Pregunta
     sPregunta= sQst;
   }
   
-  void setRespuesta(String sAns)
+  public void setRespuesta(String sAns)
   {
     sRespuesta= sAns;
   }
   
-  String getPregunta()
+  public String getPregunta()
   {
     return sPregunta;
   }
   
-  String getRespuesta()
+  public String getRespuesta()
   {
     return sRespuesta;
   }

@@ -1,8 +1,7 @@
 package pizzagaiden.Pizzarama;
 
-import javax.swing.ImageIcon;
+import pizzagaiden.Enemigo;
 import java.awt.Image;
-import java.awt.Rectangle;
 
 public class PMemorama extends Enemigo
 {
