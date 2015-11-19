@@ -1,0 +1,35 @@
+class Pregunta
+{
+  String sPregunta, sRespuesta;
+  
+  void Pregunta(String sQst, String sAns)
+  {
+    sPregunta= sQst;
+    sRespuesta= sAns;
+  }
+  
+  boolean esCorrecto(String sAns)
+  {
+    return sRespuesta==sAns;
+  }
+  
+  void setPregunta(String sQst)
+  {
+    sPregunta= sQst;
+  }
+  
+  void setRespuesta(String sAns)
+  {
+    sRespuesta= sAns;
+  }
+  
+  String getPregunta()
+  {
+    return sPregunta;
+  }
+  
+  String getRespuesta()
+  {
+    return sRespuesta;
+  }
+}

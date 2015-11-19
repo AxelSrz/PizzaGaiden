@@ -45,7 +45,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
     private Disparo disAux;
     private Vector<Enemigo> eneEnemigos;
     private Enemigo eneAux;
-    private Nave naPizza;
+    private Nave navPizza;
     private boolean bOver;
     private boolean bPaused;
     private boolean bInitialize;
@@ -71,8 +71,6 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         URL eneURL = this.getClass().getResource("Pizzitas_PizzaInvader_Color.png");
         URL shiURL = this.getClass().getResource("PizzaShip_PizzaInvaders_Color.png");
         URL disURL = this.getClass().getResource("Fuego_PizzaInvaders_Color.png");
-        iPoints = 0;
-        iVidas = 2;
 
         eneEnemigos = new Vector();
         PreguntasSelec = new HashSet<>();
@@ -138,7 +136,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         arrPregSelct.addAll(PreguntasSelec);
         Collections.shuffle(arrPregSelct);
         iDestruidos = 0;
-        naPizza = new Nave(arrPregSelct.get(iDestruidos), 435, 550, Toolkit.getDefaultToolkit().getImage(shiURL));
+        navPizza = new Nave(arrPregSelct.get(iDestruidos), 435, 550, Toolkit.getDefaultToolkit().getImage(shiURL));
         diDisparos = new Vector();
         iDisparosDestruir = new Stack();
         iPreguntasDestruir = new Stack();
@@ -205,7 +203,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
      *
      */
     public void actualiza() {
-        naPizza.move();
+        navPizza.move();
         for (int i = 0; i < diDisparos.size(); i++) {
             disAux= diDisparos.elementAt(i);
             disAux.move();
@@ -231,19 +229,23 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
     public void checaDisparos() {
         iDisparosDestruir.clear();
         iPreguntasDestruir.clear();
-        for(int i=0; i< diDisparos.size(); i++){
+        for(int i=0; i< diDisparos.size(); i++) {
             if(diDisparos.elementAt(i).getPosY()<=0){
                 iDisparosDestruir.push(i);
+                juego.setPunt(juego.getPunt() - I_MAL);
             }
             else{
-                for(int j=0; j< eneEnemigos.size();j++){
-                    if(diDisparos.elementAt(i).intersecta(eneEnemigos.elementAt(j))){
-                        if(eneEnemigos.elementAt(j).esCorrecto(naPizza.getPregunta())){ // Refactorizar nombre iPosicion
+                for(int j=0; j< eneEnemigos.size();j++) {
+                    if(diDisparos.elementAt(i).intersecta(eneEnemigos.elementAt(j))) {
+                        if(eneEnemigos.elementAt(j).esCorrecto(navPizza.getPregunta())) { // Refactorizar nombre iPosicion
+                            juego.setPunt(juego.getPunt() + I_BIEN);
                             iDisparosDestruir.push(i);
                             iPreguntasDestruir.push(j);
                         }
-                        else
+                        else {
+                            juego.setPunt(juego.getPunt() - I_MAL);
                             iDisparosDestruir.push(i);
+                        }
                     }
                 }
             }
@@ -255,8 +257,13 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
             eneEnemigos.removeElementAt(iPreguntasDestruir.pop());
             iDestruidos++;
         }
-        if(iDestruidos<arrPregSelct.size())
-            naPizza.setPregunta(arrPregSelct.get(iDestruidos));
+        if(iDestruidos<arrPregSelct.size()) {
+            navPizza.setPregunta(arrPregSelct.get(iDestruidos));
+        }
+        else {
+            juego.cambiaJuego();
+            tTimer.cancel();
+        }
     }
 
     /**
@@ -314,9 +321,9 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
                 sDisplay = preArreglo[eneEnemigos.elementAt(i).getPosicion()].getRespuesta();
                 g.drawString(sDisplay, eneEnemigos.elementAt(i).getPosX() + 40, eneEnemigos.elementAt(i).getPosY() + 50);
             }
-            g.drawImage(naPizza.getImagenI(), naPizza.getPosX(), naPizza.getPosY(), this);
-            sDisplay = preArreglo[naPizza.getPregunta()].getPregunta();
-            g.drawString(sDisplay, naPizza.getPosX() + 50, naPizza.getPosY() + 100);
+            g.drawImage(navPizza.getImagenI(), navPizza.getPosX(), navPizza.getPosY(), this);
+            sDisplay = preArreglo[navPizza.getPregunta()].getPregunta();
+            g.drawString(sDisplay, navPizza.getPosX() + 50, navPizza.getPosY() + 100);
             g.drawString("Score: " + iPoints, getWidth() - 100, 15);
         } else if (!bOver) {
             //Da un mensaje mientras se carga el dibujo 
@@ -338,11 +345,11 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {  //presiona flecha izq para moverlo a la izq
-            naPizza.setDx(-5);
+            navPizza.setDx(-5);
         }
 
         if (key == KeyEvent.VK_RIGHT) { //presiona flecha der para moverlo a la der
-            naPizza.setDx(5 );
+            navPizza.setDx(5 );
         }
     }
 
@@ -381,17 +388,17 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         }
 
         if (key == KeyEvent.VK_LEFT) {  //presiona flecha izq para moverlo a la izq
-            naPizza.setDx(0);
+            navPizza.setDx(0);
 
         }
 
         if (key == KeyEvent.VK_RIGHT) { //presiona flecha der para moverlo a la der
-            naPizza.setDx(0);
+            navPizza.setDx(0);
         }
 
         if (key == KeyEvent.VK_SPACE) { //presiona la space bar para disparar
             URL disURL = this.getClass().getResource("Fuego_PizzaInvaders_Color.png");
-            disAux = new Disparo(naPizza.getPosX() + 52, naPizza.getPosY() - 54, Toolkit.getDefaultToolkit().getImage(disURL), 4);
+            disAux = new Disparo(navPizza.getPosX() + 52, navPizza.getPosY() - 54, Toolkit.getDefaultToolkit().getImage(disURL), 4);
             diDisparos.add(disAux);
             
         }
@@ -415,9 +422,9 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
                 sDisplay = preArreglo[eneEnemigos.elementAt(i).getPosicion()].getRespuesta();
                 g.drawString(sDisplay, eneEnemigos.elementAt(i).getPosX() + 40, eneEnemigos.elementAt(i).getPosY() + 50);
             }
-            g.drawImage(naPizza.getImagenI(), naPizza.getPosX(), naPizza.getPosY(), this);
-            sDisplay = preArreglo[naPizza.getPregunta()].getPregunta();
-            g.drawString(sDisplay, naPizza.getPosX() + 50, naPizza.getPosY() + 100);
+            g.drawImage(navPizza.getImagenI(), navPizza.getPosX(), navPizza.getPosY(), this);
+            sDisplay = preArreglo[navPizza.getPregunta()].getPregunta();
+            g.drawString(sDisplay, navPizza.getPosX() + 50, navPizza.getPosY() + 100);
             for (int i = 0; i < diDisparos.size(); i++) {
                 g.drawImage(diDisparos.elementAt(i).getImagenI(), diDisparos.elementAt(i).getPosX(), diDisparos.elementAt(i).getPosY(), this);
             }

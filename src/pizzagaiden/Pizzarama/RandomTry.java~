@@ -1,0 +1,7 @@
+public class RandomTry
+{
+  public static void main(string args[])
+  {
+    System.out.println(""+0+'A');
+  }
+}

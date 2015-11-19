@@ -1,0 +1,10 @@
+class Enemigo extends Objeto
+{
+  int iRespuesta;
+  
+  void Enemigo(int ires)
+  {
+    super Objeto();
+    iRespuesta= ires;
+  }
+}

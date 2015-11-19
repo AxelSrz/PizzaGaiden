@@ -31,7 +31,6 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
 
     private static final long serialVersionUID = 1L;
     // Se declaran las variables.
-    private int cont = 0;
     private Image dbImage; // Imagen a proyectar 
     private Graphics dbg; // Objeto grafico
     private int iXClick;     //Posicion del mouse al dar click
@@ -54,13 +53,13 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     private boolean bInitialize;
     private boolean bCambiado;
     private ImageIcon icono;
-    private URL pizURL1 = this.getClass().getResource("PizzaGhostColor_1.png");
-    private URL pizURL2 = this.getClass().getResource("PizzaGhostColor_2.png");
-    private URL pizURL3 = this.getClass().getResource("PizzaGhostColor_3.png");
-    private URL pizURL4 = this.getClass().getResource("PizzaGhostColor_4.png");
-    private URL pizURL5 = this.getClass().getResource("PizzaGhostColor_5.png");
+    private URL pizURL1 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_1.png");
+    private URL pizURL2 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_2.png");
+    private URL pizURL3 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_3.png");
+    private URL pizURL4 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_4.png");
+    private URL pizURL5 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_5.png");
     private URL cajaURL = this.getClass().getResource("Caja_Color.png");
-    private URL pregURL = this.getClass().getResource("Pizzitas_PizzaInvader_Color.png");
+    private URL pregURL = this.getClass().getResource("peperoni.png");
     private int iRandPregunta;
     private int iPregunta;
 
@@ -71,8 +70,6 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     public PizzaQuiz() {
         super();
         setFocusable(true);
-//        init();
-        //start();
     }
 
     /**
@@ -82,8 +79,6 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      */
     public void init() {
         setSize(1000, 700);
-        objGranPizza = new Objeto(0, -700, Toolkit.getDefaultToolkit().getImage(pizURL1));
-        objCajaPregunta = new Objeto(200, 500, Toolkit.getDefaultToolkit().getImage(cajaURL));
         iPoints = 0;
         iVidas = 2;
         iRonda = 1;
@@ -106,6 +101,9 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
+        
+        objGranPizza = new Objeto(0, -700, Toolkit.getDefaultToolkit().getImage(pizURL1));
+        objCajaPregunta = new Objeto(200, 500, Toolkit.getDefaultToolkit().getImage(cajaURL));
 
         bOver = false;     //Inicia banderas en falso
         bPaused = false;
@@ -209,7 +207,8 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
             if (arrPreg.get(i).contiene(iXClick, iYClick)) {
                 if (arrPreg.get(i).esCorrecto(iPregunta)) {
                     if (iRonda < 5) {
-                        iRonda++;
+                        juego.setPunt(juego.getPunt() + I_BIEN);
+                        iRonda++;  
                         arrPreg.clear();
                         PreguntasSelec.clear();
                         for (int j = 0; j < iRonda; j++) {
@@ -307,11 +306,13 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                         if(!bCambiado){
                             bCambiado= true;
                             juego.cambiaJuego();
-                            System.out.println("tujefa");
                         }
                         bOver = true;
                     }
                     encontrado = true;
+                }
+                else {
+                    juego.setPunt(juego.getPunt() - I_MAL);
                 }
             }
         }

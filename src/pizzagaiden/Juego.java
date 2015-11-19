@@ -7,11 +7,14 @@ package pizzagaiden;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.URL;
 import javax.swing.JFrame;
+import javax.swing.Timer;
+//import javax.media.Player;
 
 /**
  *
@@ -20,17 +23,25 @@ import javax.swing.JFrame;
 public class Juego extends javax.swing.JFrame {
 
     // Variables de clase
-    private static int juegoActual;
+    private static int iJuegoActual;
+    private static int iPunt;
     private CardLayout cardPrincipal;
     private CardLayout cardMinis;
     private PanelJuego juegoActivo;
+    private Timer timCountdown;
+    private boolean bOver;
+    private URL urlClip;
+//    private Player acMusic;
     
     /**
      * Creates new form Juego
      */
     public Juego() {
+        urlClip = this.getClass().getResource("undertale.mp3");
+//        acMusic = Manager.getClip();
         initComponents();
-        juegoActual = -1;
+        iPunt = 0;
+        iJuegoActual = -1;
         pizzaQuiz1.setJuego(this);
         pizzarama1.setJuego(this);
         pizzaInvaders1.setJuego(this);
@@ -43,11 +54,11 @@ public class Juego extends javax.swing.JFrame {
 
             @Override
             public void mouseClicked(MouseEvent me) {
-                // Checamos cuál es el label que se clickea para poder definir qué
-                // pantalla sigue
                 System.out.println(me.getID() + " " + me.getComponent());
-                cardPrincipal.show(panelPrincipal, "panelJuego");
-                cambiaJuego();
+//                switch(me) {
+//                    
+//                }
+                startJuego();
             }
 
             @Override
@@ -66,41 +77,94 @@ public class Juego extends javax.swing.JFrame {
             public void mousePressed(MouseEvent me) {
             }
         });  
+        
+        gameOver1.addMouseListenerToLabels(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                System.out.println(me.getID() + " " + me.getComponent());
+                cardPrincipal.show(panelPrincipal, "menu");
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+            }
+        }); 
+    }
+    
+    public int getPunt() {
+        return iPunt;
+    }
+    
+    public void setPunt(int iPunt) {
+        this.iPunt = iPunt;
+        barraJuego1.setjLabel2Value(iPunt);
+    }
+    
+    public void stopJuego() {
+        cardPrincipal.show(panelPrincipal, "gameOver");
+    }
+    
+    public void startJuego() {
+        // Checamos cuál es el label que se clickea para poder definir qué
+        // pantalla sigue
+        bOver = false;
+        cardPrincipal.show(panelPrincipal, "panelJuego");
+        ActionListener listener = new ActionListener() {
+            int counter = 60;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                counter--;
+                barraJuego1.getjProgressBar1().setValue(counter);  
+                if (counter < 1) {
+                    bOver = true;
+                    timCountdown.stop();
+                    stopJuego();
+                }
+            }
+        };
+        timCountdown = new Timer(1000, listener);
+        timCountdown.start();
+        cambiaJuego();
     }
       
     public void cambiaJuego() {
-//        int iRand = (int) (Math.random() * 2);
-//        if(juegoActual >= 0) {
-//            while(iRand == juegoActual) {
-//                iRand = (int) (Math.random() * 2);
-//            }
-//        }
-        juegoActual++;
-        System.out.println(juegoActual);
-//        juegoActual = iRand;
-        
-        switch(juegoActual % 3) {
+        iJuegoActual++;
+
+        switch(iJuegoActual % 3) {
             case 0:
                 pizzaQuiz1.init();
                 cardMinis.show(panelMinis, "quiz"); 
                 juegoActivo = pizzaQuiz1;
                 break;
-//            case 1:
-//                pizzarama1.init();
-//                cardMinis.show(panelMinis, "pizzarama");
-//                juegoActivo = pizzarama1;
-//                break;
+            case 1:
+                pizzarama1.init();
+                cardMinis.show(panelMinis, "pizzarama");
+                juegoActivo = pizzarama1;
+                break;
             case 2:
                 pizzaInvaders1.init();  
                 cardMinis.show(panelMinis, "invaders");
                 pizzaInvaders1.requestFocus();
                 juegoActivo = pizzaInvaders1;
                 break;
-            default:
-                cambiaJuego();
-                break;
+//            default:
+//                cambiaJuego();
+//                break;
         }
-//       checaJuegoActivo();
     }
 
     /**
@@ -120,6 +184,7 @@ public class Juego extends javax.swing.JFrame {
         pizzarama1 = new pizzagaiden.Pizzarama.Pizzarama();
         pizzaInvaders1 = new pizzagaiden.PizzaInvaders.PizzaInvaders();
         pizzaQuiz1 = new pizzagaiden.PizzaQuizz.PizzaQuiz();
+        gameOver1 = new pizzagaiden.GameOver();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -179,6 +244,7 @@ public class Juego extends javax.swing.JFrame {
         panelPrincipal.add(panelJuego, "panelJuego");
         panelJuego.add(barraJuego1, BorderLayout.NORTH);
         panelJuego.add(panelMinis, BorderLayout.SOUTH);
+        panelPrincipal.add(gameOver1, "gameOver");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,6 +297,7 @@ public class Juego extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private pizzagaiden.BarraJuego barraJuego1;
+    private pizzagaiden.GameOver gameOver1;
     private pizzagaiden.Menu menu1;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JPanel panelMinis;

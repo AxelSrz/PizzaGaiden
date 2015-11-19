@@ -15,10 +15,11 @@ import javax.swing.JPanel;
 public class PanelJuego extends JPanel {
     private boolean bOver;
     protected Timer tTimer;
-    public Juego juego;
-    
+    protected Juego juego;
+    protected final int I_BIEN = 100;
+    protected final int I_MAL = 50;
+   
     public PanelJuego() {
-        tTimer = new Timer();
     }
     
     public boolean getActivo() {

@@ -1,0 +1,15 @@
+class Nave extends Objeto
+{
+  int iPregunta;
+  
+  int getPregunta()
+  {
+    return iPregunta;
+  }
+  
+  void setPregunta(int ipreg)
+  {
+    iPregunta= ipreg;
+  }
+  
+}

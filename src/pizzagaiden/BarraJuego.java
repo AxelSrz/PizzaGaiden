@@ -5,6 +5,8 @@
  */
 package pizzagaiden;
 
+import javax.swing.JProgressBar;
+
 /**
  *
  * @author axelsuarez
@@ -16,6 +18,10 @@ public class BarraJuego extends javax.swing.JPanel {
      */
     public BarraJuego() {
         initComponents();
+        jProgressBar1.setMinimum(0);
+        jProgressBar1.setMaximum(60);
+        jProgressBar1.setValue(60);
+        jLabel2.setText("" + 0);
     }
 
     /**
@@ -30,8 +36,9 @@ public class BarraJuego extends javax.swing.JPanel {
         lbAccion = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
-        setBackground(new java.awt.Color(255, 255, 0));
+        setBackground(new java.awt.Color(255, 255, 102));
         setPreferredSize(new java.awt.Dimension(1000, 70));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -46,12 +53,22 @@ public class BarraJuego extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel2.setText("2000");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, -1, -1));
+        add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 230, 30));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel lbAccion;
     // End of variables declaration//GEN-END:variables
+
+    public JProgressBar getjProgressBar1() {
+        return jProgressBar1;
+    }
+    
+    public void setjLabel2Value(int iVal) {
+        jLabel2.setText("" + iVal);
+    }
 }
