@@ -14,6 +14,9 @@ import java.awt.event.MouseListener;
 import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.Timer;
+import pizzagaiden.PizzaInvaders.PizzaInvaders;
+import pizzagaiden.PizzaQuizz.PizzaQuiz;
+import pizzagaiden.Pizzarama.Pizzarama;
 //import javax.media.Player;
 
 /**
@@ -40,11 +43,7 @@ public class Juego extends javax.swing.JFrame {
         urlClip = this.getClass().getResource("undertale.mp3");
 //        acMusic = Manager.getClip();
         initComponents();
-        iPunt = 0;
         iJuegoActual = -1;
-        pizzaQuiz1.setJuego(this);
-        pizzarama1.setJuego(this);
-        pizzaInvaders1.setJuego(this);
         getContentPane().setSize(1000, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -121,6 +120,8 @@ public class Juego extends javax.swing.JFrame {
         // Checamos cuál es el label que se clickea para poder definir qué
         // pantalla sigue
         bOver = false;
+        iPunt = 0;
+        setPunt(iPunt);
         cardPrincipal.show(panelPrincipal, "panelJuego");
         ActionListener listener = new ActionListener() {
             int counter = 60;
@@ -140,26 +141,39 @@ public class Juego extends javax.swing.JFrame {
         timCountdown.start();
         cambiaJuego();
     }
-      
+    
+    public void syncGame(PanelJuego juego) {
+        juego.setJuego(this);
+    }
+          
     public void cambiaJuego() {
         iJuegoActual++;
 
         switch(iJuegoActual % 3) {
             case 0:
+                pizzaQuiz1 = new pizzagaiden.PizzaQuizz.PizzaQuiz();
+                panelMinis.add(pizzaQuiz1, "quiz");
+                juegoActivo = pizzaQuiz1;
+                syncGame(juegoActivo);
                 pizzaQuiz1.init();
                 cardMinis.show(panelMinis, "quiz"); 
-                juegoActivo = pizzaQuiz1;
                 break;
             case 1:
+                pizzarama1 = new Pizzarama();
+                panelMinis.add(pizzarama1, "pizzarama");
+                juegoActivo = pizzarama1;
+                syncGame(juegoActivo);
                 pizzarama1.init();
                 cardMinis.show(panelMinis, "pizzarama");
-                juegoActivo = pizzarama1;
                 break;
             case 2:
+                pizzaInvaders1 = new PizzaInvaders();
+                panelMinis.add(pizzaInvaders1, "invaders");
+                juegoActivo = pizzaInvaders1;
+                syncGame(juegoActivo);
                 pizzaInvaders1.init();  
                 cardMinis.show(panelMinis, "invaders");
                 pizzaInvaders1.requestFocus();
-                juegoActivo = pizzaInvaders1;
                 break;
 //            default:
 //                cambiaJuego();

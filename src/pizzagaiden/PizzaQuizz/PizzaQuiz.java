@@ -304,10 +304,10 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                     }
                     else {
                         if(!bCambiado){
+                            stopGame();
                             bCambiado= true;
                             juego.cambiaJuego();
                         }
-                        bOver = true;
                     }
                     encontrado = true;
                 }

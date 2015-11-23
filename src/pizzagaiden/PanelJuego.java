@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  * @author Evan
  */
 public class PanelJuego extends JPanel {
-    private boolean bOver;
+    protected boolean bOver;
     protected Timer tTimer;
     protected Juego juego;
     protected final int I_BIEN = 100;

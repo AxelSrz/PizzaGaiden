@@ -30,10 +30,6 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
     // Se declaran las variables.
     private Image dbImage; // Imagen a proyectar 
     private Graphics dbg; // Objeto grafico
-    private int iXClick;     //Posicion del mouse al dar click
-    private int iYClick;
-    private int iPoints;  //Puntos del jugador
-    private int iVidas;
     private int iDestruidos; //Numero de enemigos destruidos hasta el momento
     private int iVelPreguntas; //la direccion y velocidad de las preguntas
     private Stack<Integer> iDisparosDestruir;
@@ -57,13 +53,11 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
     public PizzaInvaders() {
         super();
         setFocusable(true);
-//        init();
-        //start();
     }
 
     /**
      * Metodo <I>init</I> sobrescrito de la clase <code>Applet</code>.<P>
-     * En este metodo se inizializan las variables o se crean los objetos a
+     * En este metodo se inicializan las variables o se crean los objetos a
      * usarse en el <code>Applet</code> y se definen funcionalidades.
      */
     public void init() {
@@ -144,7 +138,6 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
 
         setBackground(Color.red);
         addKeyListener(this);
-        System.out.println("sobres");
 
         bOver = false;     //Inicia banderas en falso
         bPaused = false;
@@ -177,7 +170,6 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         public void run() {
             actualiza();
             checaDisparos();
-            checaVidas();
             repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
         }
     }
@@ -241,6 +233,8 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
                             juego.setPunt(juego.getPunt() + I_BIEN);
                             iDisparosDestruir.push(i);
                             iPreguntasDestruir.push(j);
+                            System.out.println(navPizza.getPregunta());
+                            System.out.println(iPreguntasDestruir.size());
                         }
                         else {
                             juego.setPunt(juego.getPunt() - I_MAL);
@@ -250,10 +244,10 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
                 }
             }
         }
-        while(!iDisparosDestruir.empty()){
+        while(!iDisparosDestruir.empty()) {
             diDisparos.removeElementAt(iDisparosDestruir.pop());
         }
-        while(!iPreguntasDestruir.empty()){
+        while(!iPreguntasDestruir.empty()) {
             eneEnemigos.removeElementAt(iPreguntasDestruir.pop());
             iDestruidos++;
         }
@@ -261,8 +255,8 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
             navPizza.setPregunta(arrPregSelct.get(iDestruidos));
         }
         else {
+            stopGame();
             juego.cambiaJuego();
-            tTimer.cancel();
         }
     }
 
@@ -272,17 +266,6 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
      */
     public void checaColision() {
 
-    }
-
-    /**
-     * Metodo <I>checaVidas</I>
-     * En este metodo lo que hace es revisar si el objeto tiene 0 vidas para
-     * acabar el juego
-     */
-    public void checaVidas() {
-        if (iVidas == 0) {
-            bOver = true;
-        }
     }
 
     /**
@@ -324,7 +307,6 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
             g.drawImage(navPizza.getImagenI(), navPizza.getPosX(), navPizza.getPosY(), this);
             sDisplay = preArreglo[navPizza.getPregunta()].getPregunta();
             g.drawString(sDisplay, navPizza.getPosX() + 50, navPizza.getPosY() + 100);
-            g.drawString("Score: " + iPoints, getWidth() - 100, 15);
         } else if (!bOver) {
             //Da un mensaje mientras se carga el dibujo 
             g.drawString("No se cargo la imagen..", 20, 20);
