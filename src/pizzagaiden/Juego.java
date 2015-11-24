@@ -7,15 +7,21 @@ package pizzagaiden;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import pizzagaiden.PizzaInvaders.PizzaInvaders;
-import pizzagaiden.PizzaQuizz.PizzaQuiz;
 import pizzagaiden.Pizzarama.Pizzarama;
 //import javax.media.Player;
 
@@ -34,16 +40,35 @@ public class Juego extends javax.swing.JFrame {
     private Timer timCountdown;
     private boolean bOver;
     private URL urlClip;
+    private Pregunta[] preBase;
+    private File file;
 //    private Player acMusic;
     
     /**
      * Creates new form Juego
+     * @throws java.io.IOException
      */
     public Juego() {
-        urlClip = this.getClass().getResource("undertale.mp3");
-//        acMusic = Manager.getClip();
+        // Inicializa dependencias
+        file = new File("db.txt");
+        // Checa el archivo si exista, si no lo carga
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
         initComponents();
         iJuegoActual = -1;
+        
+        // Pasa el objeto a todas la clases
+        agregar1.setJuego(this);
+        
+        urlClip = this.getClass().getResource("undertale.mp3");
+//        acMusic = Manager.getClip();
+
+
         getContentPane().setSize(1000, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -54,10 +79,12 @@ public class Juego extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent me) {
                 System.out.println(me.getID() + " " + me.getComponent());
-//                switch(me) {
-//                    
-//                }
-                startJuego();
+                if(me.getComponent().equals(menu1.getjLabel3())){
+                    cardPrincipal.show(panelPrincipal, "config");
+                }
+                else if(me.getComponent().equals(menu1.getjLabel1())){
+                    startJuego();
+                }
             }
 
             @Override
@@ -81,7 +108,7 @@ public class Juego extends javax.swing.JFrame {
 
             @Override
             public void mouseClicked(MouseEvent me) {
-                System.out.println(me.getID() + " " + me.getComponent());
+                System.out.println(me.getComponent());
                 cardPrincipal.show(panelPrincipal, "menu");
             }
 
@@ -103,13 +130,19 @@ public class Juego extends javax.swing.JFrame {
         }); 
     }
     
-    public int getPunt() {
-        return iPunt;
+    // Metodos de clase
+    
+    public static void changeFont(Component component, Font font) {
+        component.setFont(font);
+        if (component instanceof Container) {
+            for (Component child : ((Container) component).getComponents()) {
+                changeFont(child, font);
+            }
+        }
     }
     
-    public void setPunt(int iPunt) {
-        this.iPunt = iPunt;
-        barraJuego1.setjLabel2Value(iPunt);
+    public void cambiaPanelPrincipal(String strPanel) {
+        cardPrincipal.show(panelPrincipal, strPanel);
     }
     
     public void stopJuego() {
@@ -175,10 +208,22 @@ public class Juego extends javax.swing.JFrame {
                 cardMinis.show(panelMinis, "invaders");
                 pizzaInvaders1.requestFocus();
                 break;
-//            default:
-//                cambiaJuego();
-//                break;
         }
+    }
+    
+    // Getters y setters
+    
+    public File getDatabaseFile() {
+        return file;
+    }
+
+    public int getPunt() {
+        return iPunt;
+    }
+
+    public void setPunt(int iPunt) {
+        this.iPunt = iPunt;
+        barraJuego1.setjLabel2Value(iPunt);
     }
 
     /**
@@ -199,12 +244,16 @@ public class Juego extends javax.swing.JFrame {
         pizzaInvaders1 = new pizzagaiden.PizzaInvaders.PizzaInvaders();
         pizzaQuiz1 = new pizzagaiden.PizzaQuizz.PizzaQuiz();
         gameOver1 = new pizzagaiden.GameOver();
+        configuracion1 = new pizzagaiden.Configuracion();
+        agregar1 = new pizzagaiden.Agregar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         panelPrincipal.setMinimumSize(new java.awt.Dimension(1000, 700));
         panelPrincipal.setLayout(new java.awt.CardLayout());
+
+        menu1.setBackground(new java.awt.Color(255, 51, 51));
         panelPrincipal.add(menu1, "menu");
 
         panelJuego.setLayout(new java.awt.BorderLayout());
@@ -259,6 +308,8 @@ public class Juego extends javax.swing.JFrame {
         panelJuego.add(barraJuego1, BorderLayout.NORTH);
         panelJuego.add(panelMinis, BorderLayout.SOUTH);
         panelPrincipal.add(gameOver1, "gameOver");
+        panelPrincipal.add(configuracion1, "config");
+        panelPrincipal.add(agregar1, "agregar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -310,7 +361,9 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private pizzagaiden.Agregar agregar1;
     private pizzagaiden.BarraJuego barraJuego1;
+    private pizzagaiden.Configuracion configuracion1;
     private pizzagaiden.GameOver gameOver1;
     private pizzagaiden.Menu menu1;
     private javax.swing.JPanel panelJuego;

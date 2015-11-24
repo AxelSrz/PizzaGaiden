@@ -5,6 +5,8 @@
  */
 package pizzagaiden;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author axelsuarez
@@ -62,4 +64,20 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
 }
