@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
@@ -23,7 +25,7 @@ import pizzagaiden.Pizzarama.Pizzarama;
  *
  * @author axelsuarez
  */
-public class Juego extends javax.swing.JFrame {
+public class Juego extends javax.swing.JFrame implements KeyListener {
 
     // Variables de clase
     private static int iJuegoActual;
@@ -33,7 +35,9 @@ public class Juego extends javax.swing.JFrame {
     private PanelJuego juegoActivo;
     private Timer timCountdown;
     private boolean bOver;
+    private boolean bPaused;
     private URL urlClip;
+    public int iCounter;
 //    private Player acMusic;
     
     /**
@@ -100,7 +104,10 @@ public class Juego extends javax.swing.JFrame {
             @Override
             public void mousePressed(MouseEvent me) {
             }
-        }); 
+        });
+        
+        addKeyListener(this);
+        bPaused=false;
     }
     
     public int getPunt() {
@@ -123,14 +130,13 @@ public class Juego extends javax.swing.JFrame {
         iPunt = 0;
         setPunt(iPunt);
         cardPrincipal.show(panelPrincipal, "panelJuego");
+        iCounter = 60;
         ActionListener listener = new ActionListener() {
-            int counter = 60;
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                counter--;
-                barraJuego1.getjProgressBar1().setValue(counter);  
-                if (counter < 1) {
+                iCounter--;
+                barraJuego1.getjProgressBar1().setValue(iCounter);  
+                if (iCounter < 1) {
                     bOver = true;
                     timCountdown.stop();
                     stopJuego();
@@ -320,5 +326,52 @@ public class Juego extends javax.swing.JFrame {
     private pizzagaiden.PizzaQuizz.PizzaQuiz pizzaQuiz1;
     private pizzagaiden.Pizzarama.Pizzarama pizzarama1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+         int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_P) {
+            if (!bPaused) {
+                pauseGame();
+            } else {
+                continueGame();
+            }
+        }
+    }
+    
+    void pauseGame(){
+        timCountdown.stop();
+        bPaused=true;
+    }
+    
+    void continueGame(){
+        ActionListener listener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iCounter--;
+                barraJuego1.getjProgressBar1().setValue(iCounter);  
+                if (iCounter < 1) {
+                    bOver = true;
+                    timCountdown.stop();
+                    stopJuego();
+                }
+            }
+        };
+        timCountdown = new Timer(1000, listener);
+        timCountdown.start();
+        bPaused = false;
+    }
 
 }
