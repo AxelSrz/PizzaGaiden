@@ -135,7 +135,6 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
          */
         public void run() {
             actualiza();
-            checaVidas();
             repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
         }
     }

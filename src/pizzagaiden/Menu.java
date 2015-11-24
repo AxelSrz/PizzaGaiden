@@ -13,6 +13,8 @@ import javax.swing.JLabel;
  */
 public class Menu extends javax.swing.JPanel {
 
+    private Juego juego;
+
     /**
      * Creates new form Menu
      */
@@ -29,44 +31,66 @@ public class Menu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        inciarJuegoLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        configLabel = new javax.swing.JLabel();
+        scoresLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(238, 99, 97));
         setMinimumSize(new java.awt.Dimension(1000, 700));
         setPreferredSize(new java.awt.Dimension(0, 0));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, -1, -1));
+        inciarJuegoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
+        inciarJuegoLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inciarJuegoLabelMouseClicked(evt);
+            }
+        });
+        add(inciarJuegoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
         jLabel2.setText("Menu Principal");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 270, 89));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
+        configLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
+        configLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                configLabelMouseClicked(evt);
+            }
+        });
+        add(configLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 495, -1, -1));
+        scoresLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
+        scoresLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scoresLabelMouseClicked(evt);
+            }
+        });
+        add(scoresLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 495, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    public void addMouseListenerToLabels(java.awt.event.MouseListener listener) {
-        jLabel1.addMouseListener(listener);
-        jLabel3.addMouseListener(listener);
-    }
+    private void inciarJuegoLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inciarJuegoLabelMouseClicked
+        juego.startJuego();
+    }//GEN-LAST:event_inciarJuegoLabelMouseClicked
+
+    private void configLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_configLabelMouseClicked
+        juego.cambiaPanelPrincipal("config");
+    }//GEN-LAST:event_configLabelMouseClicked
+
+    private void scoresLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scoresLabelMouseClicked
+        juego.cambiaPanelPrincipal("scores");
+    }//GEN-LAST:event_scoresLabelMouseClicked
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel configLabel;
+    private javax.swing.JLabel inciarJuegoLabel;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel scoresLabel;
     // End of variables declaration//GEN-END:variables
 
     public JLabel getjLabel1() {
-        return jLabel1;
+        return inciarJuegoLabel;
     }
 
     public JLabel getjLabel2() {
@@ -74,10 +98,14 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public JLabel getjLabel3() {
-        return jLabel3;
+        return configLabel;
     }
 
     public JLabel getjLabel4() {
-        return jLabel4;
+        return scoresLabel;
+    }
+
+    void setJuego(Juego juego) {
+        this.juego = juego;
     }
 }

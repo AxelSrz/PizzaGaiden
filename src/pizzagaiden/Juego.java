@@ -46,7 +46,6 @@ public class Juego extends javax.swing.JFrame {
     
     /**
      * Creates new form Juego
-     * @throws java.io.IOException
      */
     public Juego() {
         // Inicializa dependencias
@@ -63,74 +62,28 @@ public class Juego extends javax.swing.JFrame {
         iJuegoActual = -1;
         
         // Pasa el objeto a todas la clases
-        agregar1.setJuego(this);
+        initPanels();
         
+        // Inicializa la música del juego
         urlClip = this.getClass().getResource("undertale.mp3");
 //        acMusic = Manager.getClip();
 
 
         getContentPane().setSize(1000, 700);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         cardPrincipal = (CardLayout) panelPrincipal.getLayout();
-        cardMinis = (CardLayout) panelMinis.getLayout();
-        menu1.addMouseListenerToLabels(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent me) {
-                System.out.println(me.getID() + " " + me.getComponent());
-                if(me.getComponent().equals(menu1.getjLabel3())){
-                    cardPrincipal.show(panelPrincipal, "config");
-                }
-                else if(me.getComponent().equals(menu1.getjLabel1())){
-                    startJuego();
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent me) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent me) {
-            }
-        });  
-        
-        gameOver1.addMouseListenerToLabels(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent me) {
-                System.out.println(me.getComponent());
-                cardPrincipal.show(panelPrincipal, "menu");
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent me) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent me) {
-            }
-        }); 
+        cardMinis = (CardLayout) panelMinis.getLayout();  
     }
     
     // Metodos de clase
+    
+    public final void initPanels() {
+        agregar1.setJuego(this);
+        menu1.setJuego(this);
+        configuracion1.setJuego(this);
+        gameOver1.setJuego(this);
+    }
     
     public static void changeFont(Component component, Font font) {
         component.setFont(font);
@@ -222,7 +175,7 @@ public class Juego extends javax.swing.JFrame {
     }
 
     public void setPunt(int iPunt) {
-        this.iPunt = iPunt;
+        Juego.iPunt = iPunt;
         barraJuego1.setjLabel2Value(iPunt);
     }
 
@@ -259,6 +212,11 @@ public class Juego extends javax.swing.JFrame {
         panelJuego.setLayout(new java.awt.BorderLayout());
         panelJuego.add(barraJuego1, java.awt.BorderLayout.CENTER);
 
+        panelMinis.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                panelMinisKeyReleased(evt);
+            }
+        });
         panelMinis.setLayout(new java.awt.CardLayout());
 
         pizzarama1.setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -324,6 +282,10 @@ public class Juego extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void panelMinisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelMinisKeyReleased
+        
+    }//GEN-LAST:event_panelMinisKeyReleased
 
     /**
      * @param args the command line arguments

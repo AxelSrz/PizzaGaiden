@@ -29,4 +29,16 @@ public class PanelJuego extends JPanel {
     public void setJuego(Juego juego) {
         this.juego = juego;
     }
+    
+    public void pause() {
+        
+    }
+    
+    public void unpause(PanelJuego pj) {
+        pj.iniciaTimers();
+    }
+    
+    // Overridable method
+    public void iniciaTimers() {
+    }
 }

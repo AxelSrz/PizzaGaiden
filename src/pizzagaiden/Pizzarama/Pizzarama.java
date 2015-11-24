@@ -181,8 +181,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         bInitialize = true;
 
         iCajaSelected = -1;
-        tTimer = new Timer();
-        tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
 
     /**
@@ -208,21 +206,10 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
          */
         public void run() {
 
-            while (true) {
-                actualiza();
-                checaVidas();
-                repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
-                if(respuestaEquivocada)
-                    deselect();
-
-                /*cont+= 20;
-                 if(cont>=1000&&iCajaSelected!=-1)
-                 {
-                 System.out.println("DESELECT");
-                 deselectCajas();
-                 cont= 0;
-                 }*/
-            }
+            actualiza();
+            repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
+            if(respuestaEquivocada)
+                deselect();
         }
     }
 
@@ -508,5 +495,10 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
          g.drawImage(objOver.getImagenI(), getWidth()/2-objOver.getAncho()/2, 
          getHeight()/2-objOver.getAlto()/2, this);
          }*/
+    }
+    
+    public void iniciaTimer() {
+        tTimer = new Timer();
+        tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
 }
