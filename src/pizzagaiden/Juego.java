@@ -9,8 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
@@ -25,7 +23,7 @@ import pizzagaiden.Pizzarama.Pizzarama;
  *
  * @author axelsuarez
  */
-public class Juego extends javax.swing.JFrame implements KeyListener {
+public class Juego extends javax.swing.JFrame {
 
     // Variables de clase
     private static int iJuegoActual;
@@ -50,7 +48,7 @@ public class Juego extends javax.swing.JFrame implements KeyListener {
         iJuegoActual = -1;
         getContentPane().setSize(1000, 700);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         cardPrincipal = (CardLayout) panelPrincipal.getLayout();
         cardMinis = (CardLayout) panelMinis.getLayout();
         menu1.addMouseListenerToLabels(new MouseListener() {
@@ -105,8 +103,6 @@ public class Juego extends javax.swing.JFrame implements KeyListener {
             public void mousePressed(MouseEvent me) {
             }
         });
-        
-        addKeyListener(this);
         bPaused=false;
     }
     
@@ -121,6 +117,10 @@ public class Juego extends javax.swing.JFrame implements KeyListener {
     
     public void stopJuego() {
         cardPrincipal.show(panelPrincipal, "gameOver");
+    }
+    
+    public boolean getPaused(){
+        return bPaused;
     }
     
     public void startJuego() {
@@ -162,7 +162,8 @@ public class Juego extends javax.swing.JFrame implements KeyListener {
                 juegoActivo = pizzaQuiz1;
                 syncGame(juegoActivo);
                 pizzaQuiz1.init();
-                cardMinis.show(panelMinis, "quiz"); 
+                cardMinis.show(panelMinis, "quiz");
+                pizzaQuiz1.requestFocus();
                 break;
             case 1:
                 pizzarama1 = new Pizzarama();
@@ -171,6 +172,7 @@ public class Juego extends javax.swing.JFrame implements KeyListener {
                 syncGame(juegoActivo);
                 pizzarama1.init();
                 cardMinis.show(panelMinis, "pizzarama");
+                pizzarama1.requestFocus();
                 break;
             case 2:
                 pizzaInvaders1 = new PizzaInvaders();
@@ -326,36 +328,13 @@ public class Juego extends javax.swing.JFrame implements KeyListener {
     private pizzagaiden.PizzaQuizz.PizzaQuiz pizzaQuiz1;
     private pizzagaiden.Pizzarama.Pizzarama pizzarama1;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-         int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_P) {
-            if (!bPaused) {
-                pauseGame();
-            } else {
-                continueGame();
-            }
-        }
-    }
     
-    void pauseGame(){
+    public void pauseGame(){
         timCountdown.stop();
         bPaused=true;
     }
     
-    void continueGame(){
+    public void continueGame(){
         ActionListener listener = new ActionListener() {
 
             @Override

@@ -169,7 +169,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
             memoCajas[iRand] = new PMemorama(false, iRandPregunta, x, y, Toolkit.getDefaultToolkit().getImage(memoURL));
         }
 
-    //objOver= new Objeto(posX,posY,Toolkit.getDefaultToolkit().getImage(goURL));
+        //objOver= new Objeto(posX,posY,Toolkit.getDefaultToolkit().getImage(goURL));
         setBackground(Color.red);
         addKeyListener(this);
         addMouseListener(this);
@@ -177,7 +177,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
 
         bOver = false;     //Inicia banderas en falso
         bPaused = false;
-        respuestaEquivocada= false;
+        respuestaEquivocada = false;
         bInitialize = true;
 
         iCajaSelected = -1;
@@ -193,8 +193,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      *
      *
      * public void start () { // Declaras un hilo Thread th = new Thread (this);
-     * // Empieza el hilo th.start ();
-   }
+     * // Empieza el hilo th.start (); }
      */
     class ScheduleTask extends TimerTask {
 
@@ -212,8 +211,9 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                 actualiza();
                 checaVidas();
                 repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
-                if(respuestaEquivocada)
+                if (respuestaEquivocada) {
                     deselect();
+                }
 
                 /*cont+= 20;
                  if(cont>=1000&&iCajaSelected!=-1)
@@ -226,18 +226,25 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         }
     }
 
+    public void initTimer() {
+        tTimer = new Timer();
+        tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
+    }
+
     public void stopGame() {
         tTimer.cancel();
         bOver = true;
     }
 
     public void continueGame() {
+        juego.continueGame();
         tTimer = new Timer();
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
         bPaused = false;
     }
 
     public void pauseGame() {
+        juego.pauseGame();
         tTimer.cancel();
         bPaused = true;
     }
@@ -254,11 +261,12 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         try {
             // El thread se duerme.
             Thread.sleep(1500);
-            for(int i = 0; i < 6; i++){
-                if(memoCajas[i].isSelected())
+            for (int i = 0; i < 6; i++) {
+                if (memoCajas[i].isSelected()) {
                     memoCajas[i].select();
+                }
             }
-            respuestaEquivocada= false;
+            respuestaEquivocada = false;
         } catch (InterruptedException ex) {
             System.out.println("Error en " + ex.toString());
         }
@@ -380,7 +388,8 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * @param e es el <code>evento</code> que se genera en al soltar las teclas.
      */
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_P) {
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_P) {
             if (!bPaused) {
                 pauseGame();
             } else {
@@ -445,11 +454,13 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * @param me es el <code>evento</code> que se genera en al soltar el boton.
      */
     public void mouseReleased(MouseEvent mseEvent) {
-        //Guardo la posicion del mouse
-        iXClick = mseEvent.getX();
-        iYClick = mseEvent.getY();
+        if (!bPaused) {
+            //Guardo la posicion del mouse
+            iXClick = mseEvent.getX();
+            iYClick = mseEvent.getY();
 
-        checaCajas();
+            checaCajas();
+        }
     }
 
     /**

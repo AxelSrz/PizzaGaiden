@@ -7,12 +7,13 @@ package pizzagaiden;
 
 import java.util.Timer;
 import javax.swing.JPanel;
+import pizzagaiden.Pizzarama.Pizzarama;
 
 /**
  *
  * @author Evan
  */
-public class PanelJuego extends JPanel {
+public class PanelJuego extends JPanel{
     protected boolean bOver;
     protected Timer tTimer;
     protected Juego juego;
