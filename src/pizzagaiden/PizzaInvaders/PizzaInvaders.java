@@ -180,12 +180,14 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
     }
 
     public void continueGame() {
+        juego.continueGame();
         tTimer = new Timer();
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
         bPaused = false;
     }
 
     public void pauseGame() {
+        juego.pauseGame();
         tTimer.cancel();
         bPaused = true;
     }

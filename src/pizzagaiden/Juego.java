@@ -39,7 +39,9 @@ public class Juego extends javax.swing.JFrame {
     private PanelJuego juegoActivo;
     private Timer timCountdown;
     private boolean bOver;
+    private boolean bPaused;
     private URL urlClip;
+    public int iCounter;
     private Pregunta[] preBase;
     private File file;
 //    private Player acMusic;
@@ -103,19 +105,22 @@ public class Juego extends javax.swing.JFrame {
         cardPrincipal.show(panelPrincipal, "gameOver");
     }
     
+    public boolean getPaused(){
+        return bPaused;
+    }
+    
     public void startJuego() {
         bOver = false;
         iPunt = 0;
         setPunt(iPunt);
         cardPrincipal.show(panelPrincipal, "panelJuego");
+        iCounter = 60;
         ActionListener listener = new ActionListener() {
-            int counter = 60;
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                counter--;
-                barraJuego1.getjProgressBar1().setValue(counter);  
-                if (counter < 1) {
+                iCounter--;
+                barraJuego1.getjProgressBar1().setValue(iCounter);  
+                if (iCounter < 1) {
                     bOver = true;
                     timCountdown.stop();
                     stopJuego();
@@ -141,7 +146,8 @@ public class Juego extends javax.swing.JFrame {
                 juegoActivo = pizzaQuiz1;
                 syncGame(juegoActivo);
                 pizzaQuiz1.init();
-                cardMinis.show(panelMinis, "quiz"); 
+                cardMinis.show(panelMinis, "quiz");
+                pizzaQuiz1.requestFocus();
                 break;
             case 1:
                 pizzarama1 = new Pizzarama();
@@ -150,6 +156,7 @@ public class Juego extends javax.swing.JFrame {
                 syncGame(juegoActivo);
                 pizzarama1.init();
                 cardMinis.show(panelMinis, "pizzarama");
+                pizzarama1.requestFocus();
                 break;
             case 2:
                 pizzaInvaders1 = new PizzaInvaders();
@@ -337,6 +344,30 @@ public class Juego extends javax.swing.JFrame {
     private pizzagaiden.PizzaQuizz.PizzaQuiz pizzaQuiz1;
     private pizzagaiden.Pizzarama.Pizzarama pizzarama1;
     // End of variables declaration//GEN-END:variables
+    
+    public void pauseGame(){
+        timCountdown.stop();
+        bPaused=true;
+    }
+    
+    public void continueGame(){
+        ActionListener listener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iCounter--;
+                barraJuego1.getjProgressBar1().setValue(iCounter);  
+                if (iCounter < 1) {
+                    bOver = true;
+                    timCountdown.stop();
+                    stopJuego();
+                }
+            }
+        };
+        timCountdown = new Timer(1000, listener);
+        timCountdown.start();
+        bPaused = false;
+    }
 
     public Editar getEditar1() {
         return editar1;

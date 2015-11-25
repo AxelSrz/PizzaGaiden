@@ -169,7 +169,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
             memoCajas[iRand] = new PMemorama(false, iRandPregunta, x, y, Toolkit.getDefaultToolkit().getImage(memoURL));
         }
 
-    //objOver= new Objeto(posX,posY,Toolkit.getDefaultToolkit().getImage(goURL));
+        //objOver= new Objeto(posX,posY,Toolkit.getDefaultToolkit().getImage(goURL));
         setBackground(Color.red);
         addKeyListener(this);
         addMouseListener(this);
@@ -177,7 +177,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
 
         bOver = false;     //Inicia banderas en falso
         bPaused = false;
-        respuestaEquivocada= false;
+        respuestaEquivocada = false;
         bInitialize = true;
 
         iCajaSelected = -1;
@@ -191,8 +191,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      *
      *
      * public void start () { // Declaras un hilo Thread th = new Thread (this);
-     * // Empieza el hilo th.start ();
-   }
+     * // Empieza el hilo th.start (); }
      */
     class ScheduleTask extends TimerTask {
 
@@ -206,11 +205,19 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
          */
         public void run() {
 
-            actualiza();
-            repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
-            if(respuestaEquivocada)
-                deselect();
+//            while (true) {
+                actualiza();
+                repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
+                if (respuestaEquivocada) {
+                    deselect();
+                }
+//            }
         }
+    }
+
+    public void initTimer() {
+        tTimer = new Timer();
+        tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
 
     public void stopGame() {
@@ -219,12 +226,14 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     }
 
     public void continueGame() {
+        juego.continueGame();
         tTimer = new Timer();
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
         bPaused = false;
     }
 
     public void pauseGame() {
+        juego.pauseGame();
         tTimer.cancel();
         bPaused = true;
     }
@@ -241,11 +250,12 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         try {
             // El thread se duerme.
             Thread.sleep(1500);
-            for(int i = 0; i < 6; i++){
-                if(memoCajas[i].isSelected())
+            for (int i = 0; i < 6; i++) {
+                if (memoCajas[i].isSelected()) {
                     memoCajas[i].select();
+                }
             }
-            respuestaEquivocada= false;
+            respuestaEquivocada = false;
         } catch (InterruptedException ex) {
             System.out.println("Error en " + ex.toString());
         }
@@ -256,13 +266,13 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      *
      */
     public void checaCajas() {
-
         for (int i = 0; i < 6; i++) {
             if (i != iCajaSelected && !memoCajas[i].isLocked()) {
                 boolean estaCaja = memoCajas[i].contiene(iXClick, iYClick);
 
                 if (estaCaja && iCajaSelected == -1) // Si es la primera caja del par en ser seleccionada
                 {
+                    System.out.println("sasdf");
                     iCajaSelected = i;
                     memoCajas[i].select();
                 } else if (estaCaja) // Si es la segunda caja en ser seleccionada
@@ -294,17 +304,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
             if (memoCajas[i].isSelected() && !memoCajas[i].isLocked()) {
                 memoCajas[i].select();
             }
-        }
-    }
-
-    /**
-     * Metodo <I>checaVidas</I>
-     * En este metodo lo que hace es revisar si el objeto tiene 0 vidas para
-     * acabar el juego
-     */
-    public void checaVidas() {
-        if (iVidas == 0) {
-            bOver = true;
         }
     }
 
@@ -367,7 +366,8 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * @param e es el <code>evento</code> que se genera en al soltar las teclas.
      */
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_P) {
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_P) {
             if (!bPaused) {
                 pauseGame();
             } else {
@@ -432,11 +432,13 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * @param me es el <code>evento</code> que se genera en al soltar el boton.
      */
     public void mouseReleased(MouseEvent mseEvent) {
-        //Guardo la posicion del mouse
-        iXClick = mseEvent.getX();
-        iYClick = mseEvent.getY();
+        if (!bPaused) {
+            //Guardo la posicion del mouse
+            iXClick = mseEvent.getX();
+            iYClick = mseEvent.getY();
 
-        checaCajas();
+            checaCajas();
+        }
     }
 
     /**
@@ -480,12 +482,10 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     } else {
                         sDisplay = preArreglo[memoCajas[i].getPosicion()].getRespuesta();
                     }
-
+                    System.out.println(sDisplay);
                     g.drawString(sDisplay, memoCajas[i].getPosX() + 120, memoCajas[i].getPosY() + 130);
                 }
             }
-
-            g.drawString("Score: " + iPoints, getWidth() - 100, 15);
         } else if (!bOver) {
             //Da un mensaje mientras se carga el dibujo 
             g.drawString("No se cargo la imagen..", 20, 20);
@@ -495,10 +495,5 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
          g.drawImage(objOver.getImagenI(), getWidth()/2-objOver.getAncho()/2, 
          getHeight()/2-objOver.getAlto()/2, this);
          }*/
-    }
-    
-    public void iniciaTimer() {
-        tTimer = new Timer();
-        tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
 }

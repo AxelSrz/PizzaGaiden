@@ -101,7 +101,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
-        
+
         objGranPizza = new Objeto(0, -700, Toolkit.getDefaultToolkit().getImage(pizURL1));
         objCajaPregunta = new Objeto(200, 500, Toolkit.getDefaultToolkit().getImage(cajaURL));
 
@@ -110,7 +110,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         bInitialize = true;
         bCambiado = false;
         tTimer = new Timer();
-        tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);   
+        tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
 
     /**
@@ -145,12 +145,14 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     }
 
     public void continueGame() {
+        juego.continueGame();
         tTimer = new Timer();
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
         bPaused = false;
     }
 
     public void pauseGame() {
+        juego.pauseGame();
         tTimer.cancel();
         bPaused = true;
     }
@@ -207,7 +209,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                 if (arrPreg.get(i).esCorrecto(iPregunta)) {
                     if (iRonda < 5) {
                         juego.setPunt(juego.getPunt() + I_BIEN);
-                        iRonda++;  
+                        iRonda++;
                         arrPreg.clear();
                         PreguntasSelec.clear();
                         for (int j = 0; j < iRonda; j++) {
@@ -216,11 +218,11 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                             while (PreguntasSelec.contains(iRandPregunta)) {
                                 iRandPregunta = (int) (Math.random() * 10);
                             }
-                            auxPregunta = new Enemigo(iRandPregunta,0,0,Toolkit.getDefaultToolkit().getImage(pregURL));
+                            auxPregunta = new Enemigo(iRandPregunta, 0, 0, Toolkit.getDefaultToolkit().getImage(pregURL));
                             arrPreg.add(auxPregunta);
                             PreguntasSelec.add(iRandPregunta);
                         }
-                        iPregunta= arrPreg.get(0).getPosicion();
+                        iPregunta = arrPreg.get(0).getPosicion();
                         Collections.shuffle(arrPreg);
                         switch (iRonda) {
                             case 2:
@@ -228,7 +230,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                                 auxPregunta.setPosX(400);
                                 auxPregunta.setPosY(70);
                                 arrPreg.set(0, auxPregunta);
-                                
+
                                 auxPregunta = arrPreg.get(1);
                                 auxPregunta.setPosX(600);
                                 auxPregunta.setPosY(70);
@@ -239,12 +241,12 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                                 auxPregunta.setPosX(300);
                                 auxPregunta.setPosY(50);
                                 arrPreg.set(0, auxPregunta);
-                                
+
                                 auxPregunta = arrPreg.get(1);
                                 auxPregunta.setPosX(500);
                                 auxPregunta.setPosY(50);
                                 arrPreg.set(1, auxPregunta);
-                                
+
                                 auxPregunta = arrPreg.get(2);
                                 auxPregunta.setPosX(700);
                                 auxPregunta.setPosY(50);
@@ -255,17 +257,17 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                                 auxPregunta.setPosX(200);
                                 auxPregunta.setPosY(60);
                                 arrPreg.set(0, auxPregunta);
-                                
+
                                 auxPregunta = arrPreg.get(1);
                                 auxPregunta.setPosX(400);
                                 auxPregunta.setPosY(30);
                                 arrPreg.set(1, auxPregunta);
-                                
+
                                 auxPregunta = arrPreg.get(2);
                                 auxPregunta.setPosX(600);
                                 auxPregunta.setPosY(30);
                                 arrPreg.set(2, auxPregunta);
-                                
+
                                 auxPregunta = arrPreg.get(3);
                                 auxPregunta.setPosX(770);
                                 auxPregunta.setPosY(60);
@@ -276,22 +278,22 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                                 auxPregunta.setPosX(100);
                                 auxPregunta.setPosY(100);
                                 arrPreg.set(0, auxPregunta);
-                                
+
                                 auxPregunta = arrPreg.get(1);
                                 auxPregunta.setPosX(300);
                                 auxPregunta.setPosY(100);
                                 arrPreg.set(1, auxPregunta);
-                                
+
                                 auxPregunta = arrPreg.get(2);
                                 auxPregunta.setPosX(500);
                                 auxPregunta.setPosY(100);
                                 arrPreg.set(2, auxPregunta);
-                                
+
                                 auxPregunta = arrPreg.get(3);
                                 auxPregunta.setPosX(650);
                                 auxPregunta.setPosY(100);
                                 arrPreg.set(3, auxPregunta);
-                                
+
                                 auxPregunta = arrPreg.get(4);
                                 auxPregunta.setPosX(800);
                                 auxPregunta.setPosY(100);
@@ -300,17 +302,15 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                             default:
                                 break;
                         }
-                    }
-                    else {
-                        if(!bCambiado){
+                    } else {
+                        if (!bCambiado) {
                             stopGame();
-                            bCambiado= true;
+                            bCambiado = true;
                             juego.cambiaJuego();
                         }
                     }
                     encontrado = true;
-                }
-                else {
+                } else {
                     juego.setPunt(juego.getPunt() - I_MAL);
                 }
             }
@@ -409,6 +409,14 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      */
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
+        if (key == KeyEvent.VK_P) {
+            if (!bPaused) {
+                System.out.println("oye ci");
+                pauseGame();
+            } else {
+                continueGame();
+            }
+        }
     }
 
     /**
@@ -421,11 +429,13 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      * teclas.
      */
     public void mouseClicked(MouseEvent mseEvent) {
-        //Guardo la posicion del mouse
-        iXClick = mseEvent.getX();
-        iYClick = mseEvent.getY();
+        if (!bPaused) {
+            //Guardo la posicion del mouse
+            iXClick = mseEvent.getX();
+            iYClick = mseEvent.getY();
 
-        checaRespuesta();
+            checaRespuesta();
+        }
     }
 
     /**
