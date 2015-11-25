@@ -40,7 +40,7 @@ public class panelPausa extends javax.swing.JPanel {
         labelReanudar = new javax.swing.JLabel();
         labelDetener = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(238, 99, 97));
+        setBackground(new java.awt.Color(255, 51, 51));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 60)); // NOI18N

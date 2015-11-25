@@ -17,6 +17,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -42,9 +43,9 @@ public class Juego extends javax.swing.JFrame {
     private boolean bPaused;
     private URL urlClip;
     public int iCounter;
-    private Pregunta[] preBase;
     private File file;
 //    private Player acMusic;
+    private ArrayList<ArrayList<Pregunta>> pregBase;
     
     /**
      * Creates new form Juego
@@ -60,6 +61,12 @@ public class Juego extends javax.swing.JFrame {
                 Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 
+        
+        try {
+            pregBase = Pregunta.separaTipos(Database.getContents(file));
+        } catch (IOException ex) {
+            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         initComponents();
         iJuegoActual = -1;
@@ -80,6 +87,10 @@ public class Juego extends javax.swing.JFrame {
     
     // Metodos de clase
     
+    public ArrayList<ArrayList<Pregunta>> getPregBase() {
+        return pregBase;
+    }
+
     public final void initPanels() {
         agregar1.setJuego(this);
         menu1.setJuego(this);
@@ -202,6 +213,7 @@ public class Juego extends javax.swing.JFrame {
         pizzarama1 = new pizzagaiden.Pizzarama.Pizzarama();
         pizzaInvaders1 = new pizzagaiden.PizzaInvaders.PizzaInvaders();
         pizzaQuiz1 = new pizzagaiden.PizzaQuizz.PizzaQuiz();
+        panelPausa1 = new pizzagaiden.panelPausa();
         gameOver1 = new pizzagaiden.GameOver();
         configuracion1 = new pizzagaiden.Configuracion();
         agregar1 = new pizzagaiden.Agregar();
@@ -266,6 +278,7 @@ public class Juego extends javax.swing.JFrame {
         );
 
         panelMinis.add(pizzaQuiz1, "quiz");
+        panelMinis.add(panelPausa1, "card8");
 
         panelJuego.add(panelMinis, java.awt.BorderLayout.PAGE_START);
 
@@ -339,6 +352,7 @@ public class Juego extends javax.swing.JFrame {
     private pizzagaiden.Menu menu1;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JPanel panelMinis;
+    private pizzagaiden.panelPausa panelPausa1;
     private javax.swing.JPanel panelPrincipal;
     private pizzagaiden.PizzaInvaders.PizzaInvaders pizzaInvaders1;
     private pizzagaiden.PizzaQuizz.PizzaQuiz pizzaQuiz1;

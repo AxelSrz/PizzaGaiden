@@ -1,1 +1,20 @@
 1,España,Spain
+2,2+2,4
+2,Integral de e^x,e^x
+2,Derivada de x^2,2x
+1,casa,house
+1,pueblo,town
+1,ghost,fantasma
+1,pencil,lápiz
+2,Derivada de 5,0
+2,47+3,50
+2,25+36,61
+2,4x8,32
+2,8/2,4
+2,10/5,2
+2,78-25,53
+1,white,blanco
+1,wall,pared
+1,chair,silla
+1,blackboard,pizarrón
+1,signo,señal

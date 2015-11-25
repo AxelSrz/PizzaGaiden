@@ -70,11 +70,20 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         PreguntasSelec = new HashSet<>();
         preArreglo = new Pregunta[10];
 
+        int iRndmType = (int) (Math.random() * 2);
+        
         for (int i = 0; i < 10; i++) {
-            char cPreg = (char) (i + 65), cResp = (char) (i + 97);
-            String sPreg = "" + cPreg, sResp = "" + cResp;
-            preArreglo[i] = new Pregunta(sPreg, sResp);
+            int iRandPregunta = (int) (Math.random() * 10);
+
+            while (PreguntasSelec.contains(iRandPregunta)) {
+                iRandPregunta = (int) (Math.random() * 10);
+            }
+
+            PreguntasSelec.add(iRandPregunta);
+            preArreglo[i] = juego.getPregBase().get(iRndmType).get(iRandPregunta);
         }
+        
+        PreguntasSelec.clear();
 
         for (int i = 0; i < 7; i++) {
 

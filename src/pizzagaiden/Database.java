@@ -81,8 +81,4 @@ public class Database {
         }
         return response;
     }
-//    
-//    public static boolean editObject(File file, Object object) throws IOException {
-//        
-//    }
 }

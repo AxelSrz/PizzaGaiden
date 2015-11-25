@@ -1,5 +1,7 @@
 package pizzagaiden;
 
+import java.util.ArrayList;
+
 public class Pregunta
 {
     int iType;
@@ -47,5 +49,25 @@ public class Pregunta
     @Override
     public String toString() {
         return iType + "," + sPregunta + "," + sRespuesta;
+    }
+    
+    public static ArrayList<ArrayList<Pregunta>> separaTipos(ArrayList<String> arr) {
+        ArrayList<ArrayList<Pregunta>> arreglo = new ArrayList<ArrayList<Pregunta>>();
+        Pregunta preTmp = null;
+        ArrayList<Pregunta> arrMate = new ArrayList<>();
+        ArrayList<Pregunta> arrIngles = new ArrayList<>();
+        for(String str : arr) {
+            preTmp = new Pregunta(str);
+            if(preTmp.iType == 1) {
+                arrIngles.add(preTmp);
+            }
+            else {
+                arrMate.add(preTmp);
+            }
+        }
+        arreglo.add(arrMate);
+        arreglo.add(arrIngles);
+        
+        return arreglo;
     }
 }

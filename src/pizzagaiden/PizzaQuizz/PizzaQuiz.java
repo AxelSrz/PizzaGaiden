@@ -85,17 +85,24 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         PreguntasSelec = new HashSet<Integer>();
         preArreglo = new Pregunta[10];
         arrPreg = new ArrayList<Enemigo>();
-
-        for (int i = 0; i < 10; i++) {
-            char cPreg = (char) (i + 65), cResp = (char) (i + 97);
-            String sPreg = "" + cPreg, sResp = "" + cResp;
-            preArreglo[i] = new Pregunta(sPreg, sResp);
+        
+        int iRndmType = (int)(Math.random() * 2);
+        int iArregloSize = juego.getPregBase().get(iRndmType).size();
+        
+        for(int i=0; i < 10; i++) {
+            iRandPregunta = (int) (Math.random() * iArregloSize);
+            
+            while(PreguntasSelec.contains(iRandPregunta)) {
+                iRandPregunta = (int) (Math.random() * iArregloSize);
+            }
+            
+            PreguntasSelec.add(iRandPregunta);
+            preArreglo[i] = juego.getPregBase().get(iRndmType).get(iRandPregunta);
         }
-
-        iRandPregunta = (int) (Math.random() * 10);
+        
+        iPregunta = iRandPregunta;
         auxPregunta = new Enemigo(iRandPregunta, 480, 40, Toolkit.getDefaultToolkit().getImage(pregURL));
         arrPreg.add(auxPregunta);
-        iPregunta = iRandPregunta;
 
         setBackground(Color.red);
         addKeyListener(this);
@@ -523,16 +530,11 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
             for (int i = 0; i < arrPreg.size(); i++) {
                 g.drawImage(arrPreg.get(i).getImagenI(), arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(), this);
                 sDisplay = preArreglo[arrPreg.get(i).getPosicion()].getRespuesta();
-                g.drawString(sDisplay, arrPreg.get(i).getPosX() + 40, arrPreg.get(i).getPosY() + 50);
+                g.drawString(sDisplay, arrPreg.get(i).getPosX() - 50, arrPreg.get(i).getPosY() + 50);
             }
         } else if (!bOver) {
             //Da un mensaje mientras se carga el dibujo 
             g.drawString("No se cargo la imagen..", 20, 20);
         }
-
-        /*else{
-         g.drawImage(objOver.getImagenI(), getWidth()/2-objOver.getAncho()/2, 
-         getHeight()/2-objOver.getAlto()/2, this);
-         }*/
     }
 }
