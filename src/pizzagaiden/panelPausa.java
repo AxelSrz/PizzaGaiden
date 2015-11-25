@@ -41,40 +41,17 @@ public class panelPausa extends javax.swing.JPanel {
         labelDetener = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(238, 99, 97));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 60)); // NOI18N
         jLabel1.setText("Juego en Pausa");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 98, -1, -1));
 
         labelReanudar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_aceptar.png"))); // NOI18N
+        add(labelReanudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 520, -1, -1));
 
         labelDetener.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_cancelar.png"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(126, 126, 126)
-                .addComponent(labelReanudar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
-                .addComponent(labelDetener)
-                .addGap(139, 139, 139))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(307, 307, 307))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 345, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelReanudar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelDetener, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(236, 236, 236))
-        );
+        add(labelDetener, new org.netbeans.lib.awtextra.AbsoluteConstraints(614, 520, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
