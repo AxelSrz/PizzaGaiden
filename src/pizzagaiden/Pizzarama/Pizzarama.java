@@ -49,9 +49,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * se llaman los metodos init y start
      */
     public Pizzarama() {
-        //Constructor de JFrame
         super();
-        //start();
     }
 
     /**
@@ -181,6 +179,8 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         bInitialize = true;
 
         iCajaSelected = -1;
+        tTimer = new Timer();
+        tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
 
     /**
@@ -204,20 +204,11 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
          *
          */
         public void run() {
-
-//            while (true) {
-                actualiza();
-                repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
-                if (respuestaEquivocada) {
-                    deselect();
-                }
-//            }
+            repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
+            if (respuestaEquivocada) {
+                deselect();
+            }
         }
-    }
-
-    public void initTimer() {
-        tTimer = new Timer();
-        tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
 
     public void stopGame() {
@@ -236,14 +227,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         juego.pauseGame();
         tTimer.cancel();
         bPaused = true;
-    }
-
-    /**
-     * Metodo usado para actualizar la posicion de los objetos.
-     *
-     */
-    public void actualiza() {
-
     }
 
     public void deselect() {
@@ -272,7 +255,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
 
                 if (estaCaja && iCajaSelected == -1) // Si es la primera caja del par en ser seleccionada
                 {
-                    System.out.println("sasdf");
                     iCajaSelected = i;
                     memoCajas[i].select();
                 } else if (estaCaja) // Si es la segunda caja en ser seleccionada
@@ -490,10 +472,5 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
             //Da un mensaje mientras se carga el dibujo 
             g.drawString("No se cargo la imagen..", 20, 20);
         }
-
-        /*else{
-         g.drawImage(objOver.getImagenI(), getWidth()/2-objOver.getAncho()/2, 
-         getHeight()/2-objOver.getAlto()/2, this);
-         }*/
     }
 }

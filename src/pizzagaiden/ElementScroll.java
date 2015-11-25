@@ -60,7 +60,6 @@ public class ElementScroll extends javax.swing.JPanel implements ListCellRendere
         if(value instanceof Pregunta) {
             Pregunta preg = (Pregunta) value;
             jLabel3.setText(preg.sPregunta + " - " + preg.sRespuesta);
-            
         } else {
             jLabel1.setVisible(false);
             jLabel2.setVisible(false);
