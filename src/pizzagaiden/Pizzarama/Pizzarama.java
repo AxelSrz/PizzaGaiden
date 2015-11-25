@@ -1,12 +1,6 @@
 package pizzagaiden.Pizzarama;
 
 /**
- * @(#)Tarea4.java
- *
- * Aplicacion JFrame de la Tarea 4
- *
- * @author Alejandro Villaseñor
- * @version 1.00 2015/9/9
  */
 import java.awt.Graphics;
 import java.awt.Image;
@@ -26,15 +20,12 @@ import pizzagaiden.SoundClip;
 
 public class Pizzarama extends PanelJuego implements KeyListener, MouseListener, MouseMotionListener {
 
-    private static final long serialVersionUID = 1L;
     // Se declaran las variables.
-    private int cont = 0;
+    private static final long serialVersionUID = 1L;
     private Image dbImage; // Imagen a proyectar 
     private Graphics dbg; // Objeto grafico
     private int iXClick;     //Posicion del mouse al dar click
     private int iYClick;
-    private int iPoints;  //Puntos del jugador
-    private int iVidas;
     private int iParesEncontrados;
     private Pregunta preArreglo[];
     private Set<Integer> preguntasSelec;
@@ -51,17 +42,16 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     private int iRndmType;
 
     /**
-     * Metodo constructor usado para crear el objeto <code>Tarea4</code> En el
-     * se llaman los metodos init y start
+     * Metodo constructor usado para crear el objeto <code>Pizzarama</code>
      */
     public Pizzarama() {
         super();
     }
 
     /**
-     * Metodo <I>init</I> sobrescrito de la clase <code>Applet</code>.<P>
+     * Metodo <I>init</I>.
      * En este metodo se inizializan las variables o se crean los objetos a
-     * usarse en el <code>Applet</code> y se definen funcionalidades.
+     * usarse en el programa y se definen funcionalidades.
      */
     public void init() {
         setSize(1000, 700);
@@ -149,7 +139,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
             x = 0;
             y = 0;
 
-            switch (iRand) {
+            switch (iRand) { //Pocisiones de las cajas de preguntas
                 case 0:
                     x = 40;
                     y = 100;
@@ -193,22 +183,17 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         bInitialize = true;
 
         iCajaSelected = -1;
-        audClick= new SoundClip("click.wav");
+        audClick= new SoundClip("click.wav"); //Carga los sonidos
         audClickCorrecto = new SoundClip("correct.wav");
         audClickError = new SoundClip("error.wav");
-        tTimer = new Timer();
+        tTimer = new Timer(); //Inicializa el timer
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
 
     /**
-     * Metodo <I>start</I> sobrescrito de la clase <code>Applet</code>.<P>
-     * En este metodo se crea e inicializa el hilo para la animacion este metodo
-     * es llamado despues del init o cuando el usuario visita otra pagina y
-     * luego regresa a la pagina en donde esta este <code>Applet</code>
-     *
-     *
-     * public void start () { // Declaras un hilo Thread th = new Thread (this);
-     * // Empieza el hilo th.start (); }
+     * Metodo <I>ScheduleTask</I>.<P>
+     * En este metodo se crea e inicializa el hilo para el proceso que se va 
+     * repetir segun el ritmo del timer
      */
     class ScheduleTask extends TimerTask {
 
@@ -216,31 +201,42 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
          * Metodo <I>run</I> sobrescrito de la clase <code>Thread</code>.<P>
          * En este metodo se ejecuta el hilo, es un ciclo indefinido donde se
          * incrementa la posicion en x o y dependiendo de la direccion,
-         * finalmente se repinta el <code>Applet</code> y luego manda a dormir
-         * el hilo.
+         * finalmente.
          *
          */
         public void run() {
-
-            repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
-            if (respuestaEquivocada) {
-                audClick.play();
-                deselect();
-            }
+                repaint();    // Se actualiza el Panel repintando el contenido.
+                if (respuestaEquivocada) {
+                    audClick.play();
+                    deselect();
+                }
         }
     }
 
+    /**
+     * Metodo <I>stopGame</I> no recive nada y es void.
+     * Detiene la ejecucion del minijuego.
+     */
     public void stopGame() {
         tTimer.cancel();
         bOver = true;
     }
 
+    /**
+     * Metodo <I>continueGame</I> no recibe nada y es void.
+     * Se encarga de reanudar el juego
+     *
+     */
     public void continueGame() {
         tTimer = new Timer();
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
         bPaused = false;
     }
 
+    /**
+     * Metodo <I>pauseGame</I> no recive nada y es void.
+     * Pausa la ejecucion del minijuego.
+     */
     public void pauseGame() {
         juego.pauseGame();
         tTimer.cancel();
@@ -290,7 +286,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                         respuestaEquivocada = true;
                     }
                     iCajaSelected = -1;
-                    cont = 0;
                 }
             }
         }//Termina for
@@ -310,8 +305,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     }
 
     /**
-     * Metodo <I>paint</I> sobrescrito de la clase <code>Applet</code>, heredado
-     * de la clase Container.<P>
+     * Metodo <I>paint</I> .<P>
      * En este metodo lo que hace es actualizar el contenedor
      *
      * @param g es el <code>objeto grafico</code> usado para dibujar.
@@ -434,7 +428,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * @param me es el <code>evento</code> que se genera en al soltar el boton.
      */
     public void mouseReleased(MouseEvent mseEvent) {
-        if (!bPaused) {
+        if (!bPaused) { //si el juego no esta pausa
             //Guardo la posicion del mouse
             iXClick = mseEvent.getX();
             iYClick = mseEvent.getY();
@@ -472,13 +466,12 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      */
     public void paintComponent(Graphics g) {
         g.setFont(new Font("Verdana", Font.BOLD, 20));
-        System.out.println(iRndmType);
         int iOffsetX = (iRndmType == 2 ? 120 : 55);
         if (bInitialize) {
             //Dibuja la imagen en la posicion actualizada
             for (int i = 0; i < 6; i++) {
                 g.drawImage(memoCajas[i].getImagenI(), memoCajas[i].getPosX(), memoCajas[i].getPosY(), this);
-                if (memoCajas[i].isSelected() || memoCajas[i].isLocked()) {
+                if (memoCajas[i].isSelected() || memoCajas[i].isLocked()) { //Si la pregunta está seleccionada o ya se respondio correctamente
                     String sDisplay;
 
                     if (memoCajas[i].isPregunta()) {

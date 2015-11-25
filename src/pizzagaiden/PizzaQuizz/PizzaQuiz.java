@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pizzagaiden.PizzaQuizz;
 
 /**
@@ -36,15 +31,10 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     private Graphics dbg; // Objeto grafico
     private int iXClick;     //Posicion del mouse al dar click
     private int iYClick;
-    private int iPoints;  //Puntos del jugador
     private int iVidas;
     private int iRonda;
-    private int iDestruidos; //Numero de enemigos destruidos hasta el momento
-    private int iVelPreguntas; //la direccion y velocidad de las preguntas
     private Objeto objGranPizza;
     private Objeto objCajaPregunta;
-    private Stack<Integer> iDisparosDestruir;
-    private Stack<Integer> iPreguntasDestruir;
     private Pregunta preArreglo[];
     private Set<Integer> PreguntasSelec;
     private List<Enemigo> arrPreg;
@@ -68,8 +58,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     private int iRndmType;
 
     /**
-     * Metodo constructor usado para crear el objeto <code>Tarea4</code> En el
-     * se llaman los metodos init y start
+     * Metodo constructor usado para crear el objeto <code>PizzaQuiz</code>
      */
     public PizzaQuiz() {
         super();
@@ -77,13 +66,12 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     }
 
     /**
-     * Metodo <I>init</I> sobrescrito de la clase <code>Applet</code>.<P>
-     * En este metodo se inizializan las variables o se crean los objetos a
-     * usarse en el <code>Applet</code> y se definen funcionalidades.
+     * Metodo <I>init</I>.<P>
+     * En este metodo se inizializan las variables o se crean los objetos
+     * y se definen funcionalidades.
      */
     public void init() {
         setSize(1000, 700);
-        iPoints = 0;
         iVidas = 2;
         iRonda = 1;
         PreguntasSelec = new HashSet<>();
@@ -126,15 +114,10 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         audClickError = new SoundClip("error.wav");
     }
 
-    /**
-     * Metodo <I>start</I> sobrescrito de la clase <code>Applet</code>.<P>
-     * En este metodo se crea e inicializa el hilo para la animacion este metodo
-     * es llamado despues del init o cuando el usuario visita otra pagina y
-     * luego regresa a la pagina en donde esta este <code>Applet</code>
-     *
-     *
-     * public void start () { // Declaras un hilo Thread th = new Thread (this);
-     * // Empieza el hilo th.start (); }
+     /**
+     * Metodo <I>ScheduleTask</I>.<P>
+     * En este metodo se crea e inicializa el hilo para el proceso que se va 
+     * repetir segun el ritmo del timer
      */
     class ScheduleTask extends TimerTask {
 
@@ -142,29 +125,40 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
          * Metodo <I>run</I> sobrescrito de la clase <code>TimerTask</code>.<P>
          * En este metodo se ejecuta el hilo, es un ciclo indefinido donde se
          * incrementa la posicion en x o y dependiendo de la direccion,
-         * finalmente se repinta el <code>Applet</code> y luego manda a dormir
-         * el hilo.
+         * finalmente.
          *
          */
         @Override
         public void run() {
             actualiza();
-            repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
+            repaint();    // Se actualiza el repintando el contenido.
         }
     }
 
+    /**
+     * Metodo <I>stopGame</I> no recive nada y es void.
+     * Detiene la ejecucion del minijuego.
+     */
     public void stopGame() {
         tTimer.cancel();
         bOver = true;
     }
 
-    @Override
+    /**
+     * Metodo <I>continueGame</I> no recibe nada y es void.
+     * Se encarga de reanudar el juego
+     *
+     */
     public void continueGame() {
         tTimer = new Timer();
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
         bPaused = false;
     }
 
+    /**
+     * Metodo <I>pauseGame</I> no recive nada y es void.
+     * Pausa la ejecucion del minijuego.
+     */
     public void pauseGame() {
         tTimer.cancel();
         bPaused = true;
@@ -213,8 +207,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     }
 
     /**
-     * Metodo usado para checar las colisiones de los objetos Cofre y Monedas
-     * con las orillas del <code>Applet</code> y entre ellos.
+     * Metodo usado para checar si la respuesta seleccionada es la correcta
      */
     public void checaRespuesta() {
         boolean encontrado = false;
@@ -334,18 +327,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     }
 
     /**
-     * Metodo <I>checaVidas</I>
-     * En este metodo lo que hace es revisar si el objeto tiene 0 vidas para
-     * acabar el juego
-     */
-    public void checaVidas() {
-        if (iVidas == 0) {
-            bOver = true;
-        }
-    }
-
-    /**
-     * Metodo <I>paint</I> sobrescrito de la clase <code>Applet</code>, heredado
+     * Metodo <I>paint</I> heredado
      * de la clase Container.<P>
      * En este metodo lo que hace es actualizar el contenedor
      *

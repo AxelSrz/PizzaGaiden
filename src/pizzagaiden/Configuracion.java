@@ -19,6 +19,13 @@ public class Configuracion extends javax.swing.JPanel {
      */
     public Configuracion() {
         initComponents();
+        agregarLabel.setText("Agregar");
+        agregarLabel.setHorizontalTextPosition(JLabel.CENTER);
+        agregarLabel.setVerticalTextPosition(JLabel.CENTER);
+        
+        returnLabel.setText("Regresar a menu");
+        returnLabel.setHorizontalTextPosition(JLabel.CENTER);
+        returnLabel.setVerticalTextPosition(JLabel.CENTER);
     }
 
     /**
@@ -32,20 +39,23 @@ public class Configuracion extends javax.swing.JPanel {
 
         returnLabel = new javax.swing.JLabel();
         agregarLabel = new javax.swing.JLabel();
-        editarLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 51, 51));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        returnLabel.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
+        returnLabel.setForeground(new java.awt.Color(255, 255, 255));
         returnLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
         returnLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 returnLabelMouseClicked(evt);
             }
         });
-        add(returnLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 510, -1, -1));
+        add(returnLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, -1, -1));
 
+        agregarLabel.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
+        agregarLabel.setForeground(new java.awt.Color(255, 255, 255));
         agregarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
         agregarLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -54,26 +64,14 @@ public class Configuracion extends javax.swing.JPanel {
         });
         add(agregarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, -1, -1));
 
-        editarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
-        editarLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editarLabelMouseClicked(evt);
-            }
-        });
-        add(editarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, -1, -1));
-
-        jLabel1.setText("Configuración");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Hot Pizza", 0, 48)); // NOI18N
+        jLabel1.setText("Configuracion");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void returnLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnLabelMouseClicked
         juego.cambiaPanelPrincipal("menu");
     }//GEN-LAST:event_returnLabelMouseClicked
-
-    private void editarLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarLabelMouseClicked
-        juego.getEditar1().loadPreguntas();
-        juego.cambiaPanelPrincipal("editar");
-    }//GEN-LAST:event_editarLabelMouseClicked
 
     private void agregarLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarLabelMouseClicked
         juego.cambiaPanelPrincipal("agregar");
@@ -81,7 +79,6 @@ public class Configuracion extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel agregarLabel;
-    private javax.swing.JLabel editarLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel returnLabel;
     // End of variables declaration//GEN-END:variables
@@ -92,10 +89,6 @@ public class Configuracion extends javax.swing.JPanel {
 
     public JLabel getjLabel2() {
         return agregarLabel;
-    }
-
-    public JLabel getjLabel3() {
-        return editarLabel;
     }
 
     public void setJuego(Juego juego) {

@@ -5,7 +5,6 @@
  */
 package pizzagaiden;
 
-import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -13,11 +12,8 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +21,6 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import pizzagaiden.PizzaInvaders.PizzaInvaders;
 import pizzagaiden.Pizzarama.Pizzarama;
-//import javax.media.Player;
-
 /**
  *
  * @author axelsuarez
@@ -40,9 +34,8 @@ public class Juego extends javax.swing.JFrame {
     private CardLayout cardMinis;
     private PanelJuego juegoActivo;
     private Timer timCountdown;
-    private boolean bOver;
     private boolean bPaused;
-    private URL urlClip;
+    private boolean bOver;
     public int iCounter;
     private File file;
     public SoundClip audTemaJuego;
@@ -50,8 +43,11 @@ public class Juego extends javax.swing.JFrame {
 //    private Player acMusic;
     private ArrayList<ArrayList<Pregunta>> pregBase;
     
-    /**
-     * Creates new form Juego
+     /**
+     * Metodo <I>Juego</I> constructor de la clase
+     * que se encarga de leer el archivo de preguntas
+     * y mandar a los respectivos metodos de inicialización
+     * para poder correr el juego
      */
     public Juego() {
         // Inicializa dependencias
@@ -71,19 +67,18 @@ public class Juego extends javax.swing.JFrame {
             Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        //Manda llamar a los metodos de inicialización
         initComponents();
         iJuegoActual = -1;
         
         // Pasa el objeto a todas la clases
         initPanels();
-        
-        // Inicializa la música del juego
-        urlClip = this.getClass().getResource("undertale.mp3");
 //        acMusic = Manager.getClip();
 
-        getContentPane().setSize(1000, 700);
+        //pone los valores por default
+        getContentPane().setSize(1000, 700); //tamaño del frame
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // acabar la ejecución al cerrar
         cardPrincipal = (CardLayout) panelPrincipal.getLayout();
         cardMinis = (CardLayout) panelMinis.getLayout();
         audTemaMenu = new SoundClip("menuMusic.wav");
@@ -93,19 +88,36 @@ public class Juego extends javax.swing.JFrame {
     
     // Metodos de clase
     
+    /**
+     * Metodo <I>getPregBase</I> no recibe parametros y regresa un ArrayList con
+     * un ArrayList anidado. Sirve para hacer get de la variable que contiene 
+     * los datos de la base de preguntas.
+     */
     public ArrayList<ArrayList<Pregunta>> getPregBase() {
         return pregBase;
     }
 
+     /**
+     * Metodo <I>initPanels</I> no recibe parametros y es void.
+     * se encarga de que los paneles principales de la aplicación esten
+     * ligados al JFrame general
+     *
+     */
+    
     public final void initPanels() {
         agregar1.setJuego(this);
         menu1.setJuego(this);
         configuracion1.setJuego(this);
         gameOver1.setJuego(this);
-        editar1.setJuego(this);
         panelPausa1.setJuego(this);
     }
     
+    /**
+     * Metodo <I>changeFont</I> recibe un componente y una font, es void.
+     * Este metodo permite cambiar la tipografía de un componente despué de su
+     * inicialización.
+     *
+     */
     public static void changeFont(Component component, Font font) {
         component.setFont(font);
         if (component instanceof Container) {
@@ -115,66 +127,100 @@ public class Juego extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Metodo <I>cambiaPanelPrincipal</I> recibe un string que representa
+     * un panel dentro de la estructura del CardPane, es void.
+     * Muestra en el CardPane el panel que se especifica en el string.
+     *
+     */
     public void cambiaPanelPrincipal(String strPanel) {
         audTemaMenu.play();
         cardPrincipal.show(panelPrincipal, strPanel);
     }
     
+    /**
+     * Metodo <I>stopJuego</I> no recive nada y es void.
+     * Detiene la ejecucion del ciclo de minijuegos.
+     *
+     */
     public void stopJuego() {
         audTemaJuego.stop();
         cardPrincipal.show(panelPrincipal, "gameOver");
     }
     
+    /**
+     * Metodo <I>getPaused</I> no recive nada y regresa un boolean.
+     * Regresa si el juego esta en modo de pausa
+     *
+     */
     public boolean getPaused(){
         return bPaused;
     }
     
+    /**
+     * Metodo <I>startJuego</I> no recibe nada, es void.
+     * Empieza la ejecución del ciclo de juegos
+     *
+     */
     public void startJuego() {
-        audTemaMenu.stop();
+        audTemaMenu.stop(); //Para la musica del menu
         audTemaJuego = new SoundClip("gameMusic.wav");
         audTemaJuego.setLooping(true);
-        audTemaJuego.play();
-        bOver = false;
+        audTemaJuego.play(); //Empieza la música del juego
+        bOver = false; //inicialización de variables de control
         iPunt = 0;
         setPunt(iPunt);
-        cardPrincipal.show(panelPrincipal, "panelJuego");
-        iCounter = 60;
+        cardPrincipal.show(panelPrincipal, "panelJuego"); //pone el template de panel de juego en el panel principal
+        iCounter = 60; // empieza la cuenta regresiva en cierto numero de segundos
         ActionListener listener = new ActionListener() {
-            @Override
+            @Override // Una accion que se repite segun el contador donde se instancie
             public void actionPerformed(ActionEvent e) {
-                iCounter--;
+                iCounter--; //Le decrementa en una unidad al contador del tiempo
                 barraJuego1.getjProgressBar1().setValue(iCounter);  
-                if (iCounter < 1) {
+                if (iCounter < 1) { //Si el tiempo se acaba destruye el timer y para el juego
                     bOver = true;
                     timCountdown.stop();
                     stopJuego();
                 }
             }
         };
-        timCountdown = new Timer(1000, listener);
+        timCountdown = new Timer(1000, listener); //Instancia el timer junto con la task
         timCountdown.start();
-        cambiaJuego();
+        cambiaJuego(); //empieza el primer cambio de juego
     }
     
+    
+    /**
+     * Metodo <I>syncGame</I> recibe el PanelJuego a sincronizar y es void.
+     * Se encarga de conectar la instancia del Frame con la de cada Panel de los
+     * minijuegos.
+     *
+     */
     public void syncGame(PanelJuego juego) {
         juego.setJuego(this);
     }
-          
+    
+    /**
+     * Metodo <I>cambiaJuego</I> no recibe nada y es void.
+     * Se encarga de inicializar y presentar el nuevo minijuego segun el orden 
+     * predefinido y a partir del estado actual del juego.
+     *
+     */
     public void cambiaJuego() {
-        iJuegoActual++;
+        iJuegoActual++; // Variable de control para saber el próximo juego a cargar
 
         switch(iJuegoActual % 3) {
-            case 0:
-                pizzaQuiz1 = new pizzagaiden.PizzaQuizz.PizzaQuiz();
-                panelMinis.add(pizzaQuiz1, "quiz");
-                juegoActivo = pizzaQuiz1;
-                syncGame(juegoActivo);
-                pizzaQuiz1.init();
-                cardMinis.show(panelMinis, "quiz");
-                pizzaQuiz1.requestFocus();
+            case 0: //Cuando se carga PizzaQuiz
+                pizzaQuiz1 = new pizzagaiden.PizzaQuizz.PizzaQuiz(); //Crea una nueva instancia de la clase
+                panelMinis.add(pizzaQuiz1, "quiz"); // la agrega al CardPane
+                juegoActivo = pizzaQuiz1; // cambia la variable de control de juego activo para indicarl el actual
+                syncGame(juegoActivo); //Lo conecta con el frame principal
+                pizzaQuiz1.init(); //inicializa los valores necesarios para la ejecucion del juego
+                cardMinis.show(panelMinis, "quiz"); //Muestra el juego ya en el panel
+                pizzaQuiz1.requestFocus(); //Se encarga de observar los listeners del juego
                 break;
-            case 1:
-                pizzarama1 = new Pizzarama();
+            case 1: //Cuando se carga Pizzarama
+                pizzarama1 = new Pizzarama(); //misma descripcion que en el caso de pizza quiz
                 panelMinis.add(pizzarama1, "pizzarama");
                 juegoActivo = pizzarama1;
                 syncGame(juegoActivo);
@@ -182,8 +228,8 @@ public class Juego extends javax.swing.JFrame {
                 cardMinis.show(panelMinis, "pizzarama");
                 pizzarama1.requestFocus();
                 break;
-            case 2:
-                pizzaInvaders1 = new PizzaInvaders();
+            case 2: //Cuando se carga PizzaInvaders
+                pizzaInvaders1 = new PizzaInvaders(); //misma descripcion que en el caso de pizza quiz
                 panelMinis.add(pizzaInvaders1, "invaders");
                 juegoActivo = pizzaInvaders1;
                 syncGame(juegoActivo);
@@ -194,25 +240,33 @@ public class Juego extends javax.swing.JFrame {
         }
     }
     
-    // Getters y setters
-    
+    /**
+     * Metodo <I>getDatabaseFile</I> Handler para el archivo de preguntas
+     *
+     */
     public File getDatabaseFile() {
         return file;
     }
-
+    
+    /**
+     * Metodo <I>getPunt</I> Handler get para el numero de puntos actuales
+     *
+     */
     public int getPunt() {
         return iPunt;
     }
-
+    
+    /**
+     * Metodo <I>getPunt</I> Handler set para el numero de puntos actuales
+     *
+     */
     public void setPunt(int iPunt) {
         Juego.iPunt = iPunt;
         barraJuego1.setjLabel2Value(iPunt);
     }
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * Método con código autogenerado
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -230,15 +284,12 @@ public class Juego extends javax.swing.JFrame {
         gameOver1 = new pizzagaiden.GameOver();
         configuracion1 = new pizzagaiden.Configuracion();
         agregar1 = new pizzagaiden.Agregar();
-        editar1 = new pizzagaiden.Editar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         panelPrincipal.setMinimumSize(new java.awt.Dimension(1000, 700));
         panelPrincipal.setLayout(new java.awt.CardLayout());
-
-        menu1.setBackground(new java.awt.Color(255, 51, 51));
         panelPrincipal.add(menu1, "menu");
 
         panelJuego.setLayout(new java.awt.BorderLayout());
@@ -301,7 +352,6 @@ public class Juego extends javax.swing.JFrame {
         panelPrincipal.add(gameOver1, "gameOver");
         panelPrincipal.add(configuracion1, "config");
         panelPrincipal.add(agregar1, "agregar");
-        panelPrincipal.add(editar1, "editar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -325,10 +375,10 @@ public class Juego extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /* Establece el look and feel Nimbus */
+        // < DefaultState editor = " colapsado " desc = " look and feel establecimiento de códigos (opcional) ">
+        /* Si Nimbus (introducido en Java SE 6 ) no está disponible, se queda con el aspecto por defecto y se siente.
+         * Para más detalles ver http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -338,13 +388,9 @@ public class Juego extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -360,7 +406,6 @@ public class Juego extends javax.swing.JFrame {
     private pizzagaiden.Agregar agregar1;
     private pizzagaiden.BarraJuego barraJuego1;
     private pizzagaiden.Configuracion configuracion1;
-    private pizzagaiden.Editar editar1;
     private pizzagaiden.GameOver gameOver1;
     private pizzagaiden.Menu menu1;
     private javax.swing.JPanel panelJuego;
@@ -372,6 +417,11 @@ public class Juego extends javax.swing.JFrame {
     private pizzagaiden.Pizzarama.Pizzarama pizzarama1;
     // End of variables declaration//GEN-END:variables
     
+    /**
+     * Metodo <I>pauseGame</I> no recibe nada y es void.
+     * Se encarga de pausar el juego
+     *
+     */
     public void pauseGame(){
         timCountdown.stop();
         bPaused=true;
@@ -379,9 +429,14 @@ public class Juego extends javax.swing.JFrame {
         panelPausa1.requestFocus();
     }
     
+    /**
+     * Metodo <I>continueGame</I> no recibe nada y es void.
+     * Se encarga de reanudar el juego
+     *
+     */
     public void continueGame(){
         ActionListener listener = new ActionListener() {
-
+            // Una accion que se repite segun el contador donde se instancie
             @Override
             public void actionPerformed(ActionEvent e) {
                 iCounter--;
@@ -409,9 +464,5 @@ public class Juego extends javax.swing.JFrame {
         cardMinis.show(panelMinis, str);
         juegoActivo.requestFocus();
         bPaused = false;
-    }
-
-    public Editar getEditar1() {
-        return editar1;
     }
 }
