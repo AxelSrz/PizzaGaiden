@@ -405,6 +405,7 @@ public class Juego extends javax.swing.JFrame {
         else if(juegoActivo.equals(pizzarama1)) {
             str = "pizzarama";
         }
+        juegoActivo.continueGame();
         cardMinis.show(panelMinis, str);
         juegoActivo.requestFocus();
         bPaused = false;

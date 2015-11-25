@@ -35,11 +35,7 @@ public class PanelJuego extends JPanel{
         
     }
     
-    public void unpause(PanelJuego pj) {
-        pj.iniciaTimers();
-    }
-    
     // Overridable method
-    public void iniciaTimers() {
+    public void continueGame() {
     }
 }

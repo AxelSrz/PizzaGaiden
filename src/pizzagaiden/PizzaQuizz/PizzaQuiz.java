@@ -54,17 +54,18 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     private boolean bInitialize;
     private boolean bCambiado;
     private ImageIcon icono;
-    private URL pizURL1 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_1.png");
-    private URL pizURL2 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_2.png");
-    private URL pizURL3 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_3.png");
-    private URL pizURL4 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_4.png");
-    private URL pizURL5 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_5.png");
-    private URL cajaURL = this.getClass().getResource("Caja_Color.png");
-    private URL pregURL = this.getClass().getResource("peperoni.png");
+    private final URL pizURL1 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_1.png");
+    private final URL pizURL2 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_2.png");
+    private final URL pizURL3 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_3.png");
+    private final URL pizURL4 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_4.png");
+    private final URL pizURL5 = this.getClass().getResource("PizzaGhost_Color_NoPepperoni_5.png");
+    private final URL cajaURL = this.getClass().getResource("Caja_Color.png");
+    private final URL pregURL = this.getClass().getResource("peperoni.png");
     private int iRandPregunta;
     private int iPregunta;
     public SoundClip audClickCorrecto;
     public SoundClip audClickError;
+    private int iRndmType;
 
     /**
      * Metodo constructor usado para crear el objeto <code>Tarea4</code> En el
@@ -85,11 +86,11 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         iPoints = 0;
         iVidas = 2;
         iRonda = 1;
-        PreguntasSelec = new HashSet<Integer>();
+        PreguntasSelec = new HashSet<>();
         preArreglo = new Pregunta[10];
-        arrPreg = new ArrayList<Enemigo>();
+        arrPreg = new ArrayList<>();
         
-        int iRndmType = (int)(Math.random() * 2);
+        iRndmType = (int)(Math.random()) + 1;
         int iArregloSize = juego.getPregBase().get(iRndmType).size();
         
         for(int i=0; i < 10; i++) {
@@ -138,13 +139,14 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     class ScheduleTask extends TimerTask {
 
         /**
-         * Metodo <I>run</I> sobrescrito de la clase <code>Thread</code>.<P>
+         * Metodo <I>run</I> sobrescrito de la clase <code>TimerTask</code>.<P>
          * En este metodo se ejecuta el hilo, es un ciclo indefinido donde se
          * incrementa la posicion en x o y dependiendo de la direccion,
          * finalmente se repinta el <code>Applet</code> y luego manda a dormir
          * el hilo.
          *
          */
+        @Override
         public void run() {
             actualiza();
             repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
@@ -156,17 +158,17 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         bOver = true;
     }
 
+    @Override
     public void continueGame() {
-        juego.continueGame();
         tTimer = new Timer();
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
         bPaused = false;
     }
 
     public void pauseGame() {
-        juego.pauseGame();
         tTimer.cancel();
         bPaused = true;
+        juego.pauseGame();
     }
 
     /**
@@ -226,7 +228,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                         arrPreg.clear();
                         PreguntasSelec.clear();
                         for (int j = 0; j < iRonda; j++) {
-                            int iRandPregunta = (int) (Math.random() * 10);
+                            iRandPregunta = (int) (Math.random() * 10);
 
                             while (PreguntasSelec.contains(iRandPregunta)) {
                                 iRandPregunta = (int) (Math.random() * 10);
@@ -367,8 +369,9 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
 
         // Dibuja la imagen actualizada
         g.drawImage(dbImage, 0, 0, this);
-
-        g.setFont(new Font("Verdana", Font.BOLD, 30));
+        
+        int iOffsetX = (iRndmType == 2 ? 40 : 5);
+        g.setFont(new Font("Verdana", Font.BOLD, 22));
         String sDisplay;
         if (bInitialize) {
             //Dibuja la imagen en la posicion actualizada
@@ -378,8 +381,11 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
             g.drawString(sDisplay, objCajaPregunta.getPosX() + 100, objCajaPregunta.getPosY() + 60);
             for (int i = 0; i < arrPreg.size(); i++) {
                 g.drawImage(arrPreg.get(i).getImagenI(), arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(), this);
+                g.setColor(Color.YELLOW);
+                g.fillRect(arrPreg.get(i).getPosX() + 6, arrPreg.get(i).getPosY() + 26, 100, 30);
+                g.setColor(Color.BLACK);
                 sDisplay = preArreglo[arrPreg.get(i).getPosicion()].getRespuesta();
-                g.drawString(sDisplay, arrPreg.get(i).getPosX() + 40, arrPreg.get(i).getPosY() + 50);
+                g.drawString(sDisplay, arrPreg.get(i).getPosX() + iOffsetX, arrPreg.get(i).getPosY() + 50);
             }
         } else if (!bOver) {
             //Da un mensaje mientras se carga el dibujo 
@@ -472,6 +478,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      * @param me es el <code>evento</code> que se genera en al soltar las
      * teclas.
      */
+    @Override
     public void mouseExited(MouseEvent mseEvent) {
     }
 
@@ -483,6 +490,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      * @param me es el <code>evento</code> que se genera en al soltar las
      * teclas.
      */
+    @Override
     public void mousePressed(MouseEvent mseEvent) {
     }
 
@@ -494,6 +502,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      *
      * @param me es el <code>evento</code> que se genera en al soltar el boton.
      */
+    @Override
     public void mouseReleased(MouseEvent mseEvent) {
     }
 
@@ -504,6 +513,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      *
      * @param me es el <code>evento</code> que se genera al arrastrar.
      */
+    @Override
     public void mouseDragged(MouseEvent mseEvent) {
     }
 
@@ -514,6 +524,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      *
      * @param me es el <code>evento</code> que se genera en al mover el mouse.
      */
+    @Override
     public void mouseMoved(MouseEvent mseEvent) {
     }
 
@@ -525,7 +536,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      * @param g es el <code>objeto grafico</code> usado para dibujar.
      */
     public void paintComponent(Graphics g) {
-        g.setFont(new Font("Verdana", Font.BOLD, 30));
+        g.setFont(new Font("Verdana", Font.BOLD, 22));
         String sDisplay;
         if (bInitialize) {
             //Dibuja la imagen en la posicion actualizada

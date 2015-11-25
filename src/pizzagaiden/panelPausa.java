@@ -53,15 +53,35 @@ public class panelPausa extends javax.swing.JPanel implements KeyListener {
 
         jLabel1.setFont(new java.awt.Font("Hot Pizza", 0, 48)); // NOI18N
         jLabel1.setText("Juego en Pausa");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 98, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, -1, -1));
 
         labelReanudar.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
         labelReanudar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_aceptar.png"))); // NOI18N
+        labelReanudar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelReanudarMouseClicked(evt);
+            }
+        });
         add(labelReanudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 520, -1, -1));
 
+        labelDetener.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
         labelDetener.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_cancelar.png"))); // NOI18N
+        labelDetener.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelDetenerMouseClicked(evt);
+            }
+        });
         add(labelDetener, new org.netbeans.lib.awtextra.AbsoluteConstraints(614, 520, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void labelReanudarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelReanudarMouseClicked
+        juego.continueGame();
+    }//GEN-LAST:event_labelReanudarMouseClicked
+
+    private void labelDetenerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelDetenerMouseClicked
+        juego.stopJuego();
+        juego.cambiaPanelPrincipal("menu");
+    }//GEN-LAST:event_labelDetenerMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

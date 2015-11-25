@@ -17,4 +17,4 @@
 1,wall,pared
 1,chair,silla
 1,blackboard,pizarrón
-1,signo,señal
+1,sign,señal

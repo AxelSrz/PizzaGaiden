@@ -49,6 +49,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
     public SoundClip audClickCorrecto;
     public SoundClip audClickError;
     public SoundClip audShoot;
+    private int iRndmType;
 
     /**
      * Metodo constructor usado para crear el objeto <code>Tarea4</code> En el
@@ -74,7 +75,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         PreguntasSelec = new HashSet<>();
         preArreglo = new Pregunta[10];
 
-        int iRndmType = (int) (Math.random() * 2);
+        iRndmType = (int) (Math.random() * 2);
         
         for (int i = 0; i < 10; i++) {
             int iRandPregunta = (int) (Math.random() * 10);
@@ -312,15 +313,18 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
 
         // Dibuja la imagen actualizada
         g.drawImage(dbImage, 0, 0, this);
-
-        g.setFont(new Font("Verdana", Font.BOLD, 30));
+        int iOffsetX = iRndmType == 2 ? 40 : 5;
+        g.setFont(new Font("Verdana", Font.BOLD, 22));
         String sDisplay;
         if (bInitialize) {
             //Dibuja la imagen en la posicion actualizada
             for (int i = 0; i < eneEnemigos.size(); i++) {
                 g.drawImage(eneEnemigos.elementAt(i).getImagenI(), eneEnemigos.elementAt(i).getPosX(), eneEnemigos.elementAt(i).getPosY(), this);
+                g.setColor(Color.YELLOW);
+                g.fillRect(eneEnemigos.get(i).getPosX() + 6, eneEnemigos.get(i).getPosY() + 26, 100, 30);
+                g.setColor(Color.BLACK);
                 sDisplay = preArreglo[eneEnemigos.elementAt(i).getPosicion()].getRespuesta();
-                g.drawString(sDisplay, eneEnemigos.elementAt(i).getPosX() + 40, eneEnemigos.elementAt(i).getPosY() + 50);
+                g.drawString(sDisplay, eneEnemigos.elementAt(i).getPosX() + iOffsetX, eneEnemigos.elementAt(i).getPosY() + 50);
             }
             g.drawImage(navPizza.getImagenI(), navPizza.getPosX(), navPizza.getPosY(), this);
             sDisplay = preArreglo[navPizza.getPregunta()].getPregunta();
@@ -413,7 +417,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
      */
     @Override
     public void paintComponent(Graphics g) {
-        g.setFont(new Font("Verdana", Font.BOLD, 30));
+        g.setFont(new Font("Verdana", Font.BOLD, 22));
         String sDisplay;
         if (bInitialize) {
             //Dibuja la imagen en la posicion actualizada

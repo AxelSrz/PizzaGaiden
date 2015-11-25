@@ -33,49 +33,23 @@ public class PanelCreditos extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 51, 51));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
         jLabel1.setText("Créditos");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 92, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel2.setText("Alejandro Villaseñor............................Desarrollo, Documentacion y Planeación");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 364, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel3.setText("Evan Juárez......................................................Desarrollo, Planeación y Diseño");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 461, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel4.setText("Axel Suárez......................................................Desarrollo, Diseño y Planeación");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(384, 384, 384)
-                        .addComponent(jLabel1)))
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addComponent(jLabel1)
-                .addGap(210, 210, 210)
-                .addComponent(jLabel2)
-                .addGap(65, 65, 65)
-                .addComponent(jLabel3)
-                .addGap(69, 69, 69)
-                .addComponent(jLabel4)
-                .addContainerGap(256, Short.MAX_VALUE))
-        );
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 562, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 

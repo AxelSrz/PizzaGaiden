@@ -48,6 +48,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     private SoundClip audClick;
     public SoundClip audClickCorrecto;
     public SoundClip audClickError;
+    private int iRndmType;
 
     /**
      * Metodo constructor usado para crear el objeto <code>Tarea4</code> En el
@@ -65,8 +66,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     public void init() {
         setSize(1000, 700);
         URL memoURL = this.getClass().getResource("PizzaMemorama_Color.png");
-        iPoints = 0;
-        iVidas = 2;
         iParesEncontrados = 0;
 
         memoCajas = new PMemorama[6];
@@ -76,7 +75,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         preguntasSelec = new HashSet<>();
         
 
-        int iRndmType = (int) (Math.random() * 2);
+        iRndmType = (int) (Math.random()) + 1;
 
         for (int i = 0; i < 10; i++) {
             int iRandPregunta = (int) (Math.random() * 10);
@@ -237,7 +236,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     }
 
     public void continueGame() {
-        juego.continueGame();
         tTimer = new Timer();
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
         bPaused = false;
@@ -473,7 +471,9 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * @param g es el <code>objeto grafico</code> usado para dibujar.
      */
     public void paintComponent(Graphics g) {
-        g.setFont(new Font("Verdana", Font.BOLD, 30));
+        g.setFont(new Font("Verdana", Font.BOLD, 20));
+        System.out.println(iRndmType);
+        int iOffsetX = (iRndmType == 2 ? 120 : 55);
         if (bInitialize) {
             //Dibuja la imagen en la posicion actualizada
             for (int i = 0; i < 6; i++) {
@@ -486,7 +486,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     } else {
                         sDisplay = preArreglo[memoCajas[i].getPosicion()].getRespuesta();
                     }
-                    g.drawString(sDisplay, memoCajas[i].getPosX() + 120, memoCajas[i].getPosY() + 130);
+                    g.drawString(sDisplay, memoCajas[i].getPosX() + iOffsetX, memoCajas[i].getPosY() + 130);
                 }
             }
         } else if (!bOver) {
