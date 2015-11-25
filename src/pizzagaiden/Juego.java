@@ -5,6 +5,7 @@
  */
 package pizzagaiden;
 
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -44,6 +45,8 @@ public class Juego extends javax.swing.JFrame {
     private URL urlClip;
     public int iCounter;
     private File file;
+    public SoundClip audTemaJuego;
+    public SoundClip audTemaMenu;
 //    private Player acMusic;
     private ArrayList<ArrayList<Pregunta>> pregBase;
     
@@ -82,7 +85,10 @@ public class Juego extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         cardPrincipal = (CardLayout) panelPrincipal.getLayout();
-        cardMinis = (CardLayout) panelMinis.getLayout();  
+        cardMinis = (CardLayout) panelMinis.getLayout();
+        audTemaMenu = new SoundClip("menuMusic.wav");
+        audTemaMenu.setLooping(true);
+        audTemaMenu.play();
     }
     
     // Metodos de clase
@@ -97,6 +103,7 @@ public class Juego extends javax.swing.JFrame {
         configuracion1.setJuego(this);
         gameOver1.setJuego(this);
         editar1.setJuego(this);
+        panelPausa1.setJuego(this);
     }
     
     public static void changeFont(Component component, Font font) {
@@ -109,10 +116,12 @@ public class Juego extends javax.swing.JFrame {
     }
     
     public void cambiaPanelPrincipal(String strPanel) {
+        audTemaMenu.play();
         cardPrincipal.show(panelPrincipal, strPanel);
     }
     
     public void stopJuego() {
+        audTemaJuego.stop();
         cardPrincipal.show(panelPrincipal, "gameOver");
     }
     
@@ -121,6 +130,10 @@ public class Juego extends javax.swing.JFrame {
     }
     
     public void startJuego() {
+        audTemaMenu.stop();
+        audTemaJuego = new SoundClip("gameMusic.wav");
+        audTemaJuego.setLooping(true);
+        audTemaJuego.play();
         bOver = false;
         iPunt = 0;
         setPunt(iPunt);
@@ -278,7 +291,7 @@ public class Juego extends javax.swing.JFrame {
         );
 
         panelMinis.add(pizzaQuiz1, "quiz");
-        panelMinis.add(panelPausa1, "card8");
+        panelMinis.add(panelPausa1, "pause");
 
         panelJuego.add(panelMinis, java.awt.BorderLayout.PAGE_START);
 
@@ -362,6 +375,8 @@ public class Juego extends javax.swing.JFrame {
     public void pauseGame(){
         timCountdown.stop();
         bPaused=true;
+        cardMinis.show(panelMinis, "pause");
+        panelPausa1.requestFocus();
     }
     
     public void continueGame(){
@@ -380,6 +395,18 @@ public class Juego extends javax.swing.JFrame {
         };
         timCountdown = new Timer(1000, listener);
         timCountdown.start();
+        String str = null;
+        if(juegoActivo.equals(pizzaQuiz1)) {
+            str = "quiz";
+        }
+        else if(juegoActivo.equals(pizzaInvaders1)) {
+            str = "invaders";
+        }
+        else if(juegoActivo.equals(pizzarama1)) {
+            str = "pizzarama";
+        }
+        cardMinis.show(panelMinis, str);
+        juegoActivo.requestFocus();
         bPaused = false;
     }
 

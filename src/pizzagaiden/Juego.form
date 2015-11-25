@@ -154,7 +154,7 @@
                 <Component class="pizzagaiden.panelPausa" name="panelPausa1">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                      <CardConstraints cardName="card8"/>
+                      <CardConstraints cardName="pause"/>
                     </Constraint>
                   </Constraints>
                 </Component>

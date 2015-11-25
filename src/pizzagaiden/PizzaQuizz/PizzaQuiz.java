@@ -26,6 +26,7 @@ import pizzagaiden.Enemigo;
 import pizzagaiden.Objeto;
 import pizzagaiden.PanelJuego;
 import pizzagaiden.Pregunta;
+import pizzagaiden.SoundClip;
 
 public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener, MouseMotionListener {
 
@@ -62,6 +63,8 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     private URL pregURL = this.getClass().getResource("peperoni.png");
     private int iRandPregunta;
     private int iPregunta;
+    public SoundClip audClickCorrecto;
+    public SoundClip audClickError;
 
     /**
      * Metodo constructor usado para crear el objeto <code>Tarea4</code> En el
@@ -118,6 +121,8 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         bCambiado = false;
         tTimer = new Timer();
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
+        audClickCorrecto = new SoundClip("correct.wav");
+        audClickError = new SoundClip("error.wav");
     }
 
     /**
@@ -214,6 +219,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         for (int i = 0; i < arrPreg.size() && !encontrado; i++) {
             if (arrPreg.get(i).contiene(iXClick, iYClick)) {
                 if (arrPreg.get(i).esCorrecto(iPregunta)) {
+                    audClickCorrecto.play();
                     if (iRonda < 5) {
                         juego.setPunt(juego.getPunt() + I_BIEN);
                         iRonda++;
@@ -319,6 +325,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                     encontrado = true;
                 } else {
                     juego.setPunt(juego.getPunt() - I_MAL);
+                    audClickError.play();
                 }
             }
         }
@@ -418,7 +425,6 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_P) {
             if (!bPaused) {
-                System.out.println("oye ci");
                 pauseGame();
             } else {
                 continueGame();

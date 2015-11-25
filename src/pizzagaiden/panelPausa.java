@@ -5,14 +5,17 @@
  */
 package pizzagaiden;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JLabel;
 
 /**
  *
  * @author axelsuarez
  */
-public class panelPausa extends javax.swing.JPanel {
+public class panelPausa extends javax.swing.JPanel implements KeyListener {
 
+    private Juego juego; 
     /**
      * Creates new form panelPausa
      */
@@ -25,6 +28,11 @@ public class panelPausa extends javax.swing.JPanel {
         labelDetener.setText("Salir del Juego");
         labelDetener.setHorizontalTextPosition(JLabel.CENTER);
         labelDetener.setVerticalTextPosition(JLabel.CENTER);
+        addKeyListener(this);
+    }
+    
+    public void setJuego(Juego juego) {
+        this.juego = juego;
     }
 
     /**
@@ -43,10 +51,11 @@ public class panelPausa extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 51, 51));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 60)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Hot Pizza", 0, 48)); // NOI18N
         jLabel1.setText("Juego en Pausa");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 98, -1, -1));
 
+        labelReanudar.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
         labelReanudar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_aceptar.png"))); // NOI18N
         add(labelReanudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 520, -1, -1));
 
@@ -60,4 +69,19 @@ public class panelPausa extends javax.swing.JPanel {
     private javax.swing.JLabel labelDetener;
     private javax.swing.JLabel labelReanudar;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode()== KeyEvent.VK_P) {
+            juego.continueGame();
+        }
+    }
 }
