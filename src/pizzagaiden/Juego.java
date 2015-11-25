@@ -5,6 +5,7 @@
  */
 package pizzagaiden;
 
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -44,6 +45,8 @@ public class Juego extends javax.swing.JFrame {
     public int iCounter;
     private Pregunta[] preBase;
     private File file;
+    public SoundClip audTemaJuego;
+    public SoundClip audTemaMenu;
 //    private Player acMusic;
     
     /**
@@ -75,7 +78,10 @@ public class Juego extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         cardPrincipal = (CardLayout) panelPrincipal.getLayout();
-        cardMinis = (CardLayout) panelMinis.getLayout();  
+        cardMinis = (CardLayout) panelMinis.getLayout();
+        audTemaMenu = new SoundClip("menuMusic.wav");
+        audTemaMenu.setLooping(true);
+        audTemaMenu.play();
     }
     
     // Metodos de clase
@@ -98,10 +104,12 @@ public class Juego extends javax.swing.JFrame {
     }
     
     public void cambiaPanelPrincipal(String strPanel) {
+        audTemaMenu.play();
         cardPrincipal.show(panelPrincipal, strPanel);
     }
     
     public void stopJuego() {
+        audTemaJuego.stop();
         cardPrincipal.show(panelPrincipal, "gameOver");
     }
     
@@ -110,6 +118,10 @@ public class Juego extends javax.swing.JFrame {
     }
     
     public void startJuego() {
+        audTemaMenu.stop();
+        audTemaJuego = new SoundClip("gameMusic.wav");
+        audTemaJuego.setLooping(true);
+        audTemaJuego.play();
         bOver = false;
         iPunt = 0;
         setPunt(iPunt);

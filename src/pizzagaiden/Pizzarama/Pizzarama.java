@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.*;
 import pizzagaiden.PanelJuego;
 import pizzagaiden.Pregunta;
+import pizzagaiden.SoundClip;
 
 public class Pizzarama extends PanelJuego implements KeyListener, MouseListener, MouseMotionListener {
 
@@ -43,6 +44,9 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     private int iCajaSelected;
     private boolean bPaused;
     private boolean bInitialize;
+    private SoundClip audClick;
+    public SoundClip audClickCorrecto;
+    public SoundClip audClickError;
 
     /**
      * Metodo constructor usado para crear el objeto <code>Tarea4</code> En el
@@ -181,6 +185,11 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         bInitialize = true;
 
         iCajaSelected = -1;
+        audClick= new SoundClip("click.wav");
+        audClickCorrecto = new SoundClip("correct.wav");
+        audClickError = new SoundClip("error.wav");
+        tTimer = new Timer();
+        tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
 
     /**
@@ -209,6 +218,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                 actualiza();
                 repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
                 if (respuestaEquivocada) {
+                    audClick.play();
                     deselect();
                 }
 //            }
@@ -257,7 +267,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
             }
             respuestaEquivocada = false;
         } catch (InterruptedException ex) {
-            System.out.println("Error en " + ex.toString());
         }
     }
 
@@ -272,17 +281,19 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
 
                 if (estaCaja && iCajaSelected == -1) // Si es la primera caja del par en ser seleccionada
                 {
-                    System.out.println("sasdf");
+                    audClick.play();
                     iCajaSelected = i;
                     memoCajas[i].select();
                 } else if (estaCaja) // Si es la segunda caja en ser seleccionada
                 {
+                    audClick.play();
                     memoCajas[i].select();
                     if (memoCajas[iCajaSelected].esCorrecto(memoCajas[i].getPosicion())) {
                         juego.setPunt(juego.getPunt() + I_BIEN);
                         memoCajas[iCajaSelected].lockAnswer();
                         memoCajas[i].lockAnswer();
                         iParesEncontrados++;
+                        audClickCorrecto.play();
                     } else {
                         juego.setPunt(juego.getPunt() - I_MAL);
                         respuestaEquivocada = true;
@@ -482,7 +493,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     } else {
                         sDisplay = preArreglo[memoCajas[i].getPosicion()].getRespuesta();
                     }
-                    System.out.println(sDisplay);
                     g.drawString(sDisplay, memoCajas[i].getPosX() + 120, memoCajas[i].getPosY() + 130);
                 }
             }

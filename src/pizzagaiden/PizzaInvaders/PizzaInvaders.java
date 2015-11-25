@@ -23,6 +23,7 @@ import pizzagaiden.Enemigo;
 import pizzagaiden.Nave;
 import pizzagaiden.PanelJuego;
 import pizzagaiden.Pregunta;
+import pizzagaiden.SoundClip;
 
 public class PizzaInvaders extends PanelJuego implements KeyListener {
 
@@ -45,6 +46,9 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
     private boolean bOver;
     private boolean bPaused;
     private boolean bInitialize;
+    public SoundClip audClickCorrecto;
+    public SoundClip audClickError;
+    public SoundClip audShoot;
 
     /**
      * Metodo constructor usado para crear el objeto <code>Tarea4</code> En el
@@ -142,6 +146,9 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         bOver = false;     //Inicia banderas en falso
         bPaused = false;
         bInitialize = true;
+        audClickCorrecto = new SoundClip("correct.wav");
+        audClickError = new SoundClip("error.wav");
+        audShoot = new SoundClip("shoot.wav");
         tTimer = new Timer();
         tTimer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
@@ -232,13 +239,13 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
                 for(int j=0; j< eneEnemigos.size();j++) {
                     if(diDisparos.elementAt(i).intersecta(eneEnemigos.elementAt(j))) {
                         if(eneEnemigos.elementAt(j).esCorrecto(navPizza.getPregunta())) { // Refactorizar nombre iPosicion
+                            audClickCorrecto.play();
                             juego.setPunt(juego.getPunt() + I_BIEN);
                             iDisparosDestruir.push(i);
                             iPreguntasDestruir.push(j);
-                            System.out.println(navPizza.getPregunta());
-                            System.out.println(iPreguntasDestruir.size());
                         }
                         else {
+                            audClickError.play();
                             juego.setPunt(juego.getPunt() - I_MAL);
                             iDisparosDestruir.push(i);
                         }
@@ -381,10 +388,10 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         }
 
         if (key == KeyEvent.VK_SPACE) { //presiona la space bar para disparar
+            audShoot.play();
             URL disURL = this.getClass().getResource("Fuego_PizzaInvaders_Color.png");
             disAux = new Disparo(navPizza.getPosX() + 52, navPizza.getPosY() - 54, Toolkit.getDefaultToolkit().getImage(disURL), 4);
             diDisparos.add(disAux);
-            
         }
     }
 
