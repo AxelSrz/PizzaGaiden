@@ -58,6 +58,7 @@ public class Juego extends javax.swing.JFrame {
                 Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 
+        
         initComponents();
         iJuegoActual = -1;
         
@@ -67,7 +68,6 @@ public class Juego extends javax.swing.JFrame {
         // Inicializa la música del juego
         urlClip = this.getClass().getResource("undertale.mp3");
 //        acMusic = Manager.getClip();
-
 
         getContentPane().setSize(1000, 700);
         setLocationRelativeTo(null);
@@ -83,6 +83,7 @@ public class Juego extends javax.swing.JFrame {
         menu1.setJuego(this);
         configuracion1.setJuego(this);
         gameOver1.setJuego(this);
+        editar1.setJuego(this);
     }
     
     public static void changeFont(Component component, Font font) {
@@ -103,8 +104,6 @@ public class Juego extends javax.swing.JFrame {
     }
     
     public void startJuego() {
-        // Checamos cuál es el label que se clickea para poder definir qué
-        // pantalla sigue
         bOver = false;
         iPunt = 0;
         setPunt(iPunt);
@@ -199,6 +198,7 @@ public class Juego extends javax.swing.JFrame {
         gameOver1 = new pizzagaiden.GameOver();
         configuracion1 = new pizzagaiden.Configuracion();
         agregar1 = new pizzagaiden.Agregar();
+        editar1 = new pizzagaiden.Editar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -268,6 +268,7 @@ public class Juego extends javax.swing.JFrame {
         panelPrincipal.add(gameOver1, "gameOver");
         panelPrincipal.add(configuracion1, "config");
         panelPrincipal.add(agregar1, "agregar");
+        panelPrincipal.add(editar1, "editar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -326,6 +327,7 @@ public class Juego extends javax.swing.JFrame {
     private pizzagaiden.Agregar agregar1;
     private pizzagaiden.BarraJuego barraJuego1;
     private pizzagaiden.Configuracion configuracion1;
+    private pizzagaiden.Editar editar1;
     private pizzagaiden.GameOver gameOver1;
     private pizzagaiden.Menu menu1;
     private javax.swing.JPanel panelJuego;
@@ -336,4 +338,7 @@ public class Juego extends javax.swing.JFrame {
     private pizzagaiden.Pizzarama.Pizzarama pizzarama1;
     // End of variables declaration//GEN-END:variables
 
+    public Editar getEditar1() {
+        return editar1;
+    }
 }

@@ -64,8 +64,25 @@ public class Database {
         return contents;
     }
     
-//    public static boolean removeObject(File file, Object object) {
-//        if(file.getName().endsWith(FILE_EXT)) {
-//        }
+    public static boolean removeObject(File file, Object object) throws IOException {
+        String strTmp;
+        boolean response = false;
+        if(file.getName().endsWith(FILE_EXT)) {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            while(br.ready()) {
+                strTmp = br.readLine();
+                if(strTmp.equals(object.toString())) {
+                    
+                    response = true;
+                    break;
+                }
+            }
+            br.close();
+        }
+        return response;
+    }
+//    
+//    public static boolean editObject(File file, Object object) throws IOException {
+//        
 //    }
 }

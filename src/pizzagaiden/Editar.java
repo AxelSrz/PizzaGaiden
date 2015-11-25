@@ -5,19 +5,49 @@
  */
 package pizzagaiden;
 
+import java.awt.BorderLayout;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JList;
+
 /**
  *
  * @author Evan
  */
 public class Editar extends javax.swing.JPanel {
-
+    
+    private Juego juego;
+    
     /**
      * Creates new form Editar
      */
     public Editar() {
         initComponents();
+        jList1.setLayout(new BorderLayout());
+        jList1.setCellRenderer(new ElementScroll());
+        jList1.setVisibleRowCount(10);
+    }
+    
+    public void loadPreguntas() {
+        ArrayList<String> contents = null;
+        ArrayList<Pregunta> arrPreguntas = new ArrayList<>();
+        try {
+            contents = Database.getContents(juego.getDatabaseFile());
+            for(String content : contents) {
+                arrPreguntas.add(new Pregunta(content));
+            }
+        } catch (IOException ex) { 
+            Logger.getLogger(Editar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jList1.setListData(arrPreguntas.toArray());
     }
 
+    public void setJuego(Juego juego) {
+        this.juego = juego;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,27 +58,19 @@ public class Editar extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        elementScroll1 = new pizzagaiden.ElementScroll();
+        jList1 = new JList();
 
         setBackground(new java.awt.Color(255, 51, 51));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jList1);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 760, 510));
-        add(elementScroll1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, -1, -1));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 770, 510));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private pizzagaiden.ElementScroll elementScroll1;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

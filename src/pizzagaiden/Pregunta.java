@@ -11,7 +11,7 @@ public class Pregunta
     }
         
     public Pregunta(String str) {
-        String[] parts = str.split(" ");
+        String[] parts = str.split(",");
         this.iType = Integer.parseInt(parts[0]);
         this.sPregunta = parts[1];
         this.sRespuesta = parts[2];
@@ -46,6 +46,6 @@ public class Pregunta
     
     @Override
     public String toString() {
-        return iType + " " + sPregunta + " " + sRespuesta;
+        return iType + "," + sPregunta + "," + sRespuesta;
     }
 }

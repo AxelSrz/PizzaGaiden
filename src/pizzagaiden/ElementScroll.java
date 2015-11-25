@@ -34,17 +34,17 @@ public class ElementScroll extends javax.swing.JPanel implements ListCellRendere
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/notepad-icon.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/sign-delete-icon.png"))); // NOI18N
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, -1, -1));
-
-        jLabel3.setText("jLabel3");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 30));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 600, 50));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 98, 760, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -52,10 +52,19 @@ public class ElementScroll extends javax.swing.JPanel implements ListCellRendere
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(value instanceof Pregunta) {
+            Pregunta preg = (Pregunta) value;
+            jLabel3.setText(preg.sPregunta + " - " + preg.sRespuesta);
+            
+        } else {
+            jLabel1.setVisible(false);
+            jLabel2.setVisible(false);
+        }
+        return this;
     }
 }
