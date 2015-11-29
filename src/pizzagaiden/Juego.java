@@ -110,6 +110,7 @@ public class Juego extends javax.swing.JFrame {
         configuracion1.setJuego(this);
         gameOver1.setJuego(this);
         panelPausa1.setJuego(this);
+        panelCreditos1.setJuego(this);
     }
     
     /**
@@ -284,6 +285,7 @@ public class Juego extends javax.swing.JFrame {
         gameOver1 = new pizzagaiden.GameOver();
         configuracion1 = new pizzagaiden.Configuracion();
         agregar1 = new pizzagaiden.Agregar();
+        panelCreditos1 = new pizzagaiden.PanelCreditos();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -352,6 +354,7 @@ public class Juego extends javax.swing.JFrame {
         panelPrincipal.add(gameOver1, "gameOver");
         panelPrincipal.add(configuracion1, "config");
         panelPrincipal.add(agregar1, "agregar");
+        panelPrincipal.add(panelCreditos1, "creditos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -408,6 +411,7 @@ public class Juego extends javax.swing.JFrame {
     private pizzagaiden.Configuracion configuracion1;
     private pizzagaiden.GameOver gameOver1;
     private pizzagaiden.Menu menu1;
+    private pizzagaiden.PanelCreditos panelCreditos1;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JPanel panelMinis;
     private pizzagaiden.panelPausa panelPausa1;

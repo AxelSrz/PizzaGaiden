@@ -323,9 +323,11 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
                 sDisplay = preArreglo[eneEnemigos.elementAt(i).getPosicion()].getRespuesta();
                 g.drawString(sDisplay, eneEnemigos.elementAt(i).getPosX() + iOffsetX, eneEnemigos.elementAt(i).getPosY() + 50);
             }
-            g.drawImage(navPizza.getImagenI(), navPizza.getPosX(), navPizza.getPosY(), this);
+            g.drawImage(navPizza.getImagenI(), navPizza.getPosX(), navPizza.getPosY(), this);g.setColor(Color.YELLOW);
+            g.fillRect(navPizza.getPosX() - 10, navPizza.getPosY() + 150, 200, 30);
+            g.setColor(Color.BLACK);
             sDisplay = preArreglo[navPizza.getPregunta()].getPregunta();
-            g.drawString(sDisplay, navPizza.getPosX() + 50, navPizza.getPosY() + 100);
+            g.drawString(sDisplay, navPizza.getPosX() + 50, navPizza.getPosY() + 175);
         } else if (!bOver) {
             //Da un mensaje mientras se carga el dibujo 
             g.drawString("No se cargo la imagen..", 20, 20);
@@ -425,7 +427,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
             }
             g.drawImage(navPizza.getImagenI(), navPizza.getPosX(), navPizza.getPosY(), this);
             sDisplay = preArreglo[navPizza.getPregunta()].getPregunta();
-            g.drawString(sDisplay, navPizza.getPosX() + 50, navPizza.getPosY() + 100);
+//            g.drawString(sDisplay, navPizza.getPosX() + 50, navPizza.getPosY() + 100);
             for (int i = 0; i < diDisparos.size(); i++) {
                 g.drawImage(diDisparos.elementAt(i).getImagenI(), diDisparos.elementAt(i).getPosX(), diDisparos.elementAt(i).getPosY(), this);
             }

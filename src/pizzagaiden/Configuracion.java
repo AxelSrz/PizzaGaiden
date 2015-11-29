@@ -44,7 +44,7 @@ public class Configuracion extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 51, 51));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        returnLabel.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
+        returnLabel.setFont(new java.awt.Font("Hot Pizza", 0, 36)); // NOI18N
         returnLabel.setForeground(new java.awt.Color(255, 255, 255));
         returnLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
         returnLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -54,7 +54,7 @@ public class Configuracion extends javax.swing.JPanel {
         });
         add(returnLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, -1, -1));
 
-        agregarLabel.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
+        agregarLabel.setFont(new java.awt.Font("Hot Pizza", 0, 36)); // NOI18N
         agregarLabel.setForeground(new java.awt.Color(255, 255, 255));
         agregarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
         agregarLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -65,6 +65,7 @@ public class Configuracion extends javax.swing.JPanel {
         add(agregarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Hot Pizza", 0, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 51));
         jLabel1.setText("Configuracion");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, -1));
     }// </editor-fold>//GEN-END:initComponents

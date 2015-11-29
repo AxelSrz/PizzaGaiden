@@ -6,6 +6,7 @@
 package pizzagaiden;
 
 import java.awt.event.MouseListener;
+import javax.swing.JLabel;
 
 /**
  *
@@ -19,6 +20,9 @@ public class GameOver extends javax.swing.JPanel {
      */
     public GameOver() {
         initComponents();
+        jLabel2.setText("Regresar a Menu");
+        jLabel2.setHorizontalTextPosition(JLabel.CENTER);
+        jLabel2.setVerticalTextPosition(JLabel.CENTER);
     }
 
     /**
@@ -40,13 +44,14 @@ public class GameOver extends javax.swing.JPanel {
         jLabel1.setText("Game Over");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, -1, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/PizzaQuizz/Caja_Color.png"))); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Hot Pizza", 0, 36)); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_aceptar.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
         });
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 600, 120));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 360, 300, 120));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked

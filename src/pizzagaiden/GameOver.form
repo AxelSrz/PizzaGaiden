@@ -38,8 +38,11 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Hot Pizza" size="36" style="0"/>
+        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/pizzagaiden/PizzaQuizz/Caja_Color.png"/>
+          <Image iconType="3" name="/pizzagaiden/Caja_aceptar.png"/>
         </Property>
       </Properties>
       <Events>
@@ -47,7 +50,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="230" y="350" width="600" height="120"/>
+          <AbsoluteConstraints x="360" y="360" width="300" height="120"/>
         </Constraint>
       </Constraints>
     </Component>

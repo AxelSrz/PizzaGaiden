@@ -5,17 +5,28 @@
  */
 package pizzagaiden;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author axelsuarez
  */
 public class PanelCreditos extends javax.swing.JPanel {
 
+    private Juego juego;
+    
     /**
      * Creates new form PanelCreditos
      */
     public PanelCreditos() {
         initComponents();
+        jLabel5.setText("Regresar");
+        jLabel5.setHorizontalTextPosition(JLabel.CENTER);
+        jLabel5.setVerticalTextPosition(JLabel.CENTER);
+    }
+    
+    public void setJuego(Juego juego) {
+        this.juego = juego;
     }
 
     /**
@@ -31,6 +42,7 @@ public class PanelCreditos extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 51, 51));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -41,16 +53,29 @@ public class PanelCreditos extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel2.setText("Alejandro Villaseñor............................Desarrollo, Documentacion y Planeación");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 364, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel3.setText("Evan Juárez......................................................Desarrollo, Planeación y Diseño");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 461, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel4.setText("Axel Suárez......................................................Desarrollo, Diseño y Planeación");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 562, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 560, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_aceptar.png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 660, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        juego.cambiaPanelPrincipal("menu");
+    }//GEN-LAST:event_jLabel5MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -58,5 +83,6 @@ public class PanelCreditos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }

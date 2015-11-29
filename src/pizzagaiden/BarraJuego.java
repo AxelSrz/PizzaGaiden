@@ -33,7 +33,6 @@ public class BarraJuego extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbAccion = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
@@ -41,10 +40,6 @@ public class BarraJuego extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 102));
         setPreferredSize(new java.awt.Dimension(1000, 70));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lbAccion.setFont(new java.awt.Font("Lucida Grande", 0, 30)); // NOI18N
-        lbAccion.setText("Integra !!");
-        add(lbAccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("Puntuación:");
@@ -61,7 +56,6 @@ public class BarraJuego extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JLabel lbAccion;
     // End of variables declaration//GEN-END:variables
 
     public JProgressBar getjProgressBar1() {

@@ -97,7 +97,7 @@ public class Menu extends javax.swing.JPanel {
     }//GEN-LAST:event_configLabelMouseClicked
 
     private void creditosLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_creditosLabelMouseClicked
-        juego.cambiaPanelPrincipal("scores");
+        juego.cambiaPanelPrincipal("creditos");
     }//GEN-LAST:event_creditosLabelMouseClicked
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
