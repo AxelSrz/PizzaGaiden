@@ -461,10 +461,10 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     public void paintComponent(Graphics g) {
         int iDiffH = 0;
         int iDiffW = 0;
+        double iRatio = 0;
         g.setFont(new Font("Verdana", Font.BOLD, 20));
         int iOffsetX = (iRndmType == 2 ? 120 : 55);
         if (bInitialize) {
-            System.out.println("asdf");
             //Dibuja la imagen en la posicion actualizada
             for (int i = 0; i < 6; i++) {
                 g.drawImage(memoCajas[i].getImagenI(), memoCajas[i].getPosX(), memoCajas[i].getPosY(), this);
@@ -476,10 +476,12 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                         sDisplay = preArreglo[memoCajas[i].getPosicion()].getRespuesta();
                     }
                     resizeLabelFont(sDisplay, memoCajas[i].getImageIcon(), g);
+                    iRatio = memoCajas[i].getImageIcon().getIconWidth() / g.getFontMetrics().stringWidth(sDisplay);
+                    System.out.println(iRatio);
                     iDiffW = (memoCajas[i].getAncho() - g.getFontMetrics().stringWidth(sDisplay)) / 2;
                     iDiffH = (memoCajas[i].getAlto() - g.getFontMetrics(g.getFont()).getHeight()) / 2;
                     g.drawImage(memoCajas[i].getImagenI(), memoCajas[i].getPosX(), memoCajas[i].getPosY(), this);
-                    g.drawString(sDisplay, memoCajas[i].getPosX() + iDiffW, memoCajas[i].getPosY() + iDiffH * 2);
+                    g.drawString(sDisplay, memoCajas[i].getPosX() + iDiffW, memoCajas[i].getPosY() + iDiffH * (int)(10 * iRatio));
                 }
             }
         } else if (!bOver) {
