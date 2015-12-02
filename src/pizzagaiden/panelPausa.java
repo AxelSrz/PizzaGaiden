@@ -13,13 +13,13 @@ import javax.swing.JLabel;
  *
  * @author axelsuarez
  */
-public class panelPausa extends javax.swing.JPanel implements KeyListener {
+public class PanelPausa extends javax.swing.JPanel implements KeyListener {
 
     private Juego juego; 
     /**
      * Creates new form panelPausa
      */
-    public panelPausa() {
+    public PanelPausa() {
         initComponents();
         labelReanudar.setText("Reanudar Juego");
         labelReanudar.setHorizontalTextPosition(JLabel.CENTER);
@@ -47,13 +47,14 @@ public class panelPausa extends javax.swing.JPanel implements KeyListener {
         jLabel1 = new javax.swing.JLabel();
         labelReanudar = new javax.swing.JLabel();
         labelDetener = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 51, 51));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Hot Pizza", 0, 48)); // NOI18N
         jLabel1.setText("Juego en Pausa");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, -1, -1));
 
         labelReanudar.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
         labelReanudar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_aceptar.png"))); // NOI18N
@@ -62,7 +63,7 @@ public class panelPausa extends javax.swing.JPanel implements KeyListener {
                 labelReanudarMouseClicked(evt);
             }
         });
-        add(labelReanudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 520, -1, -1));
+        add(labelReanudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, -1, -1));
 
         labelDetener.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
         labelDetener.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_cancelar.png"))); // NOI18N
@@ -71,7 +72,10 @@ public class panelPausa extends javax.swing.JPanel implements KeyListener {
                 labelDetenerMouseClicked(evt);
             }
         });
-        add(labelDetener, new org.netbeans.lib.awtextra.AbsoluteConstraints(614, 520, -1, -1));
+        add(labelDetener, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 480, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Menu_Pause.png"))); // NOI18N
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelReanudarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelReanudarMouseClicked
@@ -86,6 +90,7 @@ public class panelPausa extends javax.swing.JPanel implements KeyListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelDetener;
     private javax.swing.JLabel labelReanudar;
     // End of variables declaration//GEN-END:variables
