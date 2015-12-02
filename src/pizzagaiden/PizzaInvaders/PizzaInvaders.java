@@ -11,7 +11,6 @@ package pizzagaiden.PizzaInvaders;
  */
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -34,9 +33,10 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
     private Graphics dbg; // Objeto grafico
     private int iDestruidos; //Numero de enemigos destruidos hasta el momento
     private int iVelPreguntas; //la direccion y velocidad de las preguntas
+    private int iArregloSize;
     private Stack<Integer> iDisparosDestruir;
     private Stack<Integer> iPreguntasDestruir;
-    private Pregunta preArreglo[];
+    private Vector<Pregunta> preArreglo;
     private List<Integer> arrPregSelct;
     private Vector<Disparo> diDisparos;
     private Disparo disAux;
@@ -66,8 +66,6 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
      * y se definen funcionalidades.
      */
     public void init() {
-        System.out.println("Invasores");
-
         juego.getBarraJuego1().getInstruccionLabel().setText("Destruye la respuesta correcta");
         setSize(1000, 700);
         setBackground(new java.awt.Color(255, 51, 51));
@@ -76,30 +74,31 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         URL disURL = this.getClass().getResource("Fuego_PizzaInvaders_Color.png");
 
         eneEnemigos = new Vector();
-        preArreglo = new Pregunta[10];
+        preArreglo = new Vector();
 
         iRndmType = (int) (Math.random() * 2);
+        iArregloSize = juego.getPregBase().get(iRndmType).size();
         
-        for (int i = 0; i < 10; i++) {
-            int iRandPregunta = (int) (Math.random() * 10);
+        for (int i = 0; i < iArregloSize; i++) {
+            int iRandPregunta = (int) (Math.random() * iArregloSize);
 
             while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
-                iRandPregunta = (int) (Math.random() * 10);
+                iRandPregunta = (int) (Math.random() * iArregloSize);
             }
 
             juego.agregaPreguntaUsada(iRandPregunta, iRndmType);
-            preArreglo[i] = juego.getPregBase().get(iRndmType).get(iRandPregunta);
+            preArreglo.add(juego.getPregBase().get(iRndmType).get(iRandPregunta));
         }
         
         PreguntasSelec = new HashSet<Integer>();
         PreguntasSelec.clear();
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
 
-            int iRandPregunta = (int) (Math.random() * 10);
+            int iRandPregunta = (int) (Math.random() * iArregloSize);
 
-            while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
-                iRandPregunta = (int) (Math.random() * 10);
+            while (PreguntasSelec.contains(iRandPregunta)) {
+                iRandPregunta = (int) (Math.random() * iArregloSize);
             }
 
             PreguntasSelec.add(iRandPregunta);
@@ -280,7 +279,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
             eneEnemigos.removeElementAt(iPreguntasDestruir.pop());
             iDestruidos++;
         }
-        if(iDestruidos<arrPregSelct.size()) {
+        if(iDestruidos<7) {
             navPizza.setPregunta(arrPregSelct.get(iDestruidos));
         }
         else {
@@ -405,12 +404,12 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
             //Dibuja la imagen en la posicion actualizada
             for (int i = 0; i < eneEnemigos.size(); i++) {
                 g.drawImage(eneEnemigos.elementAt(i).getImagenI(), eneEnemigos.elementAt(i).getPosX(), eneEnemigos.elementAt(i).getPosY(), this);
-                sDisplay = preArreglo[eneEnemigos.elementAt(i).getPosicion()].getRespuesta();
+                sDisplay = preArreglo.get(eneEnemigos.elementAt(i).getPosicion()).getRespuesta();
                 g.drawString(sDisplay, eneEnemigos.elementAt(i).getPosX() + 40, eneEnemigos.elementAt(i).getPosY() + 50);
             }
             g.drawImage(navPizza.getImagenI(), navPizza.getPosX(), navPizza.getPosY(), this);
-            sDisplay = preArreglo[navPizza.getPregunta()].getPregunta();
-//            g.drawString(sDisplay, navPizza.getPosX() + 50, navPizza.getPosY() + 100);
+            sDisplay = preArreglo.get(navPizza.getPregunta()).getPregunta();
+            g.drawString(sDisplay, navPizza.getPosX() + 50, navPizza.getPosY() + 100);
             for (int i = 0; i < diDisparos.size(); i++) {
                 g.drawImage(diDisparos.elementAt(i).getImagenI(), diDisparos.elementAt(i).getPosX(), diDisparos.elementAt(i).getPosY(), this);
             }

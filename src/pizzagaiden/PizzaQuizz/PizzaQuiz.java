@@ -74,7 +74,6 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      * y se definen funcionalidades.
      */
     public void init() {
-        System.out.println("Quiz");
         juego.getBarraJuego1().getInstruccionLabel().setText("Haz clic en la respuesta correcta");
         setSize(1000, 700);
         setBackground(new java.awt.Color(255, 51, 51));
@@ -220,9 +219,9 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
             if (arrPreg.get(i).contiene(iXClick, iYClick)) {
                 if (arrPreg.get(i).esCorrecto(iPregunta)) {
                     audClickCorrecto.play();
-                    if (iRonda < 5) {
+                    iRonda++;
+                    if (iRonda <= 5) {
                         juego.setPunt(juego.getPunt() + I_BIEN);
-                        iRonda++;
                         arrPreg.clear();
                         if(iRonda+juego.numPreguntasUsadas(iRndmType)> iArregloSize)
                             juego.limpiaSetPreguntas(iRndmType);
@@ -230,6 +229,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                             iRandPregunta = (int) (Math.random() * iArregloSize);
 
                             while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
+                                System.out.println(juego.numPreguntasUsadas(iRndmType)+" // "+iArregloSize);
                                 iRandPregunta = (int) (Math.random() * iArregloSize);
                             }
                             auxPregunta = new Enemigo(iRandPregunta, 0, 0, Toolkit.getDefaultToolkit().getImage(pregURL));
@@ -317,11 +317,9 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                                 break;
                         }
                     } else {
-                        if (!bCambiado) {
                             stopGame();
                             bCambiado = true;
                             juego.cambiaJuego();
-                        }
                     }
                     encontrado = true;
                 } else {
