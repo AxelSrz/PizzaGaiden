@@ -9,7 +9,7 @@ public class Enemigo extends Objeto
   public Enemigo(int ires, int posX, int posY ,Image image)
   {
     super(posX, posY, image);
-    iPosicion= ires;
+    iPosicion = ires;
   }
   
   public boolean esCorrecto(int iPreg)
