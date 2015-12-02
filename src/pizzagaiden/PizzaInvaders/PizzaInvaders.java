@@ -37,11 +37,11 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
     private Stack<Integer> iDisparosDestruir;
     private Stack<Integer> iPreguntasDestruir;
     private Pregunta preArreglo[];
-    private Set<Integer> PreguntasSelec;
     private List<Integer> arrPregSelct;
     private Vector<Disparo> diDisparos;
     private Disparo disAux;
     private Vector<Enemigo> eneEnemigos;
+    private Set<Integer> PreguntasSelec;
     private Enemigo eneAux;
     private Nave navPizza;
     private boolean bOver;
@@ -72,7 +72,6 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         URL disURL = this.getClass().getResource("Fuego_PizzaInvaders_Color.png");
 
         eneEnemigos = new Vector();
-        PreguntasSelec = new HashSet<>();
         preArreglo = new Pregunta[10];
 
         iRndmType = (int) (Math.random() * 2);
@@ -80,25 +79,27 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
         for (int i = 0; i < 10; i++) {
             int iRandPregunta = (int) (Math.random() * 10);
 
-            while (PreguntasSelec.contains(iRandPregunta)) {
+            while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
                 iRandPregunta = (int) (Math.random() * 10);
             }
 
-            PreguntasSelec.add(iRandPregunta);
+            juego.agregaPreguntaUsada(iRandPregunta, iRndmType);
             preArreglo[i] = juego.getPregBase().get(iRndmType).get(iRandPregunta);
         }
         
+        PreguntasSelec = new HashSet<Integer>();
         PreguntasSelec.clear();
 
         for (int i = 0; i < 7; i++) {
 
             int iRandPregunta = (int) (Math.random() * 10);
 
-            while (PreguntasSelec.contains(iRandPregunta)) {
+            while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
                 iRandPregunta = (int) (Math.random() * 10);
             }
 
             PreguntasSelec.add(iRandPregunta);
+            juego.agregaPreguntaUsada(iRandPregunta, iRndmType);
             int x = 0, y = 0;
 
             switch (i) {

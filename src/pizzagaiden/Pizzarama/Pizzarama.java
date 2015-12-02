@@ -29,7 +29,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     private int iYClick;
     private int iParesEncontrados;
     private Pregunta preArreglo[];
-    private Set<Integer> preguntasSelec;
     private boolean bPreguntaSelec[];
     private boolean bCajasSelec[];
     private boolean respuestaEquivocada;
@@ -65,7 +64,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         bCajasSelec = new boolean[6];
         preArreglo = new Pregunta[10];
         bPreguntaSelec = new boolean[10];
-        preguntasSelec = new HashSet<>();
         
 
         iRndmType = (int) (Math.random()) + 1;
@@ -73,15 +71,13 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         for (int i = 0; i < 10; i++) {
             int iRandPregunta = (int) (Math.random() * 10);
 
-            while (preguntasSelec.contains(iRandPregunta)) {
+            while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
                 iRandPregunta = (int) (Math.random() * 10);
             }
 
-            preguntasSelec.add(iRandPregunta);
+            juego.agregaPreguntaUsada(iRandPregunta, iRndmType);
             preArreglo[i] = juego.getPregBase().get(iRndmType).get(iRandPregunta);
         }
-        
-        preguntasSelec.clear();
 
         for (int i = 0; i < 6; i++) {
             bCajasSelec[i] = false;
@@ -463,14 +459,15 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * @param g es el <code>objeto grafico</code> usado para dibujar.
      */
     public void paintComponent(Graphics g) {
-        JLabel aux;
+        int iDiffH = 0;
+        int iDiffW = 0;
+        double iRatio = 0;
         g.setFont(new Font("Verdana", Font.BOLD, 20));
         int iOffsetX = (iRndmType == 2 ? 120 : 55);
         if (bInitialize) {
             //Dibuja la imagen en la posicion actualizada
             for (int i = 0; i < 6; i++) {
-                aux = memoCajas[i].getLabel();
-                aux.setBounds(memoCajas[i].getPosX(), memoCajas[i].getPosY(), memoCajas[i].getImageIcon().getIconWidth(), memoCajas[i].getImageIcon().getIconHeight());
+                g.drawImage(memoCajas[i].getImagenI(), memoCajas[i].getPosX(), memoCajas[i].getPosY(), this);
                 if (memoCajas[i].isSelected() || memoCajas[i].isLocked()) { //Si la pregunta está seleccionada o ya se respondio correctamente
                     String sDisplay;
                     if (memoCajas[i].isPregunta()) {
@@ -478,11 +475,13 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     } else {
                         sDisplay = preArreglo[memoCajas[i].getPosicion()].getRespuesta();
                     }
-                    aux.setText(sDisplay);
-                    aux.setHorizontalTextPosition(JLabel.CENTER);
-                    aux.setVerticalTextPosition(JLabel.CENTER);
-                    memoCajas[i].resizeLabelFont();
-                    aux.paint(g);
+                    resizeLabelFont(sDisplay, memoCajas[i].getImageIcon(), g);
+                    iRatio = memoCajas[i].getImageIcon().getIconWidth() / g.getFontMetrics().stringWidth(sDisplay);
+                    System.out.println(iRatio);
+                    iDiffW = (memoCajas[i].getAncho() - g.getFontMetrics().stringWidth(sDisplay)) / 2;
+                    iDiffH = (memoCajas[i].getAlto() - g.getFontMetrics(g.getFont()).getHeight()) / 2;
+                    g.drawImage(memoCajas[i].getImagenI(), memoCajas[i].getPosX(), memoCajas[i].getPosY(), this);
+                    g.drawString(sDisplay, memoCajas[i].getPosX() + iDiffW, memoCajas[i].getPosY() + iDiffH * (int)(10 * iRatio));
                 }
             }
         } else if (!bOver) {

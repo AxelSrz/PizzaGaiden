@@ -5,13 +5,11 @@
  */
 package pizzagaiden;
 
-import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.util.Timer;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import pizzagaiden.Pizzarama.Pizzarama;
 
 /**
  *
@@ -43,13 +41,28 @@ public class PanelJuego extends JPanel{
     public void continueGame() {
     }
     
-    public BufferedImage componentToImage(Component component) {
-        BufferedImage img = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
-        Graphics g = img.getGraphics();
-        g.setColor(component.getForeground());
-        g.setFont(component.getFont());
-        component.paintAll(g);
-        Rectangle region = new Rectangle(0, 0, img.getWidth(), img.getHeight());
-        return img.getSubimage(region.x, region.y, region.width, region.height);
+    /**
+     *
+     * @param str
+     * @param image
+     * @param g
+     */
+    public void resizeLabelFont(String str, ImageIcon image, Graphics g) {
+        Font labelFont = g.getFont();
+
+        int stringWidth = g.getFontMetrics(labelFont).stringWidth(str);
+        int componentWidth = image.getIconWidth();
+
+        // Find out how much the font can grow in width.
+        double widthRatio = (double) componentWidth / (double) stringWidth;
+
+        int newFontSize = (int) (labelFont.getSize() * widthRatio);
+        int componentHeight = image.getIconHeight();
+
+        // Pick a new font size so it will not be larger than the height of label.
+        int fontSizeToUse = Math.min(newFontSize, componentHeight);
+
+        // Set the label's font size to the newly determined size.
+        g.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse - 2));
     }
 }

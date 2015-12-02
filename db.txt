@@ -18,3 +18,14 @@
 1,chair,silla
 1,blackboard,pizarrón
 1,sign,señal
+1,feo,ugly
+1,gente,people
+1,principal,main
+1,bonita,pretty
+1,galleta,cookie
+1,teclado,keyboard
+1,reloj,clock
+1,antes,before
+2,43+6,49
+1,piernas,legs
+1,chamarra,jacket
