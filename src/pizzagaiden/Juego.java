@@ -199,6 +199,7 @@ public class Juego extends javax.swing.JFrame {
         audTemaJuego.stop();
         cardPrincipal.show(panelPrincipal, "gameOver");
         iJuegoActual = -1;
+        gameOver1.getPuntLabel().setText("" + iPunt);
     }
     
     /**

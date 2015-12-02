@@ -61,6 +61,7 @@ public class PanelJuego extends JPanel{
 
         // Pick a new font size so it will not be larger than the height of label.
         int fontSizeToUse = Math.min(newFontSize, componentHeight);
+        fontSizeToUse = fontSizeToUse <= 34 ? fontSizeToUse : 34;
 
         // Set the label's font size to the newly determined size.
         g.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse - 3));

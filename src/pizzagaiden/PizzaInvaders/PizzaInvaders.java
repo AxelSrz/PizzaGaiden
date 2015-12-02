@@ -9,6 +9,7 @@ package pizzagaiden.PizzaInvaders;
  *
  * @author axelsuarez
  */
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Font;
@@ -411,8 +412,10 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
             g.drawImage(navPizza.getImagenI(), navPizza.getPosX(), navPizza.getPosY(), this);
             sDisplay = preArreglo.get(navPizza.getPregunta()).getPregunta();
             iMid = navPizza.getImageIcon().getIconWidth() / 2;
-            g.fillRect(navPizza.getPosX() + iMid - g.getFontMetrics().stringWidth(sDisplay) / 2 - 5, navPizza.getPosY() + 150, g.getFontMetrics().stringWidth(sDisplay) / 2 + 5, 15);
-            g.drawString(sDisplay, navPizza.getPosX() + iMid - g.getFontMetrics().stringWidth(sDisplay) / 2, navPizza.getPosY() + 155);
+            g.setColor(Color.yellow);
+            g.fillRect(navPizza.getPosX() + iMid - g.getFontMetrics().stringWidth(sDisplay) / 2 - 5, navPizza.getPosY() + 150, g.getFontMetrics().stringWidth(sDisplay) + 10, 25);
+            g.setColor(Color.BLACK);
+            g.drawString(sDisplay, navPizza.getPosX() + iMid - g.getFontMetrics().stringWidth(sDisplay) / 2, navPizza.getPosY() + 168);
             for (int i = 0; i < diDisparos.size(); i++) {
                 g.drawImage(diDisparos.elementAt(i).getImagenI(), diDisparos.elementAt(i).getPosX(), diDisparos.elementAt(i).getPosY(), this);
             }

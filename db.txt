@@ -1,5 +1,4 @@
 1,España,Spain
-2,2+2,4
 2,Integral de e^x,e^x
 2,Derivada de x^2,2x
 1,casa,house
@@ -29,3 +28,8 @@
 2,43+6,49
 1,piernas,legs
 1,chamarra,jacket
+2,18/2,9
+2,45/9,5
+2,2^3,8
+2,88/8,11
+2,15*5,75

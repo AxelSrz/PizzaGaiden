@@ -485,7 +485,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     iDiffW = (memoCajas[i].getAncho() - g.getFontMetrics().stringWidth(sDisplay)) / 2;
                     iDiffH = (memoCajas[i].getAlto() - g.getFontMetrics(g.getFont()).getHeight()) / 2;
                     g.drawImage(memoCajas[i].getImagenI(), memoCajas[i].getPosX(), memoCajas[i].getPosY(), this);
-                    g.drawString(sDisplay, memoCajas[i].getPosX() + iDiffW, memoCajas[i].getPosY() + (int)(135 * iRatio));
+                    g.drawString(sDisplay, memoCajas[i].getPosX() + iDiffW, memoCajas[i].getPosY() + memoCajas[i].getImageIcon().getIconHeight() / 2);
                 }
             }
         } else if (!bOver) {
