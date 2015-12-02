@@ -96,7 +96,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
 
             int iRandPregunta = (int) (Math.random() * iArregloSize);
 
-            while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
+            while (PreguntasSelec.contains(iRandPregunta)) {
                 iRandPregunta = (int) (Math.random() * iArregloSize);
             }
 
