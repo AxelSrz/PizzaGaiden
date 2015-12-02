@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import java.util.*;
+import javax.swing.JLabel;
 import pizzagaiden.PanelJuego;
 import pizzagaiden.Pregunta;
 import pizzagaiden.SoundClip;
@@ -40,6 +41,9 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     public SoundClip audClickCorrecto;
     public SoundClip audClickError;
     private int iRndmType;
+    private final URL memoURL = this.getClass().getResource("PizzaMemorama_Color.png");
+    private final URL cajaCerradaURL = this.getClass().getResource("PizzaMemorama_CajaCerrada.png");
+
 
     /**
      * Metodo constructor usado para crear el objeto <code>Pizzarama</code>
@@ -55,7 +59,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      */
     public void init() {
         setSize(1000, 700);
-        URL memoURL = this.getClass().getResource("PizzaMemorama_Color.png");
         iParesEncontrados = 0;
 
         memoCajas = new PMemorama[6];
@@ -129,7 +132,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     break;
             }
 
-            memoCajas[iRand] = new PMemorama(true, iRandPregunta, x, y, Toolkit.getDefaultToolkit().getImage(memoURL));
+            memoCajas[iRand] = new PMemorama(true, iRandPregunta, x, y, Toolkit.getDefaultToolkit().getImage(cajaCerradaURL));
 
             while (bCajasSelec[iRand]) {
                 iRand = (int) (Math.random() * 6);
@@ -168,7 +171,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     break;
             }
 
-            memoCajas[iRand] = new PMemorama(false, iRandPregunta, x, y, Toolkit.getDefaultToolkit().getImage(memoURL));
+            memoCajas[iRand] = new PMemorama(false, iRandPregunta, x, y, Toolkit.getDefaultToolkit().getImage(cajaCerradaURL));
         }
 
         //objOver= new Objeto(posX,posY,Toolkit.getDefaultToolkit().getImage(goURL));
@@ -248,8 +251,9 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
             // El thread se duerme.
             Thread.sleep(1500);
             for (int i = 0; i < 6; i++) {
-                if (memoCajas[i].isSelected()) {
+                if (memoCajas[i].isSelected() && !memoCajas[i].isLocked()) {
                     memoCajas[i].select();
+                    memoCajas[i].setImage(Toolkit.getDefaultToolkit().getImage(cajaCerradaURL));
                 }
             }
             respuestaEquivocada = false;
@@ -271,10 +275,12 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     audClick.play();
                     iCajaSelected = i;
                     memoCajas[i].select();
+                    memoCajas[i].setImage(Toolkit.getDefaultToolkit().getImage(memoURL));
                 } else if (estaCaja) // Si es la segunda caja en ser seleccionada
                 {
                     audClick.play();
                     memoCajas[i].select();
+                    memoCajas[i].setImage(Toolkit.getDefaultToolkit().getImage(memoURL));
                     if (memoCajas[iCajaSelected].esCorrecto(memoCajas[i].getPosicion())) {
                         juego.setPunt(juego.getPunt() + I_BIEN);
                         memoCajas[iCajaSelected].lockAnswer();
@@ -293,14 +299,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         if (iParesEncontrados == 3) {
             juego.cambiaJuego();
             tTimer.cancel();
-        }
-    }
-
-    public void deselectCajas() {
-        for (int i = 0; i < 6; i++) {
-            if (memoCajas[i].isSelected() && !memoCajas[i].isLocked()) {
-                memoCajas[i].select();
-            }
         }
     }
 
@@ -382,6 +380,13 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * teclas.
      */
     public void mouseClicked(MouseEvent mseEvent) {
+        if (!bPaused && !respuestaEquivocada) { //si el juego no esta pausa
+            //Guardo la posicion del mouse
+            iXClick = mseEvent.getX();
+            iYClick = mseEvent.getY();
+
+            checaCajas();
+        }
     }
 
     /**
@@ -428,13 +433,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * @param me es el <code>evento</code> que se genera en al soltar el boton.
      */
     public void mouseReleased(MouseEvent mseEvent) {
-        if (!bPaused) { //si el juego no esta pausa
-            //Guardo la posicion del mouse
-            iXClick = mseEvent.getX();
-            iYClick = mseEvent.getY();
-
-            checaCajas();
-        }
     }
 
     /**
@@ -465,21 +463,26 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * @param g es el <code>objeto grafico</code> usado para dibujar.
      */
     public void paintComponent(Graphics g) {
+        JLabel aux;
         g.setFont(new Font("Verdana", Font.BOLD, 20));
         int iOffsetX = (iRndmType == 2 ? 120 : 55);
         if (bInitialize) {
             //Dibuja la imagen en la posicion actualizada
             for (int i = 0; i < 6; i++) {
-                g.drawImage(memoCajas[i].getImagenI(), memoCajas[i].getPosX(), memoCajas[i].getPosY(), this);
+                aux = memoCajas[i].getLabel();
+                aux.setBounds(memoCajas[i].getPosX(), memoCajas[i].getPosY(), memoCajas[i].getImageIcon().getIconWidth(), memoCajas[i].getImageIcon().getIconHeight());
                 if (memoCajas[i].isSelected() || memoCajas[i].isLocked()) { //Si la pregunta está seleccionada o ya se respondio correctamente
                     String sDisplay;
-
                     if (memoCajas[i].isPregunta()) {
                         sDisplay = preArreglo[memoCajas[i].getPosicion()].getPregunta();
                     } else {
                         sDisplay = preArreglo[memoCajas[i].getPosicion()].getRespuesta();
                     }
-                    g.drawString(sDisplay, memoCajas[i].getPosX() + iOffsetX, memoCajas[i].getPosY() + 130);
+                    aux.setText(sDisplay);
+                    aux.setHorizontalTextPosition(JLabel.CENTER);
+                    aux.setVerticalTextPosition(JLabel.CENTER);
+                    memoCajas[i].resizeLabelFont();
+                    aux.paint(g);
                 }
             }
         } else if (!bOver) {

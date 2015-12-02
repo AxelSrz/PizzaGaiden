@@ -15,8 +15,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.*;
+import javax.swing.JLabel;
 import pizzagaiden.Enemigo;
 import pizzagaiden.Objeto;
 import pizzagaiden.PanelJuego;
@@ -63,6 +65,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     public PizzaQuiz() {
         super();
         setFocusable(true);
+        setLayout(null);
     }
 
     /**
@@ -355,24 +358,24 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         int iOffsetX = (iRndmType == 2 ? 40 : 5);
         g.setFont(new Font("Verdana", Font.BOLD, 22));
         String sDisplay;
-        if (bInitialize) {
-            //Dibuja la imagen en la posicion actualizada
-            g.drawImage(objGranPizza.getImagenI(), objGranPizza.getPosX(), objGranPizza.getPosY(), this);
-            g.drawImage(objCajaPregunta.getImagenI(), objCajaPregunta.getPosX(), objCajaPregunta.getPosY(), this);
-            sDisplay = preArreglo[iPregunta].getPregunta();
-            g.drawString(sDisplay, objCajaPregunta.getPosX() + 100, objCajaPregunta.getPosY() + 60);
-            for (int i = 0; i < arrPreg.size(); i++) {
-                g.drawImage(arrPreg.get(i).getImagenI(), arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(), this);
-                g.setColor(Color.YELLOW);
-                g.fillRect(arrPreg.get(i).getPosX() + 6, arrPreg.get(i).getPosY() + 26, 100, 30);
-                g.setColor(Color.BLACK);
-                sDisplay = preArreglo[arrPreg.get(i).getPosicion()].getRespuesta();
-                g.drawString(sDisplay, arrPreg.get(i).getPosX() + iOffsetX, arrPreg.get(i).getPosY() + 50);
-            }
-        } else if (!bOver) {
-            //Da un mensaje mientras se carga el dibujo 
-            g.drawString("No se cargo la imagen..", 20, 20);
-        }
+//        if (bInitialize) {
+//            //Dibuja la imagen en la posicion actualizada
+//            g.drawImage(objGranPizza.getImagenI(), objGranPizza.getPosX(), objGranPizza.getPosY(), this);
+//            g.drawImage(objCajaPregunta.getImagenI(), objCajaPregunta.getPosX(), objCajaPregunta.getPosY(), this);
+//            sDisplay = preArreglo[iPregunta].getPregunta();
+//            g.drawString(sDisplay, objCajaPregunta.getPosX() + 100, objCajaPregunta.getPosY() + 60);
+//            for (int i = 0; i < arrPreg.size(); i++) {
+//                g.drawImage(arrPreg.get(i).getImagenI(), arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(), this);
+//                g.setColor(Color.YELLOW);
+//                g.fillRect(arrPreg.get(i).getPosX() + 6, arrPreg.get(i).getPosY() + 26, 100, 30);
+//                g.setColor(Color.BLACK);
+//                sDisplay = preArreglo[arrPreg.get(i).getPosicion()].getRespuesta();
+//                g.drawString(sDisplay, arrPreg.get(i).getPosX() + iOffsetX, arrPreg.get(i).getPosY() + 50);
+//            }
+//        } else if (!bOver) {
+//            //Da un mensaje mientras se carga el dibujo 
+//            g.drawString("No se cargo la imagen..", 20, 20);
+//        }
 
     }
 
@@ -518,6 +521,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      * @param g es el <code>objeto grafico</code> usado para dibujar.
      */
     public void paintComponent(Graphics g) {
+        JLabel aux;
         g.setFont(new Font("Verdana", Font.BOLD, 22));
         String sDisplay;
         if (bInitialize) {
@@ -527,9 +531,17 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
             sDisplay = preArreglo[iPregunta].getPregunta();
             g.drawString(sDisplay, objCajaPregunta.getPosX() + 100, objCajaPregunta.getPosY() + 60);
             for (int i = 0; i < arrPreg.size(); i++) {
-                g.drawImage(arrPreg.get(i).getImagenI(), arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(), this);
+                aux = arrPreg.get(i).getLabel(); 
+                aux.setBounds(arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(),
+                        arrPreg.get(i).getImageIcon().getIconWidth(), 
+                        arrPreg.get(i).getImageIcon().getIconHeight());
                 sDisplay = preArreglo[arrPreg.get(i).getPosicion()].getRespuesta();
-                g.drawString(sDisplay, arrPreg.get(i).getPosX() - 50, arrPreg.get(i).getPosY() + 50);
+                aux.setText(sDisplay);
+                aux.setHorizontalTextPosition(JLabel.CENTER);
+                aux.setVerticalTextPosition(JLabel.CENTER);
+                arrPreg.get(i).resizeLabelFont();
+                BufferedImage img = componentToImage(aux);
+                g.drawImage(img, arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(), this);
             }
         } else if (!bOver) {
             //Da un mensaje mientras se carga el dibujo 

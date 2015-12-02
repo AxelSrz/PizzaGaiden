@@ -18,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.net.URL;
 import java.util.*;
+import javax.swing.JLabel;
 import pizzagaiden.Disparo;
 import pizzagaiden.Enemigo;
 import pizzagaiden.Nave;
@@ -416,6 +417,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
      */
     @Override
     public void paintComponent(Graphics g) {
+        JLabel aux;
         g.setFont(new Font("Verdana", Font.BOLD, 22));
         String sDisplay;
         if (bInitialize) {

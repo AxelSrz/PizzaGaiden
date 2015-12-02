@@ -4,7 +4,7 @@ import java.awt.Image;
 
 public class Enemigo extends Objeto
 {
-  int iPosicion;
+  protected int iPosicion;
   
   public Enemigo(int ires, int posX, int posY ,Image image)
   {

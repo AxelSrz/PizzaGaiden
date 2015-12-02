@@ -2,12 +2,13 @@ package pizzagaiden.Pizzarama;
 
 import pizzagaiden.Enemigo;
 import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class PMemorama extends Enemigo
 {
-  public boolean bSelected;
-  public boolean bPregunta;
-  public boolean bAnswerLock;
+  protected boolean bSelected;
+  protected boolean bPregunta;
+  protected boolean bAnswerLock;
   
   public PMemorama(boolean bpreg, int ires, int posX, int posY ,Image image)
   {
@@ -40,5 +41,9 @@ public class PMemorama extends Enemigo
   public void lockAnswer()
   {
     bAnswerLock= true;
+  }
+  
+  public void setImage(Image image) {
+      super.setImageIcon(new ImageIcon(image));
   }
 }

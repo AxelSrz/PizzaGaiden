@@ -44,7 +44,7 @@ public class GameOver extends javax.swing.JPanel {
         jLabel1.setText("Game Over");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Hot Pizza", 0, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_aceptar.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

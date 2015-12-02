@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -230,7 +231,7 @@ public class Juego extends javax.swing.JFrame {
                 pizzarama1.requestFocus();
                 break;
             case 2: //Cuando se carga PizzaInvaders
-                pizzaInvaders1 = new PizzaInvaders(); //misma descripcion que en el caso de pizza quiz
+                pizzaInvaders1 = new PizzaInvaders();  
                 panelMinis.add(pizzaInvaders1, "invaders");
                 juegoActivo = pizzaInvaders1;
                 syncGame(juegoActivo);
@@ -240,6 +241,16 @@ public class Juego extends javax.swing.JFrame {
                 break;
         }
     }
+//    
+//    private Dimension getTextSize(JLabel l, Font f) {
+//        Dimension size = new Dimension();
+//        g.setFont(f);
+//        FontMetrics fm = g.getFontMetrics(f);
+//        size.width = fm.stringWidth(l.getText());
+//        size.height = fm.getHeight();
+//
+//        return size;
+//    }
     
     /**
      * Metodo <I>getDatabaseFile</I> Handler para el archivo de preguntas
@@ -281,7 +292,7 @@ public class Juego extends javax.swing.JFrame {
         pizzarama1 = new pizzagaiden.Pizzarama.Pizzarama();
         pizzaInvaders1 = new pizzagaiden.PizzaInvaders.PizzaInvaders();
         pizzaQuiz1 = new pizzagaiden.PizzaQuizz.PizzaQuiz();
-        panelPausa1 = new pizzagaiden.panelPausa();
+        panelPausa1 = new pizzagaiden.PanelPausa();
         gameOver1 = new pizzagaiden.GameOver();
         configuracion1 = new pizzagaiden.Configuracion();
         agregar1 = new pizzagaiden.Agregar();
@@ -414,7 +425,7 @@ public class Juego extends javax.swing.JFrame {
     private pizzagaiden.PanelCreditos panelCreditos1;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JPanel panelMinis;
-    private pizzagaiden.panelPausa panelPausa1;
+    private pizzagaiden.PanelPausa panelPausa1;
     private javax.swing.JPanel panelPrincipal;
     private pizzagaiden.PizzaInvaders.PizzaInvaders pizzaInvaders1;
     private pizzagaiden.PizzaQuizz.PizzaQuiz pizzaQuiz1;
