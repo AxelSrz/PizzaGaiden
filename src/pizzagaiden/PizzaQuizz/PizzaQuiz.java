@@ -19,6 +19,7 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.*;
 import javax.swing.JLabel;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 import pizzagaiden.Enemigo;
 import pizzagaiden.Objeto;
 import pizzagaiden.PanelJuego;
@@ -37,8 +38,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     private int iRonda;
     private Objeto objGranPizza;
     private Objeto objCajaPregunta;
-    private Pregunta preArreglo[];
-    private Set<Integer> PreguntasSelec;
+    private Vector<Pregunta> preArreglo;
     private List<Enemigo> arrPreg;
     private Enemigo auxPregunta;
     private boolean bOver;
@@ -58,6 +58,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     public SoundClip audClickCorrecto;
     public SoundClip audClickError;
     private int iRndmType;
+    private int iArregloSize;
 
     /**
      * Metodo constructor usado para crear el objeto <code>PizzaQuiz</code>
@@ -65,7 +66,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
     public PizzaQuiz() {
         super();
         setFocusable(true);
-        setLayout(null);
+        setLayout(new AbsoluteLayout());
     }
 
     /**
@@ -77,24 +78,24 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         setSize(1000, 700);
         iVidas = 2;
         iRonda = 1;
-        PreguntasSelec = new HashSet<>();
-        preArreglo = new Pregunta[10];
+        preArreglo = new Vector();
         arrPreg = new ArrayList<>();
         
         iRndmType = (int)(Math.random()) + 1;
-        int iArregloSize = juego.getPregBase().get(iRndmType).size();
+        iArregloSize = juego.getPregBase().get(iRndmType).size();
         
-        for(int i=0; i < 10; i++) {
+        for(int i=0; i < iArregloSize; i++) {
             iRandPregunta = (int) (Math.random() * iArregloSize);
             
-            while(PreguntasSelec.contains(iRandPregunta)) {
+            while(juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
                 iRandPregunta = (int) (Math.random() * iArregloSize);
             }
             
-            PreguntasSelec.add(iRandPregunta);
-            preArreglo[i] = juego.getPregBase().get(iRndmType).get(iRandPregunta);
+            juego.agregaPreguntaUsada(iRandPregunta, iRndmType);
+            preArreglo.add(juego.getPregBase().get(iRndmType).get(iRandPregunta));
         }
         
+        juego.limpiaSetPreguntas(iRndmType);
         iPregunta = iRandPregunta;
         auxPregunta = new Enemigo(iRandPregunta, 480, 40, Toolkit.getDefaultToolkit().getImage(pregURL));
         arrPreg.add(auxPregunta);
@@ -222,16 +223,17 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                         juego.setPunt(juego.getPunt() + I_BIEN);
                         iRonda++;
                         arrPreg.clear();
-                        PreguntasSelec.clear();
+                        if(iRonda+juego.numPreguntasUsadas(iRndmType)> iArregloSize)
+                            juego.limpiaSetPreguntas(iRndmType);
                         for (int j = 0; j < iRonda; j++) {
-                            iRandPregunta = (int) (Math.random() * 10);
+                            iRandPregunta = (int) (Math.random() * iArregloSize);
 
-                            while (PreguntasSelec.contains(iRandPregunta)) {
-                                iRandPregunta = (int) (Math.random() * 10);
+                            while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
+                                iRandPregunta = (int) (Math.random() * iArregloSize);
                             }
                             auxPregunta = new Enemigo(iRandPregunta, 0, 0, Toolkit.getDefaultToolkit().getImage(pregURL));
                             arrPreg.add(auxPregunta);
-                            PreguntasSelec.add(iRandPregunta);
+                            juego.agregaPreguntaUsada(iRandPregunta, iRndmType);
                         }
                         iPregunta = arrPreg.get(0).getPosicion();
                         Collections.shuffle(arrPreg);
@@ -354,29 +356,6 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
 
         // Dibuja la imagen actualizada
         g.drawImage(dbImage, 0, 0, this);
-        
-        int iOffsetX = (iRndmType == 2 ? 40 : 5);
-        g.setFont(new Font("Verdana", Font.BOLD, 22));
-        String sDisplay;
-//        if (bInitialize) {
-//            //Dibuja la imagen en la posicion actualizada
-//            g.drawImage(objGranPizza.getImagenI(), objGranPizza.getPosX(), objGranPizza.getPosY(), this);
-//            g.drawImage(objCajaPregunta.getImagenI(), objCajaPregunta.getPosX(), objCajaPregunta.getPosY(), this);
-//            sDisplay = preArreglo[iPregunta].getPregunta();
-//            g.drawString(sDisplay, objCajaPregunta.getPosX() + 100, objCajaPregunta.getPosY() + 60);
-//            for (int i = 0; i < arrPreg.size(); i++) {
-//                g.drawImage(arrPreg.get(i).getImagenI(), arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(), this);
-//                g.setColor(Color.YELLOW);
-//                g.fillRect(arrPreg.get(i).getPosX() + 6, arrPreg.get(i).getPosY() + 26, 100, 30);
-//                g.setColor(Color.BLACK);
-//                sDisplay = preArreglo[arrPreg.get(i).getPosicion()].getRespuesta();
-//                g.drawString(sDisplay, arrPreg.get(i).getPosX() + iOffsetX, arrPreg.get(i).getPosY() + 50);
-//            }
-//        } else if (!bOver) {
-//            //Da un mensaje mientras se carga el dibujo 
-//            g.drawString("No se cargo la imagen..", 20, 20);
-//        }
-
     }
 
     /**
@@ -433,13 +412,6 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      * teclas.
      */
     public void mouseClicked(MouseEvent mseEvent) {
-        if (!bPaused) {
-            //Guardo la posicion del mouse
-            iXClick = mseEvent.getX();
-            iYClick = mseEvent.getY();
-
-            checaRespuesta();
-        }
     }
 
     /**
@@ -489,6 +461,13 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      */
     @Override
     public void mouseReleased(MouseEvent mseEvent) {
+        if (!bPaused) {
+            //Guardo la posicion del mouse
+            iXClick = mseEvent.getX();
+            iYClick = mseEvent.getY();
+
+            checaRespuesta();
+        }
     }
 
     /**
@@ -507,7 +486,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      * <code>MouseListener</code>.<P>
      * En este metodo se maneja el evento que se genera al mover el mouse.
      *
-     * @param me es el <code>evento</code> que se genera en al mover el mouse.
+     * @param mseEvent es el <code>evento</code> que se genera en al mover el mouse.
      */
     @Override
     public void mouseMoved(MouseEvent mseEvent) {
@@ -520,28 +499,27 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      *
      * @param g es el <code>objeto grafico</code> usado para dibujar.
      */
+    @Override
     public void paintComponent(Graphics g) {
-        JLabel aux;
+        int iDiffW = 0;
+        int iDiffH = 0;
+        double iRatio;
         g.setFont(new Font("Verdana", Font.BOLD, 22));
         String sDisplay;
         if (bInitialize) {
             //Dibuja la imagen en la posicion actualizada
             g.drawImage(objGranPizza.getImagenI(), objGranPizza.getPosX(), objGranPizza.getPosY(), this);
             g.drawImage(objCajaPregunta.getImagenI(), objCajaPregunta.getPosX(), objCajaPregunta.getPosY(), this);
-            sDisplay = preArreglo[iPregunta].getPregunta();
+            sDisplay = preArreglo.get(iPregunta).getPregunta();
             g.drawString(sDisplay, objCajaPregunta.getPosX() + 100, objCajaPregunta.getPosY() + 60);
             for (int i = 0; i < arrPreg.size(); i++) {
-                aux = arrPreg.get(i).getLabel(); 
-                aux.setBounds(arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(),
-                        arrPreg.get(i).getImageIcon().getIconWidth(), 
-                        arrPreg.get(i).getImageIcon().getIconHeight());
-                sDisplay = preArreglo[arrPreg.get(i).getPosicion()].getRespuesta();
-                aux.setText(sDisplay);
-                aux.setHorizontalTextPosition(JLabel.CENTER);
-                aux.setVerticalTextPosition(JLabel.CENTER);
-                arrPreg.get(i).resizeLabelFont();
-                BufferedImage img = componentToImage(aux);
-                g.drawImage(img, arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(), this);
+                sDisplay = preArreglo.get(arrPreg.get(i).getPosicion()).getRespuesta();
+                resizeLabelFont(sDisplay, arrPreg.get(i).getImageIcon(), g);
+                iRatio = arrPreg.get(i).getImageIcon().getIconWidth() / g.getFontMetrics().stringWidth(sDisplay);
+                iDiffW = (arrPreg.get(i).getImageIcon().getIconWidth() - g.getFontMetrics().stringWidth(sDisplay)) / 2;
+                iDiffH = (arrPreg.get(i).getImageIcon().getIconHeight() - g.getFontMetrics(g.getFont()).getHeight());
+                g.drawImage(arrPreg.get(i).getImagenI(), arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(), this);
+                g.drawString(sDisplay, arrPreg.get(i).getPosX() + iDiffW, arrPreg.get(i).getPosY() + (int)(50 * iRatio));
             }
         } else if (!bOver) {
             //Da un mensaje mientras se carga el dibujo 

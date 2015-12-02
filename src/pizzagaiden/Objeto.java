@@ -7,8 +7,10 @@ package pizzagaiden;
  * @version 1.00 2015/9/2
  */
 import java.awt.Font;
+import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import javax.swing.JLabel;
 
@@ -17,7 +19,6 @@ public class Objeto {
     protected int posX;    //posicion en x.       
     protected int posY; //posicion en y.
     protected ImageIcon icono;    //icono.
-    protected JLabel label;
 
     /**
      * Metodo constructor usado para crear el objeto
@@ -30,11 +31,6 @@ public class Objeto {
         this.posX = posX;
         this.posY = posY;
         icono = new ImageIcon(image);
-        label = new JLabel(icono);
-    }
-
-    public JLabel getLabel() {
-        return label;
     }
 
     /**
@@ -166,6 +162,7 @@ public class Objeto {
      * Checa si el objeto <code>Objeto</code> intersecta a otro
      * <code>Objeto</code> por el area definida
      *
+     * @param obj
      * @return un valor boleano <code>true</code> si lo intersecta
      * <code>false</code> en caso contrario
      */
@@ -175,25 +172,5 @@ public class Objeto {
 
     public boolean contiene(int iX, int iY) {
         return getPerimetro().contains(iX, iY);
-    }
-
-    public void resizeLabelFont() {
-        Font labelFont = label.getFont();
-        String labelText = label.getText();
-
-        int stringWidth = label.getFontMetrics(labelFont).stringWidth(labelText);
-        int componentWidth = label.getWidth();
-
-        // Find out how much the font can grow in width.
-        double widthRatio = (double) componentWidth / (double) stringWidth;
-
-        int newFontSize = (int) (labelFont.getSize() * widthRatio);
-        int componentHeight = label.getHeight();
-
-        // Pick a new font size so it will not be larger than the height of label.
-        int fontSizeToUse = Math.min(newFontSize, componentHeight);
-
-        // Set the label's font size to the newly determined size.
-        label.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
     }
 }
