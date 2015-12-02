@@ -15,7 +15,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.*;
 import javax.swing.JLabel;
@@ -75,7 +74,10 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
      * y se definen funcionalidades.
      */
     public void init() {
+        System.out.println("Quiz");
+        juego.getBarraJuego1().getInstruccionLabel().setText("Haz clic en la respuesta correcta");
         setSize(1000, 700);
+        setBackground(new java.awt.Color(255, 51, 51));
         iVidas = 2;
         iRonda = 1;
         preArreglo = new Vector();
@@ -100,7 +102,6 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
         auxPregunta = new Enemigo(iRandPregunta, 480, 40, Toolkit.getDefaultToolkit().getImage(pregURL));
         arrPreg.add(auxPregunta);
 
-        setBackground(Color.red);
         addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -519,7 +520,7 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                 iDiffW = (arrPreg.get(i).getImageIcon().getIconWidth() - g.getFontMetrics().stringWidth(sDisplay)) / 2;
                 iDiffH = (arrPreg.get(i).getImageIcon().getIconHeight() - g.getFontMetrics(g.getFont()).getHeight());
                 g.drawImage(arrPreg.get(i).getImagenI(), arrPreg.get(i).getPosX(), arrPreg.get(i).getPosY(), this);
-                g.drawString(sDisplay, arrPreg.get(i).getPosX() + iDiffW, arrPreg.get(i).getPosY() + (int)(50 * iRatio));
+                g.drawString(sDisplay, arrPreg.get(i).getPosX() + iDiffW, arrPreg.get(i).getPosY() + (int)(53 * iRatio));
             }
         } else if (!bOver) {
             //Da un mensaje mientras se carga el dibujo 

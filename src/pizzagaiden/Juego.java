@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,13 +40,14 @@ public class Juego extends javax.swing.JFrame {
     private boolean bOver;
     public int iCounter;
     private File file;
-    public SoundClip audTemaJuego;
-    public SoundClip audTemaMenu;
-//    private Player acMusic;
+    private SoundClip audTemaJuego;
+    private final SoundClip audTemaMenu;
     private ArrayList<ArrayList<Pregunta>> pregBase;
-    public Set<Integer> setPregEsp;
-    public Set<Integer> setPregMat;
-     /**
+    private final Set<Integer> setPregEsp;
+    private final Set<Integer> setPregMat;
+    private int iTiempo;
+            
+    /**
      * Metodo <I>Juego</I> constructor de la clase
      * que se encarga de leer el archivo de preguntas
      * y mandar a los respectivos metodos de inicialización
@@ -73,15 +73,15 @@ public class Juego extends javax.swing.JFrame {
         
         //Manda llamar a los metodos de inicialización
         initComponents();
-        setPregEsp = new HashSet<Integer>();
-        setPregMat = new HashSet<Integer>();
+        setPregEsp = new HashSet<>();
+        setPregMat = new HashSet<>();
         iJuegoActual = -1;
+        iTiempo = 60;
         
         // Pasa el objeto a todas la clases
         initPanels();
-//        acMusic = Manager.getClip();
 
-        //pone los valores por default
+        // pone los valores por default
         getContentPane().setSize(1000, 700); //tamaño del frame
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // acabar la ejecución al cerrar
@@ -90,6 +90,18 @@ public class Juego extends javax.swing.JFrame {
         audTemaMenu = new SoundClip("menuMusic.wav");
         audTemaMenu.setLooping(true);
         audTemaMenu.play();
+    }
+
+    public int getiTiempo() {
+        return iTiempo;
+    }
+
+    public void setiTiempo(int iTiempo) {
+        this.iTiempo = iTiempo;
+    }
+
+    public BarraJuego getBarraJuego1() {
+        return barraJuego1;
     }
     
     // Metodos de clase
@@ -126,6 +138,7 @@ public class Juego extends javax.swing.JFrame {
      * Metodo <I>getPregBase</I> no recibe parametros y regresa un ArrayList con
      * un ArrayList anidado. Sirve para hacer get de la variable que contiene 
      * los datos de la base de preguntas.
+     * @return 
      */
     public ArrayList<ArrayList<Pregunta>> getPregBase() {
         return pregBase;
@@ -145,6 +158,8 @@ public class Juego extends javax.swing.JFrame {
         gameOver1.setJuego(this);
         panelPausa1.setJuego(this);
         panelCreditos1.setJuego(this);
+        barraJuego1.setJuego(this);
+        configurarTiempo1.setJuego(this);
     }
     
     /**
@@ -152,6 +167,8 @@ public class Juego extends javax.swing.JFrame {
      * Este metodo permite cambiar la tipografía de un componente despué de su
      * inicialización.
      *
+     * @param component
+     * @param font
      */
     public static void changeFont(Component component, Font font) {
         component.setFont(font);
@@ -181,6 +198,7 @@ public class Juego extends javax.swing.JFrame {
     public void stopJuego() {
         audTemaJuego.stop();
         cardPrincipal.show(panelPrincipal, "gameOver");
+        iJuegoActual = -1;
     }
     
     /**
@@ -206,7 +224,7 @@ public class Juego extends javax.swing.JFrame {
         iPunt = 0;
         setPunt(iPunt);
         cardPrincipal.show(panelPrincipal, "panelJuego"); //pone el template de panel de juego en el panel principal
-        iCounter = 60; // empieza la cuenta regresiva en cierto numero de segundos
+        iCounter = iTiempo; // empieza la cuenta regresiva en cierto numero de segundos
         ActionListener listener = new ActionListener() {
             @Override // Una accion que se repite segun el contador donde se instancie
             public void actionPerformed(ActionEvent e) {
@@ -221,6 +239,7 @@ public class Juego extends javax.swing.JFrame {
         };
         timCountdown = new Timer(1000, listener); //Instancia el timer junto con la task
         timCountdown.start();
+        barraJuego1.startTimerBar(iTiempo);
         cambiaJuego(); //empieza el primer cambio de juego
     }
     
@@ -245,7 +264,7 @@ public class Juego extends javax.swing.JFrame {
         iJuegoActual++; // Variable de control para saber el próximo juego a cargar
         setPregEsp.clear();
         setPregMat.clear();
-
+        System.out.println("cambio");
         switch(iJuegoActual % 3) {
             case 0: //Cuando se carga PizzaQuiz
                 pizzaQuiz1 = new pizzagaiden.PizzaQuizz.PizzaQuiz(); //Crea una nueva instancia de la clase
@@ -280,6 +299,7 @@ public class Juego extends javax.swing.JFrame {
     /**
      * Metodo <I>getDatabaseFile</I> Handler para el archivo de preguntas
      *
+     * @return 
      */
     public File getDatabaseFile() {
         return file;
@@ -288,6 +308,7 @@ public class Juego extends javax.swing.JFrame {
     /**
      * Metodo <I>getPunt</I> Handler get para el numero de puntos actuales
      *
+     * @return 
      */
     public int getPunt() {
         return iPunt;
@@ -296,6 +317,7 @@ public class Juego extends javax.swing.JFrame {
     /**
      * Metodo <I>getPunt</I> Handler set para el numero de puntos actuales
      *
+     * @param iPunt
      */
     public void setPunt(int iPunt) {
         Juego.iPunt = iPunt;
@@ -321,6 +343,7 @@ public class Juego extends javax.swing.JFrame {
         configuracion1 = new pizzagaiden.Configuracion();
         agregar1 = new pizzagaiden.Agregar();
         panelCreditos1 = new pizzagaiden.PanelCreditos();
+        configurarTiempo1 = new pizzagaiden.ConfigurarTiempo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -390,6 +413,7 @@ public class Juego extends javax.swing.JFrame {
         panelPrincipal.add(configuracion1, "config");
         panelPrincipal.add(agregar1, "agregar");
         panelPrincipal.add(panelCreditos1, "creditos");
+        panelPrincipal.add(configurarTiempo1, "configTiempo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -444,6 +468,7 @@ public class Juego extends javax.swing.JFrame {
     private pizzagaiden.Agregar agregar1;
     private pizzagaiden.BarraJuego barraJuego1;
     private pizzagaiden.Configuracion configuracion1;
+    private pizzagaiden.ConfigurarTiempo configurarTiempo1;
     private pizzagaiden.GameOver gameOver1;
     private pizzagaiden.Menu menu1;
     private pizzagaiden.PanelCreditos panelCreditos1;

@@ -57,7 +57,11 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      * usarse en el programa y se definen funcionalidades.
      */
     public void init() {
+        System.out.println("Memorama");
+
+        juego.getBarraJuego1().getInstruccionLabel().setText("Encuentra los pares");
         setSize(1000, 700);
+        setBackground(new java.awt.Color(255, 51, 51));
         iParesEncontrados = 0;
 
         memoCajas = new PMemorama[6];
@@ -170,8 +174,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
             memoCajas[iRand] = new PMemorama(false, iRandPregunta, x, y, Toolkit.getDefaultToolkit().getImage(cajaCerradaURL));
         }
 
-        //objOver= new Objeto(posX,posY,Toolkit.getDefaultToolkit().getImage(goURL));
-        setBackground(Color.red);
         addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -477,11 +479,10 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     }
                     resizeLabelFont(sDisplay, memoCajas[i].getImageIcon(), g);
                     iRatio = memoCajas[i].getImageIcon().getIconWidth() / g.getFontMetrics().stringWidth(sDisplay);
-                    System.out.println(iRatio);
                     iDiffW = (memoCajas[i].getAncho() - g.getFontMetrics().stringWidth(sDisplay)) / 2;
                     iDiffH = (memoCajas[i].getAlto() - g.getFontMetrics(g.getFont()).getHeight()) / 2;
                     g.drawImage(memoCajas[i].getImagenI(), memoCajas[i].getPosX(), memoCajas[i].getPosY(), this);
-                    g.drawString(sDisplay, memoCajas[i].getPosX() + iDiffW, memoCajas[i].getPosY() + iDiffH * (int)(10 * iRatio));
+                    g.drawString(sDisplay, memoCajas[i].getPosX() + iDiffW, memoCajas[i].getPosY() + (int)(135 * iRatio));
                 }
             }
         } else if (!bOver) {
