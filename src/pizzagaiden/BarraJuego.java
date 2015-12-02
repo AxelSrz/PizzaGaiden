@@ -30,7 +30,6 @@ public class BarraJuego extends javax.swing.JPanel {
     }
     
     public void startTimerBar(int iTiempo) {
-        System.out.println(iTiempo);
         jProgressBar1.setMinimum(0);
         jProgressBar1.setMaximum(iTiempo);
         jProgressBar1.setValue(iTiempo);

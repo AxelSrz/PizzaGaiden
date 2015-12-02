@@ -279,7 +279,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     memoCajas[i].select();
                     memoCajas[i].setImage(Toolkit.getDefaultToolkit().getImage(memoURL));
                     if (memoCajas[iCajaSelected].esCorrecto(memoCajas[i].getPosicion())) {
-                        System.out.println("va bien"+iParesEncontrados);
                         juego.setPunt(juego.getPunt() + I_BIEN);
                         memoCajas[iCajaSelected].lockAnswer();
                         memoCajas[i].lockAnswer();
@@ -297,7 +296,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         }//Termina for
 
         if (iParesEncontrados == 3 || todasCajasAbiertas) {
-            System.out.println("que pedo");
             juego.cambiaJuego();
         }
     }

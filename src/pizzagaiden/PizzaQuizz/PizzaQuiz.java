@@ -229,7 +229,6 @@ public class PizzaQuiz extends PanelJuego implements KeyListener, MouseListener,
                             iRandPregunta = (int) (Math.random() * iArregloSize);
 
                             while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
-                                System.out.println(juego.numPreguntasUsadas(iRndmType)+" // "+iArregloSize);
                                 iRandPregunta = (int) (Math.random() * iArregloSize);
                             }
                             auxPregunta = new Enemigo(iRandPregunta, 0, 0, Toolkit.getDefaultToolkit().getImage(pregURL));

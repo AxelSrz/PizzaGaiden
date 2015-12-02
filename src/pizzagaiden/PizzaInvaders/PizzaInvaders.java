@@ -397,7 +397,7 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
      */
     @Override
     public void paintComponent(Graphics g) {
-        JLabel aux;
+        int iMid, iAux;
         g.setFont(new Font("Verdana", Font.BOLD, 22));
         String sDisplay;
         if (bInitialize) {
@@ -405,11 +405,14 @@ public class PizzaInvaders extends PanelJuego implements KeyListener {
             for (int i = 0; i < eneEnemigos.size(); i++) {
                 g.drawImage(eneEnemigos.elementAt(i).getImagenI(), eneEnemigos.elementAt(i).getPosX(), eneEnemigos.elementAt(i).getPosY(), this);
                 sDisplay = preArreglo.get(eneEnemigos.elementAt(i).getPosicion()).getRespuesta();
-                g.drawString(sDisplay, eneEnemigos.elementAt(i).getPosX() + 40, eneEnemigos.elementAt(i).getPosY() + 50);
+                iMid = eneEnemigos.elementAt(i).getImageIcon().getIconWidth() / 2;
+                g.drawString(sDisplay, eneEnemigos.elementAt(i).getPosX() + iMid - g.getFontMetrics().stringWidth(sDisplay) / 2, eneEnemigos.elementAt(i).getPosY() + 120);
             }
             g.drawImage(navPizza.getImagenI(), navPizza.getPosX(), navPizza.getPosY(), this);
             sDisplay = preArreglo.get(navPizza.getPregunta()).getPregunta();
-            g.drawString(sDisplay, navPizza.getPosX() + 50, navPizza.getPosY() + 100);
+            iMid = navPizza.getImageIcon().getIconWidth() / 2;
+            g.fillRect(navPizza.getPosX() + iMid - g.getFontMetrics().stringWidth(sDisplay) / 2 - 5, navPizza.getPosY() + 150, g.getFontMetrics().stringWidth(sDisplay) / 2 + 5, 15);
+            g.drawString(sDisplay, navPizza.getPosX() + iMid - g.getFontMetrics().stringWidth(sDisplay) / 2, navPizza.getPosY() + 155);
             for (int i = 0; i < diDisparos.size(); i++) {
                 g.drawImage(diDisparos.elementAt(i).getImagenI(), diDisparos.elementAt(i).getPosX(), diDisparos.elementAt(i).getPosY(), this);
             }

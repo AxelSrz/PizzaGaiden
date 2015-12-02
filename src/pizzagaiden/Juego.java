@@ -264,7 +264,6 @@ public class Juego extends javax.swing.JFrame {
         iJuegoActual++; // Variable de control para saber el próximo juego a cargar
         setPregEsp.clear();
         setPregMat.clear();
-        System.out.println("cambio");
         switch(iJuegoActual % 3) {
             case 0: //Cuando se carga PizzaQuiz
                 pizzaQuiz1 = new pizzagaiden.PizzaQuizz.PizzaQuiz(); //Crea una nueva instancia de la clase

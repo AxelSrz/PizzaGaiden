@@ -36,13 +36,14 @@ public class GameOver extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        puntLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 51, 51));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
         jLabel1.setText("Game Over");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 210, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Hot Pizza", 0, 24)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzagaiden/Caja_aceptar.png"))); // NOI18N
@@ -52,6 +53,7 @@ public class GameOver extends javax.swing.JPanel {
             }
         });
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 360, 300, 120));
+        add(puntLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
@@ -62,6 +64,7 @@ public class GameOver extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel puntLabel;
     // End of variables declaration//GEN-END:variables
 
     void addMouseListenerToLabels(MouseListener mouseListener) {
