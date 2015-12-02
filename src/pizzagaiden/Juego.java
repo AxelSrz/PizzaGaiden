@@ -241,16 +241,6 @@ public class Juego extends javax.swing.JFrame {
                 break;
         }
     }
-//    
-//    private Dimension getTextSize(JLabel l, Font f) {
-//        Dimension size = new Dimension();
-//        g.setFont(f);
-//        FontMetrics fm = g.getFontMetrics(f);
-//        size.width = fm.stringWidth(l.getText());
-//        size.height = fm.getHeight();
-//
-//        return size;
-//    }
     
     /**
      * Metodo <I>getDatabaseFile</I> Handler para el archivo de preguntas
