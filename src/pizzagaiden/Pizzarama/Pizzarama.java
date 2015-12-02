@@ -28,7 +28,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     private int iYClick;
     private int iParesEncontrados;
     private Pregunta preArreglo[];
-    private Set<Integer> preguntasSelec;
     private boolean bPreguntaSelec[];
     private boolean bCajasSelec[];
     private boolean respuestaEquivocada;
@@ -62,7 +61,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         bCajasSelec = new boolean[6];
         preArreglo = new Pregunta[10];
         bPreguntaSelec = new boolean[10];
-        preguntasSelec = new HashSet<>();
         
 
         iRndmType = (int) (Math.random()) + 1;
@@ -70,15 +68,13 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         for (int i = 0; i < 10; i++) {
             int iRandPregunta = (int) (Math.random() * 10);
 
-            while (preguntasSelec.contains(iRandPregunta)) {
+            while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
                 iRandPregunta = (int) (Math.random() * 10);
             }
 
-            preguntasSelec.add(iRandPregunta);
+            juego.agregaPreguntaUsada(iRandPregunta, iRndmType);
             preArreglo[i] = juego.getPregBase().get(iRndmType).get(iRandPregunta);
         }
-        
-        preguntasSelec.clear();
 
         for (int i = 0; i < 6; i++) {
             bCajasSelec[i] = false;

@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -42,7 +44,8 @@ public class Juego extends javax.swing.JFrame {
     public SoundClip audTemaMenu;
 //    private Player acMusic;
     private ArrayList<ArrayList<Pregunta>> pregBase;
-    
+    public Set<Integer> setPregEsp;
+    public Set<Integer> setPregMat;
      /**
      * Metodo <I>Juego</I> constructor de la clase
      * que se encarga de leer el archivo de preguntas
@@ -69,6 +72,8 @@ public class Juego extends javax.swing.JFrame {
         
         //Manda llamar a los metodos de inicialización
         initComponents();
+        setPregEsp = new HashSet<Integer>();
+        setPregMat = new HashSet<Integer>();
         iJuegoActual = -1;
         
         // Pasa el objeto a todas la clases
@@ -87,6 +92,34 @@ public class Juego extends javax.swing.JFrame {
     }
     
     // Metodos de clase
+    
+    public void agregaPreguntaUsada(int preg, int tipo){
+        if(tipo==1)
+            setPregEsp.add(preg);
+        else if(tipo==2)
+            setPregMat.add(preg);
+    }
+    
+    public boolean esPreguntaUsada(int preg, int tipo){
+        if(tipo==1)
+            return setPregEsp.contains(preg);
+        else
+            return setPregMat.contains(preg);
+    }
+    
+    public void limpiaSetPreguntas(int tipo){
+        if(tipo==1)
+            setPregEsp.clear();
+        else
+            setPregMat.clear();
+    }
+    
+    public int numPreguntasUsadas(int tipo){
+        if(tipo==1)
+            return setPregEsp.size();
+        else
+            return setPregMat.size();
+    }
     
     /**
      * Metodo <I>getPregBase</I> no recibe parametros y regresa un ArrayList con
@@ -208,6 +241,8 @@ public class Juego extends javax.swing.JFrame {
      */
     public void cambiaJuego() {
         iJuegoActual++; // Variable de control para saber el próximo juego a cargar
+        setPregEsp.clear();
+        setPregMat.clear();
 
         switch(iJuegoActual % 3) {
             case 0: //Cuando se carga PizzaQuiz
@@ -264,7 +299,6 @@ public class Juego extends javax.swing.JFrame {
         Juego.iPunt = iPunt;
         barraJuego1.setjLabel2Value(iPunt);
     }
-
     /**
      * Método con código autogenerado
      */
