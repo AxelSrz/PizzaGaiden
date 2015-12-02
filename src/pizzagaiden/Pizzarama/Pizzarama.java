@@ -262,6 +262,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
      *
      */
     public void checaCajas() {
+        boolean todasCajasAbiertas= true;
         for (int i = 0; i < 6; i++) {
             if (i != iCajaSelected && !memoCajas[i].isLocked()) {
                 boolean estaCaja = memoCajas[i].contiene(iXClick, iYClick);
@@ -278,6 +279,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     memoCajas[i].select();
                     memoCajas[i].setImage(Toolkit.getDefaultToolkit().getImage(memoURL));
                     if (memoCajas[iCajaSelected].esCorrecto(memoCajas[i].getPosicion())) {
+                        System.out.println("va bien"+iParesEncontrados);
                         juego.setPunt(juego.getPunt() + I_BIEN);
                         memoCajas[iCajaSelected].lockAnswer();
                         memoCajas[i].lockAnswer();
@@ -289,12 +291,14 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     }
                     iCajaSelected = -1;
                 }
+                else
+                    todasCajasAbiertas= false;
             }
         }//Termina for
 
-        if (iParesEncontrados == 3) {
+        if (iParesEncontrados == 3 || todasCajasAbiertas) {
+            System.out.println("que pedo");
             juego.cambiaJuego();
-            tTimer.cancel();
         }
     }
 
@@ -477,7 +481,6 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
                     }
                     resizeLabelFont(sDisplay, memoCajas[i].getImageIcon(), g);
                     iRatio = memoCajas[i].getImageIcon().getIconWidth() / g.getFontMetrics().stringWidth(sDisplay);
-                    System.out.println(iRatio);
                     iDiffW = (memoCajas[i].getAncho() - g.getFontMetrics().stringWidth(sDisplay)) / 2;
                     iDiffH = (memoCajas[i].getAlto() - g.getFontMetrics(g.getFont()).getHeight()) / 2;
                     g.drawImage(memoCajas[i].getImagenI(), memoCajas[i].getPosX(), memoCajas[i].getPosY(), this);

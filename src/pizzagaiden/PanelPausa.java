@@ -13,13 +13,13 @@ import javax.swing.JLabel;
  *
  * @author axelsuarez
  */
-public class panelPausa extends javax.swing.JPanel implements KeyListener {
+public class PanelPausa extends javax.swing.JPanel implements KeyListener {
 
     private Juego juego; 
     /**
      * Creates new form panelPausa
      */
-    public panelPausa() {
+    public PanelPausa() {
         initComponents();
         labelReanudar.setText("Reanudar Juego");
         labelReanudar.setHorizontalTextPosition(JLabel.CENTER);
