@@ -40,6 +40,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
     public SoundClip audClickCorrecto;
     public SoundClip audClickError;
     private int iRndmType;
+    private int iArregloSize;
     private final URL memoURL = this.getClass().getResource("PizzaMemorama_Color.png");
     private final URL cajaCerradaURL = this.getClass().getResource("PizzaMemorama_CajaCerrada.png");
 
@@ -66,19 +67,21 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
         bCajasSelec = new boolean[6];
         preArreglo = new Pregunta[10];
         bPreguntaSelec = new boolean[10];
+        iArregloSize = juego.getPregBase().get(iRndmType).size();
         
 
-        iRndmType = (int) (Math.random()) + 1;
+        iRndmType = (int) (Math.random()*2);
 
         for (int i = 0; i < 10; i++) {
-            int iRandPregunta = (int) (Math.random() * 10);
+            int iRandPregunta = (int) (Math.random() * iArregloSize);
 
             while (juego.esPreguntaUsada(iRandPregunta, iRndmType)) {
-                iRandPregunta = (int) (Math.random() * 10);
+                iRandPregunta = (int) (Math.random() * iArregloSize);
             }
 
             juego.agregaPreguntaUsada(iRandPregunta, iRndmType);
             preArreglo[i] = juego.getPregBase().get(iRndmType).get(iRandPregunta);
+            bPreguntaSelec[i]=false;
         }
 
         for (int i = 0; i < 6; i++) {
@@ -89,7 +92,7 @@ public class Pizzarama extends PanelJuego implements KeyListener, MouseListener,
             int iRand = (int) (Math.random() * 6);
             int iRandPregunta = (int) (Math.random() * 10);
 
-            while (bPreguntaSelec[iRand]) {
+            while (bPreguntaSelec[iRandPregunta]) {
                 iRandPregunta = (int) (Math.random() * 10);
             }
 
